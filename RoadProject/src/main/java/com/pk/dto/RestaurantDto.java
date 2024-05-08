@@ -20,6 +20,8 @@ public class RestaurantDto {
 	private String imnum;
 	private String intro;
  	
-
+    public RestaurantDto() {
+    	
+    }
 
 }

@@ -15,4 +15,7 @@ public class MenuDto {
 	private String m_intro;
 	private String m_code;
 	
+	public MenuDto() {
+		
+	}
 }
