@@ -1,5 +1,6 @@
 package com.pk.dto;
 
+
 import org.springframework.stereotype.Repository;
 import lombok.Data;
 
@@ -19,4 +20,6 @@ public class RestaurantDto {
 	private String imnum;
 	private String intro;
  	
+
+
 }

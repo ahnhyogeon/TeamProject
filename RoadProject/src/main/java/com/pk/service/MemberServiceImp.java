@@ -44,9 +44,8 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public List<MemberDto> selectMemberOne() throws Exception {
-		// TODO Auto-generated method stub
-		return dao.selectMemberOne();
+	public MemberDto searchNick(MemberDto dto) throws Exception {
+	    return dao.searchNick(dto);
 	}
 
 }

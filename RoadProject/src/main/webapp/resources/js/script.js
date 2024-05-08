@@ -48,3 +48,7 @@ function dPostcode() {
        }
    }).open();
 }
+
+function clearSession(){
+	sessionStorage.clear();
+}

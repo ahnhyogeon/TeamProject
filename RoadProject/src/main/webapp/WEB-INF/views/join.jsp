@@ -18,7 +18,14 @@
    <div class="listbox">
       <h1 class="text-center ">회원가입</h1>
       <p class="text-danger text-center">* 표시가 되어 있는 부분은 필수 항목입니다.</p>
-   
+      
+      <%
+      	String role = request.getParameter("role");
+      	System.out.println(role);
+      	
+      	if(role == null){
+      %>
+   		
                  <form name="registerForm" action="/roadproject/addMember" id="registerform" class="registerform" method="post">
                 <div class="row">
                     <div class="col-5 d-flex align-items-center mb-4">
@@ -95,6 +102,7 @@
                       <input type="text" name="addr2" id="addr2"
                            class="form-control col-7 mx-2 mt-1" placeholder="상세주소">
                     </div>
+                    
                     <div class="col-12 text-center">
                       <a href="/roadproject/content2"><button class="btn btn-outline-dark px-5 mx-2 rename_btn2" type="button">취소</button></a>
                         <button class="btn btn-outline-dark px-5 mx-2 rename_btn" type="submit">전송</button>
@@ -104,6 +112,9 @@
                  
                 </div>
             </form>
+            <%
+      	}
+            %>
    
    </div>
 </section>

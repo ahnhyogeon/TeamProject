@@ -14,6 +14,6 @@ public interface MemberDao {
 	
 	public boolean searchId(MemberDto dto) throws Exception;
 	
-	public List<MemberDto> selectMemberOne() throws Exception;
+	public MemberDto searchNick(MemberDto dto) throws Exception;	
 
 }
