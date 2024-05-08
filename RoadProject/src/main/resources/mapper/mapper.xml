@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper"> 
+
+	<select id="select" resultType="MemberDto">
+		select * from member
+	</select>
+	
+	<select id="search" resultType="MemberDto">
+		select name from member where name = "${name}"
+	</select>
+	
+	<select id="selectOne" resultType="MemberDto">
+		select * from member where userid = "${userid}"
+	</select>
+	
+  	<insert id="insert" parameterType="MemberDto">
+    	insert into member (name, nickname, userid, password, tel, zipcode, addr1, addr2, birth, email, role, buisness)
+    	values (#{name}, #{nickname}, #{userid}, #{password}, #{tel}, #{zipcode}, #{addr1}, #{addr2}, #{birth}, #{email}, #{role}, #{buisness})
+	</insert>
+	
+	<select id="search2" parameterType="MemberDto" resultType="MemberDto">
+    	select nickname from member where userid = #{userid} and password = #{password}
+	</select>
+</mapper> 
