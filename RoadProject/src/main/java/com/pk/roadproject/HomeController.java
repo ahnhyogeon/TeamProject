@@ -12,13 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
+import com.pk.service.FollowService;
 import com.pk.service.MemberService;
 
 /**
@@ -32,7 +34,11 @@ public class HomeController {
 	@Inject
 	private MemberService service;
 	
+	@Inject
+	private FollowService serviceF;
+	
 	MemberDto memberDto = new MemberDto();
+	FollowDto followDto = new FollowDto();
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -98,6 +104,25 @@ public class HomeController {
 		  System.out.println("map 접속");
 		  
 		  return "map.tiles";
+	  }
+	  @RequestMapping(value = "/review", method = RequestMethod.GET)
+	  public String review(Locale locale, Model model) throws Exception {
+		  System.out.println("review 접속");
+		 
+		  FollowDto follow = new FollowDto();
+		  
+		  	System.out.println("follow() set 시작");
+		  
+			follow.setA_uname("테스트1");
+			follow.setP_uname("테스트2");
+			follow.setA_uid(2);
+			follow.setP_uid(3);
+			
+			System.out.println("follow() set 완료");
+			
+			serviceF.follow(follow);
+		  
+		  return "review.tiles";
 	  }
 	  
 	  //회원가입
