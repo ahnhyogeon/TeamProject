@@ -18,6 +18,7 @@
 
                  <%
                  	String nick = (String) session.getAttribute("nickname");
+                 	
                  
                  	if(nick != null){
                  		

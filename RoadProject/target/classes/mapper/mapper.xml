@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="selectOne" resultType="MemberDto">
-    	select nickname from member where userid = #{userid}
+    	select nickname, role from member where userid = #{userid}
 	</select>
 	
   	<insert id="insert" parameterType="MemberDto">

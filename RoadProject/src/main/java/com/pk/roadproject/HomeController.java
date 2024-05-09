@@ -76,9 +76,19 @@ public class HomeController {
 		  return "detail.tiles";
 	  }
 	  
-	  @RequestMapping(value = "/join", method = RequestMethod.GET)
+	  @RequestMapping(value = "/SelectJoin", method = RequestMethod.GET)
+	  public String SelectJoin(Locale locale, Model model) {
+		  System.out.println("content4 접속");
+		  model.addAttribute("url", "content4" );
+		  return "SelectJoin.tiles";
+	  }
+	  
+	  @RequestMapping(value = "/join", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String join(@RequestParam(required = false) String role, Locale locale, Model model) {
 	        logger.info("content3 접속");
+	        
+	        model.addAttribute("role", role);
+	        
 	        return "join.tiles";
 	    }
 	  
@@ -101,13 +111,13 @@ public class HomeController {
 		  int role2 = 0;
 		  System.out.println(role);
 		  if(role == null) {
-			  role2 = 0;
+			  role2 = 1;
 		  }
 		  else {
 			  role2 = Integer.parseInt(role);
 		  }
 	        
-		  if(role2 == 0) {
+		  if(role2 == 1) {
 	        memberDto.setName(name);
 	        memberDto.setNickname(nickname);
 	        memberDto.setUserid(userid);
@@ -117,6 +127,7 @@ public class HomeController {
 	        memberDto.setAddr1(addr1);
 	        memberDto.setAddr2(addr2);
 	        memberDto.setBirth(birth);
+	        memberDto.setRole(role2);
 	        memberDto.setEmail(email);
 
 	        service.insertDB(memberDto);
@@ -165,10 +176,12 @@ public class HomeController {
 			        
 			        System.out.println(search); // 회원 정보 가져오기
 			        String nick = search.getNickname();
+			        int role = search.getRole();
 			        System.out.println(nick);
 			        
 			        session.setAttribute("nickname", nick);
 			        session.setAttribute("userid", userid);
+			        session.setAttribute("role", role);
 			        
 			        System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname"));
 			 
