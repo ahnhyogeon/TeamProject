@@ -44,8 +44,7 @@ public class MemberDaoImp implements MemberDao {
 	}
 
 	@Override
-	public List<MemberDto> selectMemberOne() throws Exception {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(Namespace+".selectOne");
+	public MemberDto searchNick(MemberDto dto) throws Exception {
+	    return sqlSession.selectOne(Namespace+".selectOne", dto);
 	}
 }

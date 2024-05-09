@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,16 +75,26 @@ public class HomeController {
 			return "list.tiles";
 	  }	
 
-	  @RequestMapping(value = "/content2", method = RequestMethod.GET)
+	  @RequestMapping(value = "/detail", method = RequestMethod.GET)
 	  public String detail(Locale locale, Model model) {
 		  System.out.println("content2 접속");
 		  model.addAttribute("url", "content2" );
 		  return "detail.tiles";
 	  }
 	  
-	  @RequestMapping(value = "/content3", method = RequestMethod.GET)
-	    public String join(Locale locale, Model model) {
+	  @RequestMapping(value = "/SelectJoin", method = RequestMethod.GET)
+	  public String SelectJoin(Locale locale, Model model) {
+		  System.out.println("content4 접속");
+		  model.addAttribute("url", "content4" );
+		  return "SelectJoin.tiles";
+	  }
+	  
+	  @RequestMapping(value = "/join", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String join(@RequestParam(required = false) String role, Locale locale, Model model) {
 	        logger.info("content3 접속");
+	        
+	        model.addAttribute("role", role);
+	        
 	        return "join.tiles";
 	    }
 	  
@@ -126,13 +137,13 @@ public class HomeController {
 		  int role2 = 0;
 		  System.out.println(role);
 		  if(role == null) {
-			  role2 = 0;
+			  role2 = 1;
 		  }
 		  else {
 			  role2 = Integer.parseInt(role);
 		  }
 	        
-		  if(role2 == 0) {
+		  if(role2 == 1) {
 	        memberDto.setName(name);
 	        memberDto.setNickname(nickname);
 	        memberDto.setUserid(userid);
@@ -142,6 +153,7 @@ public class HomeController {
 	        memberDto.setAddr1(addr1);
 	        memberDto.setAddr2(addr2);
 	        memberDto.setBirth(birth);
+	        memberDto.setRole(role2);
 	        memberDto.setEmail(email);
 
 	        service.insertDB(memberDto);
@@ -169,41 +181,53 @@ public class HomeController {
 	    }
 	  
 	  @RequestMapping(value = "/searchMember", method = RequestMethod.POST)
-	  public ModelAndView seachMember(
-		        @RequestParam(required = false) String userid,
-		        @RequestParam(required = false) String password,
-		        HttpSession session) throws Exception {
+	  public ModelAndView searchMember(
+			    @RequestParam(required = false) String userid,
+			    @RequestParam(required = false) String password,
+			    HttpSession session) throws Exception {
 		  
-		    
-		    memberDto.setUserid(userid);
-		    memberDto.setPassword(password);
 		  
-		    if(service.searchId(memberDto)) {
-		        System.out.println("로그인 되었습니다.");
-		        System.out.println(memberDto.getNickname());
-		        
-		        List<MemberDto> list = service.selectMemberOne();
-		        
-		        if (!list.isEmpty()) {
-		            MemberDto firstMember = list.get(0);
-		            String nickname = firstMember.getNickname();
-		            String userid2 = firstMember.getUserid();
-		            session.setAttribute("nickname", nickname);
-		            session.setAttribute("userid", userid2);
-		        }
-		        
-		        
-		        
-		        System.out.println(session.getAttribute("nickname"));
-		    }
-		    else {
-		        System.out.println("로그인에 실패했습니다.");
-		    }
+			      
+		  		System.out.println(userid);
+			    memberDto.setUserid(userid);
+			    memberDto.setPassword(password);
+			  
+			    if (service.searchId(memberDto)) { // 로그인 확인
+			        System.out.println("로그인 되었습니다.");
+			        MemberDto search = new MemberDto();
 		    
-		    
-		    ModelAndView modelAndView = new ModelAndView("redirect:/content2");
-		    
-		    return modelAndView;
-		}
+			
+			        search.setUserid(userid);
+			        search = service.searchNick(search);
+			        
+			        System.out.println(search); // 회원 정보 가져오기
+			        String nick = search.getNickname();
+			        int role = search.getRole();
+			        System.out.println(nick);
+			        
+			        session.setAttribute("nickname", nick);
+			        session.setAttribute("userid", userid);
+			        session.setAttribute("role", role);
+			        
+			        System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname"));
+			 
+			    } else {
+			        System.out.println("로그인에 실패했습니다.");
+			    }
+
+			    ModelAndView modelAndView = new ModelAndView("redirect:/detail");
+			    return modelAndView;
+			}
+	  
+	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	  public ModelAndView logout(HttpSession session) {
+		  
+		  session.invalidate();
+		  System.out.println("로그아웃 완료");
+		  
+		  ModelAndView modelAndView = new ModelAndView("redirect:/detail");
+		  return modelAndView;
+	  }
+
 	
 }
