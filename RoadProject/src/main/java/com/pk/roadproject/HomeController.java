@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
+import com.pk.service.FollowService;
 import com.pk.service.MemberService;
 
 /**
@@ -31,7 +33,11 @@ public class HomeController {
 	@Inject
 	private MemberService service;
 	
+	@Inject
+	private FollowService serviceF;
+	
 	MemberDto memberDto = new MemberDto();
+	FollowDto followDto = new FollowDto();
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -80,6 +86,26 @@ public class HomeController {
 	        logger.info("content3 접속");
 	        return "join.tiles";
 	    }
+	  
+	  @RequestMapping(value = "/review", method = RequestMethod.GET)
+	  public String review(Locale locale, Model model) throws Exception {
+		  System.out.println("review 접속");
+		 
+		  FollowDto follow = new FollowDto();
+		  
+		  	System.out.println("follow() set 시작");
+		  
+			follow.setA_uname("테스트1");
+			follow.setP_uname("테스트2");
+			follow.setA_uid(2);
+			follow.setP_uid(3);
+			
+			System.out.println("follow() set 완료");
+			
+			serviceF.follow(follow);
+		  
+		  return "review.tiles";
+	  }
 	  
 	  //회원가입
 	  @RequestMapping(value = "/addMember", method = RequestMethod.POST)
