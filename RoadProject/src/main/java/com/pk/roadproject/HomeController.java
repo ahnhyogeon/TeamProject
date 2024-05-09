@@ -76,6 +76,7 @@ public class HomeController {
 		  return "detail.tiles";
 	  }
 	  
+	  //회원유형선택
 	  @RequestMapping(value = "/SelectJoin", method = RequestMethod.GET)
 	  public String SelectJoin(Locale locale, Model model) {
 		  System.out.println("content4 접속");
@@ -91,6 +92,13 @@ public class HomeController {
 	        
 	        return "join.tiles";
 	    }
+	  
+	  @RequestMapping(value = "/map", method = RequestMethod.GET)
+	  public String map(Locale locale, Model model) {
+		  System.out.println("map 접속");
+		  
+		  return "map.tiles";
+	  }
 	  
 	  //회원가입
 	  @RequestMapping(value = "/addMember", method = RequestMethod.POST)
@@ -154,6 +162,7 @@ public class HomeController {
 	        return modelAndView;
 	    }
 	  
+	  //로그인
 	  @RequestMapping(value = "/searchMember", method = RequestMethod.POST)
 	  public ModelAndView searchMember(
 			    @RequestParam(required = false) String userid,
@@ -183,7 +192,7 @@ public class HomeController {
 			        session.setAttribute("userid", userid);
 			        session.setAttribute("role", role);
 			        
-			        System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname"));
+			        System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role"));
 			 
 			    } else {
 			        System.out.println("로그인에 실패했습니다.");

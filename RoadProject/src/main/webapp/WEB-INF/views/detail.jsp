@@ -38,7 +38,7 @@
                         <input type="password" class="form-control userpass mb-3" id="upass"
                               placeholder="비밀번호를 입력해 주세요." name="password" />        
                         <button type="submit" id ="login_btn" class="btn btn-outline-secondary btn-block">로그인</button>                     
-                        <a href="/roadproject/join">회원가입</a>
+                        <a href="/roadproject/SelectJoin">회원가입</a>
                         <div class="remem text-right mr-4 font-weight-400">
                            <label> 아이디 기억 <input type="checkbox" name="rid" value="rid" id="rid"></label>
                         </div>
