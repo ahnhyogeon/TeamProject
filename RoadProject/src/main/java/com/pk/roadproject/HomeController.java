@@ -12,13 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
+import com.pk.service.FollowService;
 import com.pk.service.MemberService;
 
 /**
@@ -32,7 +34,11 @@ public class HomeController {
 	@Inject
 	private MemberService service;
 	
+	@Inject
+	private FollowService serviceF;
+	
 	MemberDto memberDto = new MemberDto();
+	FollowDto followDto = new FollowDto();
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -76,11 +82,48 @@ public class HomeController {
 		  return "detail.tiles";
 	  }
 	  
-	  @RequestMapping(value = "/join", method = RequestMethod.GET)
+	  //회원유형선택
+	  @RequestMapping(value = "/SelectJoin", method = RequestMethod.GET)
+	  public String SelectJoin(Locale locale, Model model) {
+		  System.out.println("content4 접속");
+		  model.addAttribute("url", "content4" );
+		  return "SelectJoin.tiles";
+	  }
+	  
+	  @RequestMapping(value = "/join", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String join(@RequestParam(required = false) String role, Locale locale, Model model) {
 	        logger.info("content3 접속");
+	        
+	        model.addAttribute("role", role);
+	        
 	        return "join.tiles";
 	    }
+	  
+	  @RequestMapping(value = "/map", method = RequestMethod.GET)
+	  public String map(Locale locale, Model model) {
+		  System.out.println("map 접속");
+		  
+		  return "map.tiles";
+	  }
+	  @RequestMapping(value = "/review", method = RequestMethod.GET)
+	  public String review(Locale locale, Model model) throws Exception {
+		  System.out.println("review 접속");
+		 
+		  FollowDto follow = new FollowDto();
+		  
+		  	System.out.println("follow() set 시작");
+		  
+			follow.setA_uname("테스트1");
+			follow.setP_uname("테스트2");
+			follow.setA_uid(2);
+			follow.setP_uid(3);
+			
+			System.out.println("follow() set 완료");
+			
+			serviceF.follow(follow);
+		  
+		  return "review.tiles";
+	  }
 	  
 	  //회원가입
 	  @RequestMapping(value = "/addMember", method = RequestMethod.POST)
@@ -101,13 +144,13 @@ public class HomeController {
 		  int role2 = 0;
 		  System.out.println(role);
 		  if(role == null) {
-			  role2 = 0;
+			  role2 = 1;
 		  }
 		  else {
 			  role2 = Integer.parseInt(role);
 		  }
 	        
-		  if(role2 == 0) {
+		  if(role2 == 1) {
 	        memberDto.setName(name);
 	        memberDto.setNickname(nickname);
 	        memberDto.setUserid(userid);
@@ -117,6 +160,7 @@ public class HomeController {
 	        memberDto.setAddr1(addr1);
 	        memberDto.setAddr2(addr2);
 	        memberDto.setBirth(birth);
+	        memberDto.setRole(role2);
 	        memberDto.setEmail(email);
 
 	        service.insertDB(memberDto);
@@ -143,6 +187,7 @@ public class HomeController {
 	        return modelAndView;
 	    }
 	  
+	  //로그인
 	  @RequestMapping(value = "/searchMember", method = RequestMethod.POST)
 	  public ModelAndView searchMember(
 			    @RequestParam(required = false) String userid,
@@ -165,12 +210,14 @@ public class HomeController {
 			        
 			        System.out.println(search); // 회원 정보 가져오기
 			        String nick = search.getNickname();
+			        int role = search.getRole();
 			        System.out.println(nick);
 			        
 			        session.setAttribute("nickname", nick);
 			        session.setAttribute("userid", userid);
+			        session.setAttribute("role", role);
 			        
-			        System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname"));
+			        System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role"));
 			 
 			    } else {
 			        System.out.println("로그인에 실패했습니다.");

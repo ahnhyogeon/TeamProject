@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="mapper"> 
 
 	<select id="select" resultType="MemberDto">
@@ -11,7 +12,7 @@
 	</select>
 	
 	<select id="selectOne" resultType="MemberDto">
-    	select nickname from member where userid = #{userid}
+    	select nickname, role from member where userid = #{userid}
 	</select>
 	
   	<insert id="insert" parameterType="MemberDto">
@@ -22,4 +23,58 @@
 	<select id="search2" parameterType="MemberDto" resultType="MemberDto">
     	select nickname from member where userid = #{userid} and password = #{password}
 	</select>
-</mapper> 
+	
+	<!-- Follow 작업 -->
+			
+	<resultMap type="com.pk.dto.FollowDto" id="FollowDtoMap">
+		<id property="follow_id" column="id" />
+		<result property="a_uname" column="a_uname" />
+		<result property="p_uname" column="p_uname" />
+		<result property="r_name" column="r_name" />
+		<result property="wdate" column="wdate" />
+		
+		<result property="r_id" column="r_id" />
+		<result property="a_uid" column="a_uid" />
+		<result property="p_uid" column="p_uid" />
+		
+	</resultMap>
+	
+	<!--
+	<resultMap type="com.pk.dto.MemberDto" id="MemberDtoMap">
+	
+		<id property="member_id" column="id" />
+		<result property="m_name" column="name" />
+		<result property="m_nickname" column="nickname" />
+		<result property="m_uid" column="userid" />
+	
+	</resultMap>
+	
+	<resultMap type="com.pk.dto.RestaurantDto" id="RestaurantDtoMap">
+	
+		<id property="r_id" column="id" />
+		<result property="r_name" column="name" />
+		<result property="r_code" column="code" />
+		<result property="r_imnum" column="imnum" />
+	
+	</resultMap>
+	  -->
+		
+	<!-- 팔로우 기능 -->
+	<insert id="follow">
+		INSERT INTO follow(a_uname, p_uname, a_uid, p_uid) values(#{a_uname}, #{p_uname}, #{a_uid}, #{p_uid})
+	</insert>
+	
+	<!-- 언팔로우 기능 -->
+	<delete id="unfollow">
+		DELETE FROM follow WHERE a_uname=#{a_uname} and a_uid=#{a_uid} and p_uname=#{p_uname}
+	</delete>
+		
+	<!-- 팔로우 유무 조회 기능 -->
+	<select id="isFollow" resultType="int">
+		SELECT COUNT(*) FROM follow WHERE a_uname=#{a_uname} and p_uname=#{p_uname} 
+	</select>
+	
+ </mapper>
+	
+	<!-- /Follow 작업 -->
+

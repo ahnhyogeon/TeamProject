@@ -4,5 +4,6 @@
 	<!--mapper에서 매칭할 parmeter Type 별칭 설정-->
 	<typeAliases>
 		<typeAlias type="com.pk.dto.MemberDto" alias="memberDto"/>
+		 <typeAlias type="com.pk.dto.RestaurantDto" alias="restDto" />
 	</typeAliases>
 </configuration>
