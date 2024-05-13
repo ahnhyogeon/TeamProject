@@ -236,6 +236,13 @@ public class HomeController {
 		  ModelAndView modelAndView = new ModelAndView("redirect:/detail");
 		  return modelAndView;
 	  }
+	  
+	  @RequestMapping(value = "/recommend", method = RequestMethod.GET)
+	  public String recommend(Locale locale, Model model) {
+		  System.out.println("recommend 접속");
+		  
+		  return "recommend.tiles";
+	  }
 
 	
 }
