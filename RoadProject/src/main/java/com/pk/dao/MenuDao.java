@@ -6,27 +6,28 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.pk.dto.MenuDto;
 import com.pk.dto.RestaurantDto;
 
-public class RestarauntDao implements RestaurantMapper {
-	
+public class MenuDao implements MenuMapper {
+
 	@Autowired
 	private SqlSession session;
 	
 	@Override
-	public int restInsert(RestaurantDto dto) {
+	public int menuInsert(MenuDto dto) {
 		// TODO Auto-generated method stub
 		return session.insert("insert", dto);
 	}
 
 	@Override
-	public int restUpdate(RestaurantDto dto) {
+	public int menuUpdate(MenuDto dto) {
 		// TODO Auto-generated method stub
 		return session.update("update", dto);
 	}
 
 	@Override
-	public int restDelete(int selectId) {
+	public int menuDelete(int selectId) {
 		// TODO Auto-generated method stub
 		return session.delete("delete", selectId);
 	}
@@ -38,12 +39,12 @@ public class RestarauntDao implements RestaurantMapper {
 	}
 
 	@Override
-	public RestaurantDto selectDetail(int selectId) {
+	public MenuDto selectDetail(int selectId) {
 		return session.selectOne("selectDetail", selectId);
 	}
 
 	@Override
-	public List<RestaurantDto> restList(Map<String, Object> params) {
+	public List<MenuDto> restList(Map<String, Object> params) {
 		return session.selectList("selectList", params);
 	}
 	
@@ -51,6 +52,5 @@ public class RestarauntDao implements RestaurantMapper {
 	public void increaseHit(int selectId) {
 		session.update("increaseHit", selectId);
 	}
-	
 
 }

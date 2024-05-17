@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pk.dto.RestaurantDto">
+<mapper namespace="com.pk.dto.MenuDto">
 
-  <sql id="restColumn">
+  <sql id="menuColumn">
      business,
      name,
      code,
@@ -16,31 +16,19 @@
      intro,
   </sql>
 
-
-  <insert id="insert" parameterType="restDto" useGeneratedKeys="true" keyProperty="id">
-     INSERT INTO jboard(<include refid="bbsColumn"/>) values (
-
-     <choose>
-        <when test="refid == 0">
-          0,
-          0,
-          1,              
-        </when>
-        <otherwise>
-          #{refid}, 
-          #{depth},
-          #{renum}, 
-        </otherwise>
-     </choose>
-       #{title},
-       #{content},
-       #{writer},
-       #{pass},
-       #{userid},
-       0,
-       0,
-       now(),
-       #{imnum}
+  
+  <insert id="menuInsert" parameterType="menuDto" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO restaurant(<include refid="menuColumn"/>) values (
+     
+       #{business},
+       #{r_name},
+       #{r_code},
+       #{r_addr1},
+       #{r_addr2},
+       #{r_tel},
+       #{r_url},
+       #{imnum},
+       #{r_intro}
      )
   </insert>
 
@@ -52,19 +40,19 @@
      UPDATE jboard SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
   </update>
 
-  <update id="update" parameterType="restDto">
-     UPDATE jboard 
+  <update id="menuUpdate" parameterType="menuDto">
+     UPDATE restaurant 
      SET
-        title = #{title},
-        content = #{content},
-        writer = #{writer},
-        pass = #{pass}
+        business = #{business},
+        r_name = #{r_name},
+        r_url = #{r_url},
+        r_intro = #{r_intro}
      WHERE
         id=#{id}   
   </update>
   
-  <delete id="delete" parameterType="int">
-     DELETE FROM jboard
+  <delete id="menuDelete" parameterType="int">
+     DELETE FROM restaurant
      WHERE
        id=#{selectId}  
   </delete>
@@ -76,10 +64,10 @@
        jboard
   </select>
 
-  <select id="selectList" resultType="restDto" parameterType="hashMap">
+  <select id="menuList" resultType="menuDto" parameterType="hashMap">
     SELECT * 
     FROM 
-       jboard
+       restaurant
     where 1    
     <if test="searchname != ''">
        <choose>
@@ -100,7 +88,7 @@
     LIMIT #{currentPage}, #{listCount}  
   </select>  
 
-  <select id="selectDetail" resultType="restDto" parameterType="int">
+  <select id="selectDetail" resultType="menuDto" parameterType="int">
      SELECT * FROM jboard WHERE id= #{selectId}
   </select>
  

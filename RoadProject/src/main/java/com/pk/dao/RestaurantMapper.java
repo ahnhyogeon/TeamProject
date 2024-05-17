@@ -6,14 +6,15 @@ import java.util.Map;
 import com.pk.dto.RestaurantDto;
 
 public interface RestaurantMapper {
-	 //insert
-		public int insert(RestaurantDto dto);
+	
+	   //insert
+		public int restInsert(RestaurantDto dto);
 	    
 		//update
-		public int update(RestaurantDto dto);
+		public int restUpdate(RestaurantDto dto);
 		
 		//delete
-		public int delete(int selectId);
+		public int restDelete(int selectId);
 		
 		//전체 게시글 수
 		public int selectTotalCount();
@@ -22,17 +23,9 @@ public interface RestaurantMapper {
 		public RestaurantDto selectDetail(int selectId);
 		
 		//목록보기
-		public List<RestaurantDto> selectList(Map<String, Object> params);
+		public List<RestaurantDto> restList(Map<String, Object> params);
 		
-		//조회수 증가
+		//팔로우 증가
 		public void increaseHit(int selectId);
 		
-		//refid 업데이트
-		public void updateRefId(int id);
-		
-		//답글 수 증가
-		public void updateRenum(Map<String, Object> params);
-		
-		//비밀번호 검증
-		public int validatePass(Map<String, Object> params);
 }
