@@ -52,3 +52,48 @@ function dPostcode() {
 function clearSession(){
 	sessionStorage.clear();
 }
+
+    $(function() {
+        $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd (D)',
+            showButtonPanel: true,
+            closeText: '닫기',
+            onSelect: function(dateString) {
+                // 선택된 날짜 출력
+                console.log("선택된 날짜:", dateString);
+                // 선택된 날짜의 월일과 요일을 가져옴
+                var date = new Date(dateString);
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                var dayOfWeek = date.toLocaleDateString('ko-KR', { weekday: 'long' });
+
+                // 일자와 요일을 해당하는 td에 넣어줌
+                $("#dateCell").text(month + '/' + day);
+                $("#dayCell").text(dayOfWeek);
+            },
+            // 시작 날짜와 끝나는 날짜 설정
+            minDate: new Date(), // 오늘부터 선택 가능
+            defaultDate: new Date()
+        });
+
+        // 오늘 버튼 클릭 시 오늘 날짜 선택
+        $(document).on('click', '.ui-datepicker-current', function() {
+            var today = new Date();
+            $("#datepicker").datepicker('setDate', today);
+            // 날짜를 dateFormat 형식으로 출력
+            var formattedDate = $.datepicker.formatDate('yy-mm-dd (D)', today);
+            console.log("선택된 날짜:", formattedDate);
+        });
+    });
+
+    function updateTimeValue(input) {
+        // 선택된 시간 값을 가져옵니다.
+        var selectedTime = input.value;
+
+        // 입력 필드의 value 속성을 선택된 시간 값으로 설정합니다.
+        input.setAttribute('value', selectedTime);
+    }
+
+
+
+
