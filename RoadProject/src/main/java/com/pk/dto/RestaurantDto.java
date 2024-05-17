@@ -10,15 +10,15 @@ import lombok.Data;
 public class RestaurantDto {
 	
 	private int id;
-	private String buisness;
-	private String name;
-	private int code;
-	private String addr1;
-	private String addr2;
-	private String tel;
-	private String url;
+	private String business;
+	private String r_name;
+	private int r_code;
+	private String r_addr1;
+	private String r_addr2;
+	private String r_tel;
+	private String r_url;
 	private String imnum;
-	private String intro;
+	private String r_intro;
  	
     public RestaurantDto() {
     	

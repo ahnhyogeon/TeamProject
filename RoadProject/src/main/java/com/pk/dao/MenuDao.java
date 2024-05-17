@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.pk.dto.MenuDto;
 import com.pk.dto.RestaurantDto;
 
+@Repository
 public class MenuDao implements MenuMapper {
 
 	@Autowired

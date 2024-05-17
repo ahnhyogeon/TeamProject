@@ -1,9 +1,12 @@
 package com.pk.roadproject;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@Controller
 public class MenuController {
 	@RequestMapping("/meuu")
 	public String list(

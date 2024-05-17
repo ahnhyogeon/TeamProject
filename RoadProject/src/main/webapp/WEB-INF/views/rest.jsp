@@ -2,8 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<link rel="stylesheet" href="resources/css/style.css">
+  <script src="resources/js/jquery.min.js"></script>
+  <script src="resources/js/popper.min.js"></script>
+  <script src="resources/js/bootstrap.min.js"></script>
+  <script src="resources/js/script.js"></script>
+  
             <div class="listbox">
-                <h1 class="text-center mb-5">게시판</h1>
+                <h1 class="text-center mb-5">가게정보</h1>
                 <div class="d-flex justify-content-between py-4">
                     <div>
                         <fmt:formatNumber value="${pg.totalPosts }" groupingUsed="true"/>posts /
@@ -16,45 +22,46 @@
                 </div>
                 <table class="table table-hover">
                     <colgroup>
-                       <col width="8%">
-                       <col>
-                       <col width="15%">
                        <col width="10%">
-                       <col width="15%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
                     </colgroup>
                     <thead>
                         <tr>
                             <th>번호</th>
-                            <th>제목</th>
-                            <th>글쓴이</th>
-                            <th>조회수</th>
-                            <th>날짜</th>
+                            <th>사업자번호</th>
+                            <th>가게명</th>
+                            <th>가게코드</th>
+                            <th>주소</th>
+                            <th>상세주소</th>
+                            <th>가게번호</th>
+                            <th>가게도메인</th>
+                            <th>가게이미지</th>
+                            <th>소개글</th>
                         </tr>
                     </thead>
                     <tbody>
-                       <c:forEach var="list" items="${list }">
-                       <c:set var="styleDepth" value="" />
-                       <c:set var="commentHit" value="" />
-                       <c:set var="reicon" value="" />
-                       <c:if test="${list.depth > 0 }">
-                          <c:set var="padding" value="${list.depth * 20 }px" />
-                          <c:set var="reicon" value="<i class='ri-corner-down-right-line'></i>" />
-                          <c:set var="styleDepth" 
-                                  value="<span style='display:inline-block;height:1px;width:${padding };'></span>${reicon }"/>
-                       </c:if>
-                       <c:if test="${list.chit > 0 }">
-                          <c:set var="commentHit" value="(${list.chit })" />
-                       </c:if>
-                       
+                       <c:forEach var="r_list" items="${r_list }">
+                                                                                     
                        <tr>
-                           <td class="text-center">${list.id }</td>
-                           <td>${styleDepth} <a href="contents?id=${list.id }&cpg=${cpg}">${list.title }</a>
-                            <span>${commentHit }</span>
-                           </td>
-                            
-                           <td class="text-center">${list.writer }</td>
-                           <td class="text-center">${list.hit }</td>
-                           <td class="text-center"><fmt:formatDate value="${list.wdate }" pattern="yyyy.MM.dd" /></td>
+                           <td class="text-center">${r_list.id }</td>
+                           <td><a href="contents?id=${r_list.id }&cpg=${cpg}">${r_list.business }</a>                        
+                           </td>                           
+                           <td class="text-center">${r_list.r_name }</td>
+                           <td class="text-center">${r_list.r_code }</td>
+                           <td class="text-center">${r_list.r_addr1 }</td>
+                           <td class="text-center">${r_list.r_addr2 }</td>  
+                           <td class="text-center">${r_list.r_tel }</td>
+                           <td class="text-center">${r_list.r_url }</td>
+                           <td class="text-center">${r_list.imnum }</td>
+                           <td class="text-center">${r_list.r_intro }</td>                      
                        </tr>
                        </c:forEach> 
                        <!-- /loop -->

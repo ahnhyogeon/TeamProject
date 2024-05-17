@@ -2,23 +2,23 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pk.dto.MenuDto">
+<mapper namespace="com.pk.dao.RestaurantMapper">
 
-  <sql id="menuColumn">
+  <sql id="restColumn">
      business,
-     name,
-     code,
-     addr1,
-     addr2,
-     tel,
-     url,
+     r_name,
+     r_code,
+     r_addr1,
+     r_addr2,
+     r_tel,
+     r_url,
      imnum,
-     intro,
+     r_intro,
   </sql>
 
   
-  <insert id="menuInsert" parameterType="menuDto" useGeneratedKeys="true" keyProperty="id">
-     INSERT INTO restaurant(<include refid="menuColumn"/>) values (
+  <insert id="restInsert" parameterType="restDto" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO restaurant(<include refid="restColumn"/>) values (
      
        #{business},
        #{r_name},
@@ -33,14 +33,14 @@
   </insert>
 
   <update id="updateRefId" parameterType="int">
-     UPDATE jboard SET refid = #{id} WHERE id=#{id}
+     UPDATE restaurant SET refid = #{id} WHERE id=#{id}
   </update>
 
   <update id="updateRenum" parameterType="hashMap">
-     UPDATE jboard SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
+     UPDATE restaurant SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
   </update>
 
-  <update id="menuUpdate" parameterType="menuDto">
+  <update id="restUpdate" parameterType="restDto">
      UPDATE restaurant 
      SET
         business = #{business},
@@ -51,23 +51,24 @@
         id=#{id}   
   </update>
   
-  <delete id="menuDelete" parameterType="int">
+  <delete id="restDelete" parameterType="int">
      DELETE FROM restaurant
      WHERE
        id=#{selectId}  
   </delete>
   
-  <select id="selectTotalCount" resultType="int">
+  <select id="selectRestCount" resultType="int">
      SELECT
        COUNT(*)
      FROM
-       jboard
+       restaurant 
   </select>
 
-  <select id="menuList" resultType="menuDto" parameterType="hashMap">
+  <select id="restList" resultType="restDto" parameterType="hashMap">
     SELECT * 
     FROM 
        restaurant
+    <!-- 
     where 1    
     <if test="searchname != ''">
        <choose>
@@ -82,18 +83,18 @@
           </otherwise>
        </choose>
        CONCAT('%', #{searchvalue}, '%')
-    </if>      
-    ORDER BY refid DESC, 
-    renum ASC 
+    </if>  
+     -->    
+    ORDER BY id DESC 
     LIMIT #{currentPage}, #{listCount}  
   </select>  
 
-  <select id="selectDetail" resultType="menuDto" parameterType="int">
-     SELECT * FROM jboard WHERE id= #{selectId}
+  <select id="selectDetail" resultType="restDto" parameterType="int">
+     SELECT * FROM restaurant WHERE id= #{selectId}
   </select>
  
   <update id="increaseHit" parameterType="int">
-     UPDATE jboard SET hit = hit + 1 WHERE id=#{selectId}
+     UPDATE restaurant SET hit = hit + 1 WHERE id=#{selectId}
   </update>
 
 

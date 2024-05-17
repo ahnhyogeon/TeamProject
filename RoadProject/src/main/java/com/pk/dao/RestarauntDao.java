@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.pk.dto.RestaurantDto;
 
+@Repository
 public class RestarauntDao implements RestaurantMapper {
 	
 	@Autowired
@@ -15,26 +17,26 @@ public class RestarauntDao implements RestaurantMapper {
 	
 	@Override
 	public int restInsert(RestaurantDto dto) {
-		// TODO Auto-generated method stub
+		
 		return session.insert("insert", dto);
 	}
 
 	@Override
 	public int restUpdate(RestaurantDto dto) {
-		// TODO Auto-generated method stub
+		
 		return session.update("update", dto);
 	}
 
 	@Override
 	public int restDelete(int selectId) {
-		// TODO Auto-generated method stub
+		
 		return session.delete("delete", selectId);
 	}
 
 	@Override
-	public int selectTotalCount() {
-		// TODO Auto-generated method stub
-		return session.selectOne("selectTotalCount");
+	public int selectRestCount() {
+		
+		return session.selectOne("selectRestCount");
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class RestarauntDao implements RestaurantMapper {
 
 	@Override
 	public List<RestaurantDto> restList(Map<String, Object> params) {
-		return session.selectList("selectList", params);
+		return session.selectList("restList", params);
 	}
 	
 	@Override

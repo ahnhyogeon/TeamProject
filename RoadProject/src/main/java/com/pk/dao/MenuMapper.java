@@ -3,8 +3,11 @@ package com.pk.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.pk.dto.MenuDto;
 
+@Mapper
 public interface MenuMapper {
 	   //insert
 			public int menuInsert(MenuDto dto);

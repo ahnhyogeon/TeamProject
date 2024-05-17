@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pk.dto.RestaurantDto">
+<mapper namespace="com.pk.dao.MenuMapper">
 
-  <sql id="restColumn">
+  <sql id="menuColumn">
      business,
      name,
      code,
@@ -17,8 +17,8 @@
   </sql>
 
   
-  <insert id="restInsert" parameterType="restDto" useGeneratedKeys="true" keyProperty="id">
-     INSERT INTO restaurant(<include refid="restColumn"/>) values (
+  <insert id="menuInsert" parameterType="menuDto" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO restaurant(<include refid="menuColumn"/>) values (
      
        #{business},
        #{r_name},
@@ -40,7 +40,7 @@
      UPDATE jboard SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
   </update>
 
-  <update id="restUpdate" parameterType="restDto">
+  <update id="menuUpdate" parameterType="menuDto">
      UPDATE restaurant 
      SET
         business = #{business},
@@ -51,7 +51,7 @@
         id=#{id}   
   </update>
   
-  <delete id="restDelete" parameterType="int">
+  <delete id="menuDelete" parameterType="int">
      DELETE FROM restaurant
      WHERE
        id=#{selectId}  
@@ -64,7 +64,7 @@
        jboard
   </select>
 
-  <select id="restList" resultType="restDto" parameterType="hashMap">
+  <select id="menuList" resultType="menuDto" parameterType="hashMap">
     SELECT * 
     FROM 
        restaurant
@@ -88,7 +88,7 @@
     LIMIT #{currentPage}, #{listCount}  
   </select>  
 
-  <select id="selectDetail" resultType="restDto" parameterType="int">
+  <select id="selectDetail" resultType="menuDto" parameterType="int">
      SELECT * FROM jboard WHERE id= #{selectId}
   </select>
  

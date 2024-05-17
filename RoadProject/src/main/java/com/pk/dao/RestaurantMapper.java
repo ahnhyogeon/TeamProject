@@ -3,8 +3,11 @@ package com.pk.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.pk.dto.RestaurantDto;
 
+@Mapper
 public interface RestaurantMapper {
 	
 	   //insert
@@ -16,8 +19,8 @@ public interface RestaurantMapper {
 		//delete
 		public int restDelete(int selectId);
 		
-		//전체 게시글 수
-		public int selectTotalCount();
+		//전체 가게 수
+		public int selectRestCount();
 		
 		//상세보기
 		public RestaurantDto selectDetail(int selectId);
