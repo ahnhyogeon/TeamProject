@@ -12,6 +12,8 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<a href="rest">식당정보</a>
+<a href="register">가게등록</a>
+<a href="rest">가게정보</a>
+<a href="menu">메뉴정보</a>
 </body>
 </html>

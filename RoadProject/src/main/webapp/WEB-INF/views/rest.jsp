@@ -14,11 +14,7 @@
                     <div>
                         <fmt:formatNumber value="${pg.totalPosts }" groupingUsed="true"/>posts /
                         <fmt:formatNumber value="${pg.totalPages }" groupingUsed="true" />pages
-                    </div>
-                    <div>
-                        <a href="#" class="btn btn-primary">목록</a>
-                        <a href="write" class="btn btn-primary">글쓰기</a>                      
-                    </div>
+                    </div>             
                 </div>
                 <table class="table table-hover">
                     <colgroup>
@@ -52,9 +48,8 @@
                                                                                      
                        <tr>
                            <td class="text-center">${r_list.id }</td>
-                           <td><a href="contents?id=${r_list.id }&cpg=${cpg}">${r_list.business }</a>                        
-                           </td>                           
-                           <td class="text-center">${r_list.r_name }</td>
+                           <td class="text-center">${r_list.business }</td>                           
+                           <td class="text-center"><a href="menu?business=${r_list.business }&cpg=${cpg}">${r_list.r_name }</a></td>
                            <td class="text-center">${r_list.r_code }</td>
                            <td class="text-center">${r_list.r_addr1 }</td>
                            <td class="text-center">${r_list.r_addr2 }</td>  
@@ -93,11 +88,9 @@
                         </li>
                     </ul>
                     
-                    <div>
-                        <a href="#" class="btn btn-primary">목록</a>
-                        <a href="write" class="btn btn-primary">글쓰기</a>                      
-                    </div>
+               
                </div>
+               <!-- 
                <form name="searchform" id="searchform" class="searchform" method="get">
                    <div class="input-group my-3">
                         <div class="input-group-prepend">
@@ -120,5 +113,6 @@
                        </div>
                    </div>
                </form>
+                -->
             </div>
             <!-- /listbox-->

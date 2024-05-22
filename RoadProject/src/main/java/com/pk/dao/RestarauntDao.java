@@ -18,7 +18,7 @@ public class RestarauntDao implements RestaurantMapper {
 	@Override
 	public int restInsert(RestaurantDto dto) {
 		
-		return session.insert("insert", dto);
+		return session.insert("restInsert", dto);
 	}
 
 	@Override

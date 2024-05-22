@@ -35,9 +35,9 @@ public class MenuDao implements MenuMapper {
 	}
 
 	@Override
-	public int selectTotalCount() {
+	public int selectMenuCount() {
 		// TODO Auto-generated method stub
-		return session.selectOne("selectTotalCount");
+		return session.selectOne("selectMenuCount");
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class MenuDao implements MenuMapper {
 	}
 
 	@Override
-	public List<MenuDto> restList(Map<String, Object> params) {
-		return session.selectList("selectList", params);
+	public List<MenuDto> menuList(Map<String, Object> params) {
+		return session.selectList("menuList", params);
 	}
 	
 	@Override

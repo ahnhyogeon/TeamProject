@@ -5,29 +5,26 @@
 <mapper namespace="com.pk.dao.RestaurantMapper">
 
   <sql id="restColumn">
-     business,
+  	 business,
      r_name,
      r_code,
      r_addr1,
      r_addr2,
      r_tel,
      r_url,
-     imnum,
-     r_intro,
+     r_intro
   </sql>
 
   
   <insert id="restInsert" parameterType="restDto" useGeneratedKeys="true" keyProperty="id">
      INSERT INTO restaurant(<include refid="restColumn"/>) values (
-     
-       #{business},
+   	   1,
        #{r_name},
-       #{r_code},
+       1,
        #{r_addr1},
        #{r_addr2},
        #{r_tel},
        #{r_url},
-       #{imnum},
        #{r_intro}
      )
   </insert>
@@ -35,11 +32,11 @@
   <update id="updateRefId" parameterType="int">
      UPDATE restaurant SET refid = #{id} WHERE id=#{id}
   </update>
-
+  <!-- 
   <update id="updateRenum" parameterType="hashMap">
      UPDATE restaurant SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
   </update>
-
+ -->
   <update id="restUpdate" parameterType="restDto">
      UPDATE restaurant 
      SET
