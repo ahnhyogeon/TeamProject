@@ -19,19 +19,19 @@ public class MenuDao implements MenuMapper {
 	@Override
 	public int menuInsert(MenuDto dto) {
 		// TODO Auto-generated method stub
-		return session.insert("insert", dto);
+		return session.insert("menuInsert", dto);
 	}
 
 	@Override
 	public int menuUpdate(MenuDto dto) {
 		// TODO Auto-generated method stub
-		return session.update("update", dto);
+		return session.update("menuUpdate", dto);
 	}
 
 	@Override
 	public int menuDelete(int selectId) {
 		// TODO Auto-generated method stub
-		return session.delete("delete", selectId);
+		return session.delete("menuDelete", selectId);
 	}
 
 	@Override

@@ -38,9 +38,8 @@
 	         contentType: false,
 	         processData: false,
 	         success: function( data ) {
-	            console.log(data);
 	            const dt = JSON.parse(data);
-	            $("#contents").summernote("insertImage", dt.url);
+	            $("#r_intro").summernote("insertImage", dt.url);
 	           // $("#imnum").val(data.imnum);
 	         },
 	         error: function(jqXHR, textStatus, errorThrown){

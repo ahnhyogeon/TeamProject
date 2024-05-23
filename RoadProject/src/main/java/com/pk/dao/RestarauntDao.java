@@ -24,13 +24,13 @@ public class RestarauntDao implements RestaurantMapper {
 	@Override
 	public int restUpdate(RestaurantDto dto) {
 		
-		return session.update("update", dto);
+		return session.update("restUpdate", dto);
 	}
 
 	@Override
 	public int restDelete(int selectId) {
 		
-		return session.delete("delete", selectId);
+		return session.delete("restDelete", selectId);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.pk.roadproject;
 
+import java.io.File;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -7,22 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.pk.dao.RestUploadDao;
 import com.pk.dao.RestarauntDao;
+import com.pk.dto.RestUploadFileDto;
 import com.pk.dto.RestaurantDto;
 import com.pk.service.RestGetListService;
+import com.pk.service.RestTrashFileDel;
+import com.pk.service.SetRestService;
 
-/*
-import com.pk.dao.UploadDao;
-import com.pk.dto.UploadFileDto;
-import com.pk.service.TrashFileDel;
-*/
 
 
 @Controller
@@ -40,16 +43,19 @@ public class RestaurantController {
 		@Autowired
 		ServletContext servletContext;
 		
-		/*
+		//insert
 		@Autowired
-		UploadFileDto uploadFileDto;
+		SetRestService setRest;
 		
 		@Autowired
-		UploadDao uploadDao;
+		RestUploadFileDto rUploadFileDto;
 		
 		@Autowired
-		TrashFileDel trashFileDel;
-		*/
+		RestUploadDao rUploadDao;
+		
+		@Autowired
+		RestTrashFileDel RestTrashFileDel;
+		
 		
 	@RequestMapping("/rest")
 	public String rest(
@@ -62,6 +68,7 @@ public class RestaurantController {
         model.addAttribute("searchname", searchname);
         model.addAttribute("searchvalue", searchvalue);
         getList.excute(model);
+        RestTrashFileDel.restDelCom();
         
 		return "rest";
 	}
@@ -78,27 +85,65 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/register")
-	public String writeok(
-			@RequestParam(value="r_name", defaultValue="") String r_name,
-			@RequestParam(value="r_addr1", defaultValue="") String r_addr1, 
-			@RequestParam(value="r_addr2", defaultValue="") String r_addr2, 
-			@RequestParam(value="r_tel", defaultValue="") String r_tel, 
-			@RequestParam(value="r_url", defaultValue="") String r_url, 
-			@RequestParam(value="r_intro", defaultValue="") String r_intro, 
-			HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String writeok(HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		System.out.println("registerok() 실행됨");
-		//model.addAttribute("request", request);
-		rdto.setR_name(r_name);
-		rdto.setR_addr1(r_addr1);
-		rdto.setR_addr2(r_addr2);
-		rdto.setR_tel(r_tel);
-		rdto.setR_url(r_url);
-		rdto.setR_intro(r_intro);
-		System.out.println(rdto);
-		int result = rdao.restInsert(rdto);
+		model.addAttribute("request", request);
+		setRest.excute(model);
 		
 		return "redirect:rest";
+	}
+	
+	@PostMapping("/upload")
+	@ResponseBody
+	public ResponseEntity<?> handleImageUpload(
+			@RequestParam("file") MultipartFile uploadFile,
+			@RequestParam("imnum") String imnum){
+		if(!uploadFile.isEmpty()) {
+			try {
+				//파일정보 추출
+				String oFilename = uploadFile.getOriginalFilename();
+				
+				//확장자 추출
+				String ext = oFilename.substring(oFilename.lastIndexOf(".") + 1).toLowerCase();
+				
+				//새파일 
+				String nFilename = Long.toString(System.currentTimeMillis() / 1000L) + "." + ext;
+				
+				//파일크기
+				long filesize = uploadFile.getSize();
+				
+				/*
+				//추후 로그인 연동되면 회원아이디로 등록예정
+				String userid = "guest";
+				*/
+			
+				//경로설정
+				String uploadDir = servletContext.getRealPath("/resources/upload/");
+				
+				//업로드
+				File serverFile = new File(uploadDir + nFilename);
+				uploadFile.transferTo(serverFile);
+				
+				//데이터베이스 저장
+				rUploadFileDto.setExt(ext);
+				rUploadFileDto.setFilesize(filesize);
+				rUploadFileDto.setImnum(imnum);
+				rUploadFileDto.setNfilename(nFilename);
+				rUploadFileDto.setOfilename(oFilename);
+				
+				rUploadDao.rInsertFile(rUploadFileDto);
+				String json = "{\"url\":\"" + "/roadproject/resources/upload/" + nFilename + "\"}";
+				return ResponseEntity.ok().body(json);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				return ResponseEntity.badRequest().body("upload Error");
+			}
+			
+		}else {
+		   return ResponseEntity.badRequest().body("noFile");
+		}   
 	}
 	
 	
