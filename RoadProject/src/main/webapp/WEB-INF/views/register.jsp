@@ -58,6 +58,8 @@
 	         data: { "fileUrl" : fileUrl },
 	         success: function(data) {
 	           if(data ){
+	        	  const dt = JSON.parse(data);
+		          $("#contents").summernote("insertImage", dt.url);
 	             console.log("파일삭제");
 	           }else{
 	             console.log("파일삭제 실패");

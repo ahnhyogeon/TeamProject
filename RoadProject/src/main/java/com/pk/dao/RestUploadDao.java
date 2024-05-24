@@ -3,53 +3,58 @@ package com.pk.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pk.dto.RestUploadFileDto;
 
 @Repository
 public class RestUploadDao implements RestUploadMapper {
-
+	
+	@Autowired
+	private SqlSession session;  
+	
 	@Override
-	public int rInsertFile(RestUploadFileDto uDto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int rInsertFile(RestUploadFileDto ruDto) {
+		
+		return session.insert("rInsertFile", ruDto);
 	}
 
 	@Override
 	public int rDeleteFile(int uploadId) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return session.delete("rDeleteFileById", uploadId);
 	}
 
 	@Override
 	public int rDeleteFileByRestId(int restId) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return session.delete("rDeleteFileByRestId", restId);
 	}
 
 	@Override
 	public int rDeleteTrashFile() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return session.delete("rDeleteTrashFile");
 	}
 
 	@Override
 	public RestUploadFileDto rSelectFileById(int uploadId) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return session.selectOne("rSelectFileById", uploadId);
 	}
 
 	@Override
 	public List<RestUploadFileDto> rSelectFileByRestId(int restId) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return session.selectList("rSelectFileByRestId", restId);
 	}
 
 	@Override
 	public void rUpdateFile(Map<String, Object> params) {
-		// TODO Auto-generated method stub
-
+		
+		 session.update("rUpdateFile", params);
 	}
-
+	
 }

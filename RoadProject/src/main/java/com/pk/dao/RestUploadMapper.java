@@ -21,7 +21,7 @@ public int rInsertFile(RestUploadFileDto uDto);
 	public RestUploadFileDto rSelectFileById(int uploadId);
 	
 	public List<RestUploadFileDto> rSelectFileByRestId(int restId);
-	
+								   
 	public void rUpdateFile(Map<String, Object> params);
 	
 }

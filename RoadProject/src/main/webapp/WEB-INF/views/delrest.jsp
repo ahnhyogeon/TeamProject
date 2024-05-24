@@ -18,16 +18,17 @@
                 </div>
                 <table class="table table-hover">
                     <colgroup>
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
+                       <col width="9%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -41,6 +42,7 @@
                             <th>가게도메인</th>
                             <th>가게이미지</th>
                             <th>소개글</th>
+                            <th>삭제</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,14 +51,15 @@
                        <tr>
                            <td class="text-center">${r_list.id }</td>
                            <td class="text-center">${r_list.business }</td>                           
-                           <td class="text-center"><a href="menu?business=${r_list.business }&cpg=1">${r_list.r_name }</a></td>
+                           <td class="text-center"><a href="menu?business=${r_list.business }&cpg=${cpg}">${r_list.r_name }</a></td>
                            <td class="text-center">${r_list.r_code }</td>
                            <td class="text-center">${r_list.r_addr1 }</td>
                            <td class="text-center">${r_list.r_addr2 }</td>  
                            <td class="text-center">${r_list.r_tel }</td>
                            <td class="text-center">${r_list.r_url }</td>
                            <td class="text-center">${r_list.imnum }</td>
-                           <td class="text-center">${r_list.r_intro }</td>                      
+                           <td class="text-center">${r_list.r_intro }</td>
+                           <td class="text-center"><a href="#" data-id="${r_list.id }" data-business="${r_list.business}" id="delete" class="btn btn-danger">삭제</a></td>                           
                        </tr>
                        </c:forEach> 
                        <!-- /loop -->
@@ -90,7 +93,7 @@
                     
                
                </div>
-               <!-- 후에 가게 유형별 검색 만들기 위해 남겨둠
+               <!-- 
                <form name="searchform" id="searchform" class="searchform" method="get">
                    <div class="input-group my-3">
                         <div class="input-group-prepend">

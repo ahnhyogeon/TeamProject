@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.pk.dao.RestUploadDao;
-import com.pk.dao.RestarauntDao;
+import com.pk.dao.RestaurantDao;
 import com.pk.dto.RestaurantDto;
 
 @Service
 public class SetRestService implements RestaurantService {
 	
 	@Autowired
-	RestarauntDao rdao;
+	RestaurantDao rdao;
 	
 	@Autowired
 	RestUploadDao rudao;
@@ -35,11 +35,12 @@ public class SetRestService implements RestaurantService {
 		rdto.setR_addr2(req.getParameter("r_addr2"));
 		rdto.setR_tel(req.getParameter("r_tel"));
 		rdto.setR_url(req.getParameter("r_url"));
+		rdto.setImnum(req.getParameter("imnum"));
 		rdto.setR_intro(req.getParameter("r_intro"));
 			
 		rdao.restInsert(rdto);
 		
-		Map<String, Object> paramsFile = new HashMap();
+		Map<String, Object> paramsFile = new HashMap(); //map put 으로 rest_id와 imnum을 넘겨줘서 rest_img와 rest의 db가 이어지게 함.
 		paramsFile.put("rest_id", rdto.getId());
 		paramsFile.put("imnum", rdto.getImnum());
 		

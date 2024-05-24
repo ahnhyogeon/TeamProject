@@ -95,7 +95,10 @@
   <update id="increaseHit" parameterType="int">
      UPDATE restaurant SET hit = hit + 1 WHERE id=#{selectId}
   </update>
-
+  
+  <select id="validateBusiness" resultType="int" parameterType="hashMap">
+     SELECT count(*) FROM restaurant WHERE id=#{id} and business=#{business}
+  </select>
 
 
 </mapper>

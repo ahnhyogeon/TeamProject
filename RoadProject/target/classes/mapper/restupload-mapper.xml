@@ -27,11 +27,11 @@
         UPDATE rest_img SET rest_id=#{rest_id} WHERE imnum = #{imnum}
      </update>
         
-     <select id="rSelectById" resultType="ruploadDto" parameterType="int">
+     <select id="rSelectFileById" resultType="ruploadDto" parameterType="int">
         SELECT * FROM rest_img WHERE id=#{selectId}
      </select>
      
-     <select id="rSelectByRestId" resultType="ruploadDto" parameterType="int">
+     <select id="rSelectFileByRestId" resultType="ruploadDto" parameterType="int">
         SELECT * FROM rest_img WHERE rest_id=#{restId}
      </select>
      

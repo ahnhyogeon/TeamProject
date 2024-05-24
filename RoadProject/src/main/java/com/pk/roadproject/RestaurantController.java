@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pk.dao.RestUploadDao;
-import com.pk.dao.RestarauntDao;
+import com.pk.dao.RestaurantDao;
 import com.pk.dto.RestUploadFileDto;
 import com.pk.dto.RestaurantDto;
 import com.pk.service.RestGetListService;
@@ -35,7 +35,7 @@ public class RestaurantController {
 		RestGetListService getList;
 		
 		@Autowired
-		RestarauntDao rdao;
+		RestaurantDao rdao;
         
 		@Autowired
 		RestaurantDto rdto;
@@ -73,6 +73,22 @@ public class RestaurantController {
 		return "rest";
 	}
 	
+	@RequestMapping("/delrest")  //관리자만 들어갈 수 있는 삭제버튼이 있는 가게 리스트 페이지.
+	public String delrest(
+			@RequestParam(value="cpg", defaultValue="1") int cpg, 
+			@RequestParam(value="searchname", defaultValue="") String searchname,
+			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,
+			Model model) {
+		System.out.println("delrest() 실행됨");
+        model.addAttribute("cpg" , cpg);
+        model.addAttribute("searchname", searchname);
+        model.addAttribute("searchvalue", searchvalue);
+        getList.excute(model);
+        RestTrashFileDel.restDelCom();
+        
+		return "delrest";
+	}
+	
 	@GetMapping("/register")
 	public String register(Model model) {
 		System.out.println("register() 실행됨");
@@ -85,7 +101,7 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/register")
-	public String writeok(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String registerOk(HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		System.out.println("registerok() 실행됨");
 		model.addAttribute("request", request);
@@ -99,6 +115,7 @@ public class RestaurantController {
 	public ResponseEntity<?> handleImageUpload(
 			@RequestParam("file") MultipartFile uploadFile,
 			@RequestParam("imnum") String imnum){
+		System.out.println("upload() 실행됨");
 		if(!uploadFile.isEmpty()) {
 			try {
 				//파일정보 추출
@@ -120,7 +137,7 @@ public class RestaurantController {
 			
 				//경로설정
 				String uploadDir = servletContext.getRealPath("/resources/upload/");
-				
+				System.out.println(uploadDir);
 				//업로드
 				File serverFile = new File(uploadDir + nFilename);
 				uploadFile.transferTo(serverFile);
@@ -132,7 +149,10 @@ public class RestaurantController {
 				rUploadFileDto.setNfilename(nFilename);
 				rUploadFileDto.setOfilename(oFilename);
 				
+				System.out.println(rUploadFileDto);
+				
 				rUploadDao.rInsertFile(rUploadFileDto);
+				
 				String json = "{\"url\":\"" + "/roadproject/resources/upload/" + nFilename + "\"}";
 				return ResponseEntity.ok().body(json);
 				
