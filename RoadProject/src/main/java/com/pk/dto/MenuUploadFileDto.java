@@ -6,17 +6,13 @@ import lombok.Data;
 
 @Repository
 @Data
-public class MenuDto {
+public class MenuUploadFileDto {
 	
 	private int id;
 	private String business;
-	private String m_name;
-	private String m_cost;
-	private String m_intro;
-	private String m_code;
+	private String ofilename;
+	private String nfilename;
+	private String ext;
+	private long filesize;
 	private String imnum;
-	
-	public MenuDto() {
-		
-	}
 }

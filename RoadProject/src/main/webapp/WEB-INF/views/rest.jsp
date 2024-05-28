@@ -18,16 +18,15 @@
                 </div>
                 <table class="table table-hover">
                     <colgroup>
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -39,7 +38,6 @@
                             <th>상세주소</th>
                             <th>가게번호</th>
                             <th>가게도메인</th>
-                            <th>가게이미지</th>
                             <th>소개글</th>
                         </tr>
                     </thead>
@@ -55,7 +53,6 @@
                            <td class="text-center">${r_list.r_addr2 }</td>  
                            <td class="text-center">${r_list.r_tel }</td>
                            <td class="text-center">${r_list.r_url }</td>
-                           <td class="text-center">${r_list.imnum }</td>
                            <td class="text-center">${r_list.r_intro }</td>                      
                        </tr>
                        </c:forEach> 

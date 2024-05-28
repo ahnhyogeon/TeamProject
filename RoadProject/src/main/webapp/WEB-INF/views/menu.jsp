@@ -14,6 +14,7 @@
                     <div>
                         <fmt:formatNumber value="${pg.totalPosts }" groupingUsed="true"/>posts /
                         <fmt:formatNumber value="${pg.totalPages }" groupingUsed="true" />pages
+                        <a href="mRegister">메뉴등록</a>
                     </div>            
                 </div>
                 <table class="table table-hover">
@@ -32,7 +33,8 @@
                             <th>메뉴명</th>
                             <th>가격</th>
                             <th>소개글</th>
-                            <th>메뉴코드</th>                  
+                            <th>메뉴코드</th>
+                               
                         </tr>
                     </thead>
                     <tbody>
@@ -40,8 +42,7 @@
                                                                                      
                        <tr>
                            <td class="text-center">${m_list.id }</td>
-                           <td><a href="contents?id=${m_list.id }&cpg=${cpg}">${m_list.business }</a>                        
-                           </td>                           
+                           <td class="text-center">${m_list.business }</td>                           
                            <td class="text-center">${m_list.m_name }</td>
                            <td class="text-center">${m_list.m_cost }</td>
                            <td class="text-center">${m_list.m_intro }</td>

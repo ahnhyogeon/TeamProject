@@ -6,6 +6,7 @@
 		<typeAlias type="com.pk.dto.MemberDto" alias="memberDto"/>
 		 <typeAlias type="com.pk.dto.RestaurantDto" alias="restDto" />
 		 <typeAlias type="com.pk.dto.MenuDto" alias="menuDto" />
-		 <typeAlias alias="ruploadDto" type="com.pk.dto.RestUploadFileDto"/>
+		 <typeAlias type="com.pk.dto.RestUploadFileDto" alias="ruploadDto" />
+		 <typeAlias type="com.pk.dto.MenuUploadFileDto" alias="muploadDto" />
 	</typeAliases>
 </configuration>

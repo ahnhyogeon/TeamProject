@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.pk.dao.MenuUploadMapper">
+
+     <insert id="mInsertFile" parameterType="muploadDto">
+        INSERT INTO menu_img
+           (rest_id, ofilename, nfilename, ext, filesize, imnum)
+        VALUES
+           (#{rest_id}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum})
+     </insert>
+     
+     <delete id="mDeleteFileById" parameterType="int">
+        DELETE FROM rest_img WHERE id=#{selectId}
+     </delete>  
+     
+     <delete id="rDeleteFileByBusiness" parameterType="String">
+        DELETE FROM rest_img WHERE busniess=#{business}
+     </delete>
+     
+     <delete id="mDeleteTrashFile">
+        DELETE FROM rest_img WHERE rest_id=0
+     </delete>
+     
+     <update id="mUpdateFile" parameterType="hashMap">
+        UPDATE rest_img SET rest_id=#{rest_id} WHERE imnum = #{imnum}
+     </update>
+        
+     <select id="mSelectFileById" resultType="muploadDto" parameterType="int">
+        SELECT * FROM rest_img WHERE id=#{selectId}
+     </select>
+     
+     <select id="rSelectFileByBusiness" resultType="muploadDto" parameterType="String">
+        SELECT * FROM rest_img WHERE business=#{business}
+     </select>
+     
+ </mapper> 
