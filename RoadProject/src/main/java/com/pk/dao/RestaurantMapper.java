@@ -23,7 +23,7 @@ public interface RestaurantMapper {
 		public int selectRestCount();
 		
 		//상세보기
-		public RestaurantDto selectDetail(int selectId);
+		public RestaurantDto rSelectDetail(int selectId);
 		
 		//목록보기
 		public List<RestaurantDto> restList(Map<String, Object> params);

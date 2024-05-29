@@ -85,7 +85,6 @@ public class RestaurantController {
         model.addAttribute("searchvalue", searchvalue);
         getList.excute(model);
         RestTrashFileDel.restDelCom();
-        
 		return "delrest";
 	}
 	

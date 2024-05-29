@@ -32,7 +32,7 @@
 	      data.append("file", file);
 	      data.append("imnum", imnum);
 	      $.ajax({
-	         url: "upload",
+	         url: "mupload",
 	         type: "post",
 	         data: data,
 	         contentType: false,

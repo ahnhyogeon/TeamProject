@@ -6,33 +6,33 @@
 
      <insert id="mInsertFile" parameterType="muploadDto">
         INSERT INTO menu_img
-           (rest_id, ofilename, nfilename, ext, filesize, imnum)
+           (business, ofilename, nfilename, ext, filesize, imnum)
         VALUES
-           (#{rest_id}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum})
+           (#{business}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum})
      </insert>
      
      <delete id="mDeleteFileById" parameterType="int">
-        DELETE FROM rest_img WHERE id=#{selectId}
+        DELETE FROM menu_img WHERE id=#{selectId}
      </delete>  
      
-     <delete id="rDeleteFileByBusiness" parameterType="String">
-        DELETE FROM rest_img WHERE busniess=#{business}
+     <delete id="rDeleteFileByBusiness" parameterType="int">
+        DELETE FROM menu_img WHERE busniess=#{business}
      </delete>
      
      <delete id="mDeleteTrashFile">
-        DELETE FROM rest_img WHERE rest_id=0
+        DELETE FROM menu_img WHERE business=0
      </delete>
      
      <update id="mUpdateFile" parameterType="hashMap">
-        UPDATE rest_img SET rest_id=#{rest_id} WHERE imnum = #{imnum}
+        UPDATE menu_img SET business=#{business} WHERE imnum = #{imnum}
      </update>
         
      <select id="mSelectFileById" resultType="muploadDto" parameterType="int">
-        SELECT * FROM rest_img WHERE id=#{selectId}
+        SELECT * FROM menu_img WHERE id=#{selectId}
      </select>
      
-     <select id="rSelectFileByBusiness" resultType="muploadDto" parameterType="String">
-        SELECT * FROM rest_img WHERE business=#{business}
+     <select id="rSelectFileByBusiness" resultType="muploadDto" parameterType="int">
+        SELECT * FROM menu_img WHERE business=#{business}
      </select>
      
  </mapper> 

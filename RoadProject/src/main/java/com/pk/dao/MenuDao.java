@@ -41,8 +41,8 @@ public class MenuDao implements MenuMapper {
 	}
 
 	@Override
-	public MenuDto selectDetail(int selectId) {
-		return session.selectOne("selectDetail", selectId);
+	public MenuDto mSelectDetail(int selectId) {
+		return session.selectOne("mSelectDetail", selectId);
 	}
 
 	@Override
@@ -53,6 +53,12 @@ public class MenuDao implements MenuMapper {
 	@Override
 	public void increaseHit(int selectId) {
 		session.update("increaseHit", selectId);
+	}
+	
+	@Override
+	public int mValidateBusiness(Map<String, Object> params) {
+		
+		return session.selectOne("mValidateBusiness", params);
 	}
 
 }

@@ -88,7 +88,7 @@
     LIMIT #{currentPage}, #{listCount}  
   </select>  
 
-  <select id="selectDetail" resultType="restDto" parameterType="int">
+  <select id="rSelectDetail" resultType="restDto" parameterType="int">
      SELECT * FROM restaurant WHERE id= #{selectId}
   </select>
  

@@ -85,14 +85,17 @@
     LIMIT #{currentPage}, #{listCount}  
   </select>  
 
-  <select id="selectDetail" resultType="menuDto" parameterType="int">
+  <select id="mSelectDetail" resultType="menuDto" parameterType="int">
      SELECT * FROM menu WHERE id= #{selectId}
   </select>
  
   <update id="increaseHit" parameterType="int">
      UPDATE menu SET hit = hit + 1 WHERE id=#{selectId}
   </update>
-
+	
+    <select id="mValidateBusiness" resultType="int" parameterType="hashMap">
+     SELECT count(*) FROM menu WHERE id=#{id} and business=#{business}
+ 	</select>	
 
 
 </mapper>

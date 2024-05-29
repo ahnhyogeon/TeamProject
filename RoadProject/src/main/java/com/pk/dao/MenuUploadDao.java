@@ -19,37 +19,37 @@ public class MenuUploadDao implements MenuUploadMapper {
 	
 	@Override
 	public int mInsertFile(MenuUploadFileDto muDto) {
-		// TODO Auto-generated method stub
+	
 		return session.insert("mInsertFile", muDto);
 	}
 
 	@Override
-	public int mDeleteFile(int business) {
-		// TODO Auto-generated method stub
-		return session.delete("mDeleteFile", business);
+	public int mDeleteFile(int uploadId) {
+	
+		return session.delete("mDeleteFileById", uploadId);
 	}
 
 	@Override
 	public int mDeleteFileByBusiness(int business) {
-		// TODO Auto-generated method stub
+	
 		return session.delete("mDeleteFileByBusiness", business);
 	}
 
 	@Override
 	public int mDeleteTrashFile() {
-		// TODO Auto-generated method stub
+	
 		return session.delete("mDeleteTrashFile");
 	}
 
 	@Override
 	public MenuUploadFileDto mSelectFileById(int uploadId) {
-		// TODO Auto-generated method stub
+	
 		return session.selectOne("mSelectFileById", uploadId);
 	}
 
 	@Override
 	public List<MenuUploadFileDto> mSelectFileByBusiness(int business) {
-		// TODO Auto-generated method stub
+	
 		return session.selectList("mSelectFileByBusiness", business);
 	}
 
