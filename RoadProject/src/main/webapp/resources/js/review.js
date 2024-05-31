@@ -4,6 +4,7 @@ function followUser() {
       $.ajax({
         type: "POST",
         url: "follow",
+        data: userId,
         dataType: "json", // 반환되는 데이터 타입을 명시적으로 JSON으로 지정
         success: function(response) {
           if(response.message) {
@@ -23,12 +24,12 @@ function followUser() {
   }
   
 function unfollowUser() {
-    var userId = prompt("팔로우할 사용자의 아이디를 입력하세요:");
+	var userId = prompt("팔로우를 취소할 사용자의 아이디를 입력하세요:");
     if (userId !== null && userId.trim() !== "") {
       $.ajax({
         type: "POST",
         url: "unfollow",
-        dataType: "json", // 반환되는 데이터 타입을 명시적으로 JSON으로 지정
+        dataType: "json",
         success: function(response) {
           if(response.message) {
             console.log(response.message);

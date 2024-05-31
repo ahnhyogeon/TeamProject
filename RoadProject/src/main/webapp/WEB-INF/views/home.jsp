@@ -13,5 +13,6 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <a href="rest">식당정보</a>
+<a href="review">리뷰</a>
 </body>
 </html>

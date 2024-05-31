@@ -6,5 +6,6 @@
 		<typeAlias type="com.pk.dto.MemberDto" alias="memberDto"/>
 		 <typeAlias type="com.pk.dto.RestaurantDto" alias="restDto" />
 		 <typeAlias type="com.pk.dto.MenuDto" alias="menuDto" />
+		 <typeAlias type="com.pk.dto.ReviewDto" alias="reviewDto" />
 	</typeAliases>
 </configuration>
