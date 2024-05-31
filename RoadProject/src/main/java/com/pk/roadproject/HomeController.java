@@ -45,16 +45,8 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		return "index.tiles";
 	}
 	
 	 @RequestMapping(value = "/content1", method = RequestMethod.GET)
@@ -90,13 +82,107 @@ public class HomeController {
 		  return "SelectJoin.tiles";
 	  }
 	  
+	  //회원가입
 	  @RequestMapping(value = "/join", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String join(@RequestParam(required = false) String role, Locale locale, Model model) {
-	        logger.info("content3 접속");
+	        logger.info("join 접속");
 	        
 	        model.addAttribute("role", role);
 	        
 	        return "join.tiles";
+	    }
+	  @RequestMapping(value = "/join2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String join2(@RequestParam(required = false) String role, Locale locale, Model model) {
+	        logger.info("join2 접속");
+	        
+	        model.addAttribute("role", role);
+	        
+	        return "join2.tiles";
+	    }
+	  
+	  
+	  @RequestMapping(value = "/index", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String index(Locale locale, Model model) {
+	        logger.info("index 접속");
+	        
+	        return "index.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String login(Locale locale, Model model) {
+	        logger.info("login 접속");
+	        
+	        return "login.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/joinFine", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String joinFine(Locale locale, Model model) {
+	        logger.info("joinFine 접속");
+	        
+	        return "joinFine.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/joinedit", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String joinedit(Locale locale, Model model) {
+	        logger.info("joinedit 접속");
+	        
+	        return "joinedit.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/joinDelete", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String joineDelete(Locale locale, Model model) {
+	        logger.info("joineDelete 접속");
+	        
+	        return "joinDelete.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/joinDelete_success", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String joineDelete_success(Locale locale, Model model) {
+	        logger.info("joinDelete_success 접속");
+	        
+	        return "joinDelete_success.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/selectType", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String selectType(Locale locale, Model model) {
+	        logger.info("selectType 접속");
+	        
+	        return "selectType.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/follow", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String follow(Locale locale, Model model) {
+	        logger.info("follow 접속");
+	        
+	        return "follow.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/following", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String following(Locale locale, Model model) {
+	        logger.info("following 접속");
+	        
+	        return "following.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/myPage", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String myPage(Locale locale, Model model) {
+	        logger.info("myPage 접속");
+	        
+	        return "myPage.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/myPage2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String myPage2(Locale locale, Model model) {
+	        logger.info("myPage2 접속");
+	        
+	        return "myPage2.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/myPage3", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String myPage3(Locale locale, Model model) {
+	        logger.info("myPage3 접속");
+	        
+	        return "myPage3.tiles";
 	    }
 	  
 	  @RequestMapping(value = "/map", method = RequestMethod.GET)
@@ -226,7 +312,7 @@ public class HomeController {
 			    ModelAndView modelAndView = new ModelAndView("redirect:/detail");
 			    return modelAndView;
 			}
-	  
+	  //로그아웃
 	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	  public ModelAndView logout(HttpSession session) {
 		  
@@ -242,6 +328,15 @@ public class HomeController {
 		  System.out.println("recommend 접속");
 		  
 		  return "recommend.tiles";
+	  }
+	  
+	  @RequestMapping(value = "/recommend2", method = {RequestMethod.GET, RequestMethod.POST})
+	  public String recommend2(@RequestParam(required = false) String keyword, Locale locale, Model model) {
+		  System.out.println("recommend2 접속");
+		  
+		  model.addAttribute("keyword", keyword);
+		  
+		  return "recommend2.tiles";
 	  }
 
 	

@@ -20,16 +20,19 @@
                     <div class="step-item active">정보 입력</div>
                     <div class="step-item">가입 완료</div>
                 </div>
-        </div>
-            <div class="textbox">
-               <span>본인 인증이 완료되었습니다.</span>
             </div>
-            <div class="lineBox"></div>
+            <div class="textbox2">
+                <span>사업자 인증이 완료되었습니다.</span>
+                <span>스페이스에 대한 자세한 정보 설정은 회원가입 후에 가능합니다.</span>
+            </div>
+             <div class="lineBox"></div>
             <div class="joinformBox">
                 <form action="#" method="post">
-                    <div class="pictureBox">
-                        <img src="resources/images/icons _ emoji/Winking Face.png" alt="winking face">  
-                        <a href="#" class="inpicture"><img src="resources/images/icons _ emoji/Pencil.png" alt="Pencil"></a>
+                    <div class="formbox">
+                        <label>닉네임<span>*</span></label>
+                        <div>
+                        <input type="text" name="nick" id="usernick" placeholder="{가게이름}">
+                        </div>
                     </div>
                     <div class="formbox">
                         <label>아이디<span>*</span></label>
@@ -39,13 +42,6 @@
                         </div>
                     </div>
                     <div class="formbox">
-                        <label>닉네임<span>*</span></label>
-                        <div>
-                        <input type="text" name="nick" id="usernick" placeholder="한,영문/숫자 3자 이상 16자 미만">
-                        <button class="btn btn-danger">중복 확인</button>
-                    </div>
-                    </div>
-                    <div class="formbox">                       
                         <label>비밀번호<span>*</span></label>
                         <div>
                         <input type="password" name="pass1" id="userpass1" placeholder="영문/숫자/특수문자 포함 8자 이상 16자 미만">
@@ -67,9 +63,15 @@
                         <input type="text" name="addr2" id="useraddr2" placeholder="상세 주소 입력">
                         </div>
                     </div>  
-        </form>
+                    <div class="formbox">
+                        <label>전화번호<span>*</span></label>
+                        <div>
+                        <input type="text" name="phone" id="userphone" placeholder="(-) 제외 번호 입력">
+                        </div>
+                    </div>
+    </div>
         <div id="secondaryBox">
             <button type="submit" id="join_nextbtn" class="btn btn-secondary">다음으로</button>
-        </div>   
-            </div>
-</div>
+        </div>
+    </div>
+</form>

@@ -1,3 +1,82 @@
+$(function(){
+    const nextBtn = document.getElementById('nextbtn');
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            window.location.href = 'join.html';
+        });
+    }
+
+    const joinNextBtn = document.getElementById('join_nextbtn');
+    if (joinNextBtn) {
+        joinNextBtn.addEventListener('click', function() {
+            window.location.href = 'joinFine.html';
+        });
+    }
+
+    const loginBtn = document.getElementById('login_btn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+    }
+
+    const homeTab = document.getElementById('tabMenu_home');
+    if(homeTab){
+        homeTab.addEventListener('click', function(){
+            window.location.href = 'myPage.html';
+        });
+    }
+
+    const reviewTab = document.getElementById('tabMenu_review');
+    if(reviewTab){
+        reviewTab.addEventListener('click', function(){
+            window.location.href = 'myPage2.html';
+        });
+    }
+
+    const themeTab = document.getElementById('tabMenu_theme');
+    if(themeTab){
+        themeTab.addEventListener('click', function(){
+            window.location.href = 'myPage3.html';
+        });
+    }
+
+    const editGear = document.getElementById('edit_gear');
+    if(editGear){
+        editGear.addEventListener('click', function(){
+            window.location.href = "joinedit.html";
+        });
+    }
+
+    const followTab = document.getElementById('follow_tab');
+    if(followTab){
+        followTab.addEventListener('click', function(){
+            window.location.href = "follow.html";
+        });
+    }
+
+    const followingTab = document.getElementById('following_tab');
+    if(followingTab){
+        followingTab.addEventListener('click', function(){
+            window.location.href = "following.html";
+        });
+    }
+
+    const profileFollow = document.getElementById('profile_follow');
+    if(profileFollow){
+        profileFollow.addEventListener('click', function(){
+            window.location.href = 'follow.html';
+        });
+    }
+
+    const profileFollowing = document.getElementById('profile_following');
+    if(profileFollowing){
+        profileFollowing.addEventListener('click', function(){
+            window.location.href = "following.html";
+        });
+    }
+});
+
 /*자동 하이픈 기능*/
 const autoHyphen = (target) => {
     target.value = target.value

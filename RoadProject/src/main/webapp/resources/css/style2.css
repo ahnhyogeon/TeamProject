@@ -1,0 +1,261 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.min.css');
+@import url('bootstrap.min.css');
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    font-family: "IBM Plex Sans KR", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+/******회원 가입 페이지***/
+.joinpage{
+   width:100%;
+   margin-top:3%;
+   margin-left:200px;
+
+
+}
+.registerform{
+    border:1px solid #ddd;
+    border-radius:8px;
+    margin-top:30px;
+    padding:50px 20px;
+}
+.registerform label{
+    display:block;
+    background-color:#eef5ff;
+    line-height:35px;
+    margin-top:5px;
+    flex-basis: 125px;
+    max-width:125px;
+}
+.listbox>h1{
+    color:#2740cc;
+}
+.zipcode{
+	height:35px;
+}
+#zip{
+    background:#fff;
+    border-radius:5px;
+    border:1px solid #c7d1de;
+    font-size:16px;
+    color:#000;
+}
+#zip:hover{
+   border:1px solid #277cf3;
+    background:#277cf3;
+    color:#fff;
+}
+.joinpage .row{
+	width:90%;
+}
+rename_btn2{
+    width:140px;
+    height: 40px;
+    background:#fff;
+    border-radius:5px;
+    border:1px solid #c7d1de;
+    font-size:16px; 
+    color:#000;
+}
+.rename_btn2:hover{
+   border:1px solid #ff0000;
+   background:#ee0000;
+   color:#fff;
+ }
+
+.rename_btn{
+    width:140px;
+    height: 40px;
+    background:#fff;
+    border-radius:5px;
+    border:1px solid #c7d1de;
+    font-size:16px; 
+}
+.rename_btn:hover{
+   border:1px solid #277cf3;
+    background:#277cf3;
+    color:#fff;
+}
+
+/*datepicker css*/
+ .ui-widget-header { border: 0px solid #dddddd; background: #fff; } 
+
+ .ui-datepicker-calendar>thead>tr>th { font-size: 14px !important; } 
+
+ .ui-datepicker .ui-datepicker-header { position: relative; padding: 10px 0; } 
+
+ .ui-state-default,
+ .ui-widget-content .ui-state-default,
+ .ui-widget-header .ui-state-default,
+ .ui-button,
+ html .ui-button.ui-state-disabled:hover,
+ html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background-color: transparent; font-weight: normal; color: #454545; text-align: center; } 
+
+ .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; } 
+
+ .ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 1000px; box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1); } 
+
+ .ui-widget.ui-widget-content { border: 1px solid #eee; } 
+
+ #datepicker:focus>.ui-datepicker { display: block; } 
+
+ .ui-datepicker-prev,
+ .ui-datepicker-next { cursor: pointer; } 
+
+ .ui-datepicker-next { float: right; } 
+
+ .ui-state-disabled { cursor: auto; color: hsla(0, 0%, 80%, 1); } 
+
+ .ui-datepicker-title { text-align: center; padding: 10px; font-weight: 100; font-size: 20px; } 
+
+ .ui-datepicker-calendar { width: 100%; } 
+
+ .ui-datepicker-calendar>thead>tr>th { padding: 5px; font-size: 20px; font-weight: 400; } 
+
+ .ui-datepicker-calendar>tbody>tr>td>a { color: #000; font-size: 12px !important; font-weight: bold !important; text-decoration: none;}
+
+ .ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover { cursor: auto; background-color: #fff; } 
+
+ .ui-datepicker-calendar>tbody>tr>td { border-radius: 100%; width: 44px; height: 30px; cursor: pointer; padding: 5px; font-weight: 100; text-align: center; font-size: 12px; } 
+
+ .ui-datepicker-calendar>tbody>tr>td:hover { background-color: transparent; opacity: 0.6; } 
+
+ .ui-state-hover,
+ .ui-widget-content .ui-state-hover,
+ .ui-widget-header .ui-state-hover,
+ .ui-state-focus,
+ .ui-widget-content .ui-state-focus,
+ .ui-widget-header .ui-state-focus,
+ .ui-button:hover,
+ .ui-datepicker-calendar:focus,
+ .ui-button:focus { border: 0px solid #cccccc; background-color: transparent; font-weight: normal; color: #2b2b2b; } 
+
+ .ui-widget-header .ui-icon { background-image: url('../img/btns.png'); } 
+
+ .ui-icon-circle-triangle-e { background-position: -20px 0px; background-size: 36px; } 
+
+ .ui-icon-circle-triangle-w { background-position: -0px -0px; background-size: 36px; } 
+
+ .ui-datepicker-calendar>tbody>tr>td:first-child a { color: red !important; } 
+
+ .ui-datepicker-calendar>tbody>tr>td:last-child a { color: #0099ff !important; } 
+
+ .ui-datepicker-calendar>thead>tr>th:first-child { color: red !important; } 
+
+ .ui-datepicker-calendar>thead>tr>th:last-child { color: #0099ff !important; } 
+
+ .ui-state-highlight,
+ .ui-widget-content .ui-state-highlight,
+ .ui-widget-header .ui-state-highlight { border: 0px; background: #f1f1f1; border-radius: 50%; padding-top: 10px; padding-bottom: 10px; } 
+
+ .inp { padding: 10px 10px; background-color: #f1f1f1; border-radius: 4px; border: 0px; } 
+
+ .inp:focus { outline: none; background-color: #eee; }
+ .ui-datepicker-trigger{cursor: pointer;} 
+ .hasDatepicker{cursor: pointer;}
+ 
+/* 전체 표 스타일 */
+table {
+  width: 60%; /* 표 전체 크기를 60%로 설정합니다. */
+  border-collapse: collapse;
+}
+
+/* 표 헤더 스타일 */
+thead {
+  background-color: #f5f5f5;
+}
+
+/* 표 헤더 셀 스타일 */
+thead th {
+  padding: 8px; /* 헤더 셀의 패딩을 조정합니다. */
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #ddd; /* 일자 아래에 선을 추가합니다. */
+}
+
+/* 첫 번째 열과 두 번째 열의 너비 설정 */
+thead th:nth-child(1),
+thead th:nth-child(2) {
+  width: 8%; /* 첫 번째 열과 두 번째 열의 너비를 15%로 설정합니다. */
+}
+
+/* 세 번째 열과 네 번째 열의 너비 설정 */
+thead th:nth-child(3),
+thead th:nth-child(4) {
+  width: 10%; /* 세 번째 열과 네 번째 열의 너비를 25%로 설정합니다. */
+}
+
+tbody th {
+  text-align:center;
+  border-bottom: 1px solid #ddd; /* 일자 아래에 선을 추가합니다. */
+}
+
+/* 표 내용 셀 스타일 */
+tbody td {
+  padding: 8px; /* 내용 셀의 패딩을 조정합니다. */
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 입력 필드 스타일 */
+input[type="time"] {
+  width: 70%; /* 입력 필드 너비를 70%로 설정합니다. */
+  padding: 6px; /* 패딩 크기를 조정할 수 있습니다. */
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 입력 필드에 포커스를 받을 때 테두리 스타일 변경 */
+input[type="time"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* 각 요소의 내부 여백 설정 */
+div, th, td {
+  padding: 8px; /* 내부 요소의 패딩을 조정합니다. */
+}
+
+ #map {
+            width: 900px;
+            height: 400px;
+}
+
+.map_wrap, .map_wrap * {margin:0; padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap {position:relative;width:100%;height:350px;}
+#category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
+#category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
+#category li.on {background: #eee;}
+#category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px;}
+#category li:last-child{margin-right:0;border-right:0;}
+#category li span {display: block;margin:0 auto 3px;width:27px;height: 28px;}
+#category li .category_bg {background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;}
+#category li .bank {background-position: -10px 0;}
+#category li .mart {background-position: -10px -36px;}
+#category li .pharmacy {background-position: -10px -72px;}
+#category li .oil {background-position: -10px -108px;}
+#category li .cafe {background-position: -10px -144px;}
+#category li .store {background-position: -10px -180px;}
+#category li.on .category_bg {background-position-x:-46px;}
+.placeinfo_wrap {position:absolute;bottom:28px;left:-150px;width:300px;}
+.placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
+.placeinfo:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.placeinfo_wrap .after {content:'';position:relative;margin-left:-12px;left:50%;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+.placeinfo a, .placeinfo a:hover, .placeinfo a:active{color:#fff;text-decoration: none;}
+.placeinfo a, .placeinfo span {display: block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.placeinfo span {margin:5px 5px 0 5px;cursor: default;font-size:13px;}
+.placeinfo .title {font-weight: bold; font-size:14px;border-radius: 6px 6px 0 0;margin: -1px -1px 0 -1px;padding:10px; color: #fff;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.placeinfo .tel {color:#0f7833;}
+.placeinfo .jibun {color:#999;font-size:11px;margin-top:0;}
+
+
+ 
