@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.pk.dto.RestaurantDto;
 
 @Repository
-public class RestarauntDao implements RestaurantMapper {
+public class RestaurantDao implements RestaurantMapper {
 	
 	@Autowired
 	private SqlSession session;
@@ -18,19 +18,19 @@ public class RestarauntDao implements RestaurantMapper {
 	@Override
 	public int restInsert(RestaurantDto dto) {
 		
-		return session.insert("insert", dto);
+		return session.insert("restInsert", dto);
 	}
 
 	@Override
 	public int restUpdate(RestaurantDto dto) {
 		
-		return session.update("update", dto);
+		return session.update("restUpdate", dto);
 	}
 
 	@Override
 	public int restDelete(int selectId) {
 		
-		return session.delete("delete", selectId);
+		return session.delete("restDelete", selectId);
 	}
 
 	@Override
@@ -54,5 +54,10 @@ public class RestarauntDao implements RestaurantMapper {
 		session.update("increaseHit", selectId);
 	}
 	
+	@Override
+	public int validateBusiness(Map<String, Object> params) {
+		
+		return session.selectOne("validateBusiness", params);
+	}
 
 }

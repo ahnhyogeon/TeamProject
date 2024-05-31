@@ -31,4 +31,7 @@ public interface RestaurantMapper {
 		//팔로우 증가
 		public void increaseHit(int selectId);
 		
+		//사업자번호 검증
+		public int validateBusiness(Map<String, Object> params);
+		
 }

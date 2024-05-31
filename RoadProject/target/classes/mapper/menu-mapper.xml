@@ -6,68 +6,62 @@
 
   <sql id="menuColumn">
      business,
-     name,
-     code,
-     addr1,
-     addr2,
-     tel,
-     url,
-     imnum,
-     intro,
+     m_name,
+     m_cost,
+     m_intro,
+     m_code,
   </sql>
 
   
   <insert id="menuInsert" parameterType="menuDto" useGeneratedKeys="true" keyProperty="id">
-     INSERT INTO restaurant(<include refid="menuColumn"/>) values (
+     INSERT INTO menu(<include refid="menuColumn"/>) values (
      
        #{business},
-       #{r_name},
-       #{r_code},
-       #{r_addr1},
-       #{r_addr2},
-       #{r_tel},
-       #{r_url},
-       #{imnum},
-       #{r_intro}
+       #{m_name},
+       #{m_cost},
+       #{m_intro},
+       #{m_code},
+   
      )
   </insert>
 
   <update id="updateRefId" parameterType="int">
-     UPDATE jboard SET refid = #{id} WHERE id=#{id}
+     UPDATE menu SET refid = #{id} WHERE id=#{id}
   </update>
 
   <update id="updateRenum" parameterType="hashMap">
-     UPDATE jboard SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
+     UPDATE menu SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
   </update>
 
   <update id="menuUpdate" parameterType="menuDto">
-     UPDATE restaurant 
+     UPDATE menu 
      SET
         business = #{business},
-        r_name = #{r_name},
-        r_url = #{r_url},
-        r_intro = #{r_intro}
+        m_name = #{r_name},
+        m_cost = #{r_cost},
+        m_intro = #{r_intro}
      WHERE
         id=#{id}   
   </update>
   
   <delete id="menuDelete" parameterType="int">
-     DELETE FROM restaurant
+     DELETE FROM menu
      WHERE
        id=#{selectId}  
   </delete>
   
-  <select id="selectTotalCount" resultType="int">
+  <select id="selectMenuCount" resultType="int">
      SELECT
        COUNT(*)
      FROM
-       jboard
+       menu
   </select>
 
   <select id="menuList" resultType="menuDto" parameterType="hashMap">
     SELECT * 
     FROM 
-       restaurant
+       menu
+    <!-- 
     where 1    
     <if test="searchname != ''">
        <choose>
@@ -82,18 +76,19 @@
           </otherwise>
        </choose>
        CONCAT('%', #{searchvalue}, '%')
-    </if>      
-    ORDER BY refid DESC, 
-    renum ASC 
+    </if>
+     -->
+    where business = #{business}      
+    ORDER BY id DESC
     LIMIT #{currentPage}, #{listCount}  
   </select>  
 
   <select id="selectDetail" resultType="menuDto" parameterType="int">
-     SELECT * FROM jboard WHERE id= #{selectId}
+     SELECT * FROM menu WHERE id= #{selectId}
   </select>
  
   <update id="increaseHit" parameterType="int">
-     UPDATE jboard SET hit = hit + 1 WHERE id=#{selectId}
+     UPDATE menu SET hit = hit + 1 WHERE id=#{selectId}
   </update>
 
 

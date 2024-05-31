@@ -50,17 +50,7 @@ public class FollowController {
 	  @RequestMapping(value = "/review", method = RequestMethod.GET)
 	  public String review(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  System.out.println("review 접속");
-		  
-		  List<ReviewDto> reviews = serviceR.reviewSelectList(reviewDto);
-		  for(ReviewDto review : reviews) {
-			  if(review.getRating() == 0 || review.getHits() == 0) {
-				  review.setResult(0);
-			  }else {
-			  double result = (review.getRating() * 100) / (double) review.getHits();
-			  review.setResult(result);
-			  }
-		  }
-		  model.addAttribute("reviews", reviews);
+		  		  
 		  return "review.tiles";
 	  }
 	  

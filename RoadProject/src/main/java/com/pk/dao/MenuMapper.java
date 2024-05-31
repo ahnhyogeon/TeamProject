@@ -18,14 +18,14 @@ public interface MenuMapper {
 			//delete
 			public int menuDelete(int selectId);
 			
-			//전체 게시글 수
-			public int selectTotalCount();
+			//전체 메뉴 수
+			public int selectMenuCount();
 			
 			//상세보기
 			public MenuDto selectDetail(int selectId);
 			
 			//목록보기
-			public List<MenuDto> restList(Map<String, Object> params);
+			public List<MenuDto> menuList(Map<String, Object> params);
 			
 			//팔로우 증가
 			public void increaseHit(int selectId);

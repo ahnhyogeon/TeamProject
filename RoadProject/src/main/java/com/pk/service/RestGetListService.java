@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pk.dao.RestarauntDao;
+import com.pk.dao.RestaurantDao;
 import com.pk.dto.RestaurantDto;
 import com.pk.util.Paging;
 
@@ -18,7 +18,7 @@ public class RestGetListService implements RestaurantService {
 	Paging pg;
 	
 	@Autowired
-	RestarauntDao dao;
+	RestaurantDao dao;
 	
 	@Override
 	public void excute(Model model) {
