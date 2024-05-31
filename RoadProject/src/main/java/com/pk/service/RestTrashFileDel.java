@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pk.dao.RestUploadDao;
 import com.pk.dto.RestUploadFileDto;
@@ -21,7 +22,7 @@ public class RestTrashFileDel {
 	private ServletContext servletContext;
 	
 	public void restDelCom() {
-		   
+		  System.out.println("resDelCom() 실행");
 		  List<RestUploadFileDto> rudaos = ruDao.rSelectFileByRestId(0);
 		  
 		  for(RestUploadFileDto rfdao : rudaos) {

@@ -19,7 +19,7 @@
   
   <insert id="restInsert" parameterType="restDto" useGeneratedKeys="true" keyProperty="id">
      INSERT INTO restaurant(<include refid="restColumn"/>) values (
-   	   1,
+   	   1234,   <!-- 나중에 관리자가 주는 사업자코드로 바꿔야함. -->
        #{r_name},
        1,
        #{r_addr1},

@@ -14,7 +14,7 @@
                     <div>
                         <fmt:formatNumber value="${pg.totalPosts }" groupingUsed="true"/>posts /
                         <fmt:formatNumber value="${pg.totalPages }" groupingUsed="true" />pages
-                        <a href="mRegister">메뉴등록</a>
+                        <a href="mRegister?business=${param.business }">메뉴등록</a>
                     </div>            
                 </div>
                 <table class="table table-hover">
@@ -106,4 +106,5 @@
                </form>
                 -->
             </div>
+       
             <!-- /listbox-->

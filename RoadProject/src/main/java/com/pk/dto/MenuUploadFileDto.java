@@ -9,7 +9,7 @@ import lombok.Data;
 public class MenuUploadFileDto {
 	
 	private int id;
-	private String business;
+	private int business;
 	private String ofilename;
 	private String nfilename;
 	private String ext;

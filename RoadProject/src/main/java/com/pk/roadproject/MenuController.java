@@ -62,6 +62,7 @@ public class MenuController {
 			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,
 			Model model) {
 		System.out.println("menu() 실행됨");
+		//int mbusiness = Integer.parseInt(business);
 		model.addAttribute("business", business);
         model.addAttribute("cpg" , cpg);
         model.addAttribute("searchname", searchname);

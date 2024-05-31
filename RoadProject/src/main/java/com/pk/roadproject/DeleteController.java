@@ -41,7 +41,7 @@ public class DeleteController {
     
 	@PostMapping("/del")
 	@ResponseBody   //xml, json타입을 받을 때는 reponsebody
-	public String delok(@RequestParam("id") int id, @RequestParam("business") String business) { //여기 id는 r_list id
+	public String delok(@RequestParam("id") int id, @RequestParam("business") int business) { //여기 id는 r_list id
 	
 		 	System.out.println("del() 삭제로직 수행");
 		 	
@@ -91,8 +91,8 @@ public class DeleteController {
 	
 	@PostMapping("/mdel")
 	@ResponseBody   //xml, json타입을 받을 때는 reponsebody
-	public String mdelok(@RequestParam("id") int id, @RequestParam("business") String business) { //여기 id는 r_list id
-			int mbusiness = Integer.parseInt(business);
+	public String mdelok(@RequestParam("id") int id, @RequestParam("business") int business) { //여기 id는 r_list id
+			//int mbusiness = Integer.parseInt(business);
 		 	System.out.println("mdel() 삭제로직 수행");
 		 	
 			try {
@@ -107,7 +107,7 @@ public class DeleteController {
 				System.out.println(path);
 				//파일 db읽어서
 				System.out.println(id); 
-				List<MenuUploadFileDto> mfDtos = muDao.mSelectFileByBusiness(mbusiness);
+				List<MenuUploadFileDto> mfDtos = muDao.mSelectFileByBusiness(business);
 				System.out.println(mfDtos);
 				for(MenuUploadFileDto mDto : mfDtos) { //가게업로드파일dto의 fDto를 rfDtos로 받아서 for문을 돌린다.
 					String delFileName = mDto.getNfilename();

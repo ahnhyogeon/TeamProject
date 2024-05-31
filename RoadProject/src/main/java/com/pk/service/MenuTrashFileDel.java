@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pk.dao.MenuUploadDao;
 import com.pk.dto.MenuUploadFileDto;
@@ -20,10 +21,10 @@ public class MenuTrashFileDel {
 	@Autowired
 	private ServletContext servletContext;
 	
-	public void menuDelCom() {
-		   
+	public void menuDelCom() {	
+		  System.out.println("mDelcom() 실행");
 		  List<MenuUploadFileDto> mudaos = muDao.mSelectFileByBusiness(0);
-		  
+		  System.out.println(mudaos);
 		  for(MenuUploadFileDto mfdao : mudaos) {
 			  String delFileName = mfdao.getNfilename();
 			  try {
@@ -34,7 +35,7 @@ public class MenuTrashFileDel {
 					  file.delete();
 				  }
 				  //db 레코드 삭제
-				  muDao.mDeleteFile(Integer.parseInt(mfdao.getBusiness()));
+				  muDao.mDeleteFile(mfdao.getId());
 			  }catch(Exception e) {
 				  e.printStackTrace();
 			  }

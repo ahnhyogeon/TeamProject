@@ -31,7 +31,7 @@
         SELECT * FROM menu_img WHERE id=#{selectId}
      </select>
      
-     <select id="rSelectFileByBusiness" resultType="muploadDto" parameterType="int">
+     <select id="mSelectFileByBusiness" resultType="muploadDto" parameterType="int">
         SELECT * FROM menu_img WHERE business=#{business}
      </select>
      
