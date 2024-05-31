@@ -51,6 +51,16 @@ public class FollowController {
 	  public String review(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  System.out.println("review 접속");
 		  		  
+		  List<ReviewDto> reviews = serviceR.reviewSelectList(reviewDto);
+		  for(ReviewDto review : reviews) {
+			  if(review.getRating() == 0 || review.getHits() == 0) {
+				  review.setResult(0);
+			  }else {
+			  double result = (review.getRating() * 100) / (double) review.getHits();
+			  review.setResult(result);
+			  }
+		  }
+		  model.addAttribute("reviews", reviews);
 		  return "review.tiles";
 	  }
 	  
@@ -87,8 +97,8 @@ public class FollowController {
 	  public String reviewEdit(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  System.out.println("reviewEdit 접속");
 		  
-		  int reviewId = Integer.parseInt(request.getParameter("userid"));
-		  reviewDto.setId(reviewId);
+		  String reviewId = request.getParameter("userid");
+		  reviewDto.setUserid(reviewId);
 		  
 		  model.addAttribute("id", reviewId);
 		  
@@ -98,8 +108,19 @@ public class FollowController {
 	  @PostMapping("reviewEditok")
 	  public String reviewEditok(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  
+		  System.out.println("reviewEditok 접속");
 		  
-		  return "review";
+		  reviewDto.setUserid((request.getParameter("userid")));
+		  reviewDto.setNickname(request.getParameter("nickname"));
+		  reviewDto.setTitle(request.getParameter("title"));
+		  reviewDto.setDetail(request.getParameter("detail"));
+		  reviewDto.setHashtag(request.getParameter("hashtag"));
+		  System.out.println(reviewDto.getNickname() + " set 완료");
+		  
+		  serviceR.insertReview(reviewDto);
+		  model.addAttribute("reviews", reviewDto);
+		  
+		  return "redirect:review";
 	  }
 	  
 	  @RequestMapping(value= "/reviewDetail", method = RequestMethod.GET)

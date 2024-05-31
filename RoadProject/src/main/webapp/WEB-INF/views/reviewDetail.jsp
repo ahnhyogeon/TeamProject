@@ -68,7 +68,7 @@
     </div>
 
 	<a href="review">리뷰 페이지</a> | 
-	<a href="reviewEdit">리뷰 작성 페이지</a>
+	<a href="reviewEdit?userid=4">리뷰 작성 페이지</a>
 	
   </div>
 </section>
