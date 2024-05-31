@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="reviewMapper"> 
+		
+	<select id="reviewSelectList" resultType="reviewDto">
+		SELECT * FROM review
+	</select>
+	
+	<select id="reviewDetail" resultType="reviewDto">
+		SELECT * FROM review where id = #{id}
+	</select>
+	
+	<insert id="insertReview" parameterType="reviewDto">
+		INSERT INTO review(userid, nickname, title, detail, hashtag) VALUES(#{userid}, #{nickname}, #{title}, #{detail}, #{hashtag})
+	</insert>
+	
+	<update id="ratingReview" parameterType="reviewDto">
+		UPDATE review SET rating = rating + 1 WHERE id = #{id}
+	</update>
+	
+	
+	
+ </mapper>
+
+

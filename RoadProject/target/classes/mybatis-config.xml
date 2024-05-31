@@ -8,5 +8,6 @@
 		 <typeAlias type="com.pk.dto.MenuDto" alias="menuDto" />
 		 <typeAlias type="com.pk.dto.RestUploadFileDto" alias="ruploadDto" />
 		 <typeAlias type="com.pk.dto.MenuUploadFileDto" alias="muploadDto" />
+		 <typeAlias type="com.pk.dto.ReviewDto" alias="reviewDto" />
 	</typeAliases>
 </configuration>

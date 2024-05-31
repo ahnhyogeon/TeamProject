@@ -12,3 +12,6 @@ body{
 .listbox i{
 	font-size: 25px;
 }
+.no-line{
+	border: none;
+}
