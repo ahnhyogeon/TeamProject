@@ -33,12 +33,12 @@
             <form action="myPage.html">
                 <div class="edit_id edit_div">
                     <label class="edit_id_title">아이디</label>
-                    <input type="text" class="edit_id_input" value="uesr1234" disabled>
+                    <input type="text" class="edit_id_input" value="<%=session.getAttribute("userid") %>" disabled>
                 </div>
                 <div class="edit_nick edit_div">
                     <label class="edit_nick_title">닉네임<span>*</span></label>
                     <div>
-                        <input type="text" class="edit_nick_input" value="{닉네임}">
+                        <input type="text" class="edit_nick_input" value="<%=session.getAttribute("nickname") %>">
                         <button class="edit_nick_btn btn btn-danger">중복확인</button>
                     </div>
                 </div>

@@ -11,7 +11,7 @@
   
    <script>
    $(function(){
-	   $("#r_intro").summernote({
+	   $("#m_intro").summernote({
 	       placeholder: "내용을 입력하세요.",
 	       tabsize: 2,
 	       height:300,
@@ -32,14 +32,14 @@
 	      data.append("file", file);
 	      data.append("imnum", imnum);
 	      $.ajax({
-	         url: "upload",
+	         url: "mupload",
 	         type: "post",
 	         data: data,
 	         contentType: false,
 	         processData: false,
 	         success: function( data ) {
 	            const dt = JSON.parse(data);
-	            $("#r_intro").summernote("insertImage", dt.url);
+	            $("#m_intro").summernote("insertImage", dt.url);
 	           // $("#imnum").val(data.imnum);
 	         },
 	         error: function(jqXHR, textStatus, errorThrown){
@@ -77,37 +77,30 @@
 	});
    </script> 
        <div class="container">
-              <h2 class="text-center mt-4 mb-5 pb-4">가게등록</h2>
+              <h2 class="text-center mt-4 mb-5 pb-4">메뉴등록</h2>
               <form name="writeform" id="writeform" class="writeform row" method="post">
                   <!-- 게스트일때 적용 -->
               
                      <div class="col-9 row form-group">
-                        <label class="form-label">가게명</label>
-                        <input type="text" name="r_name" id="r_name" class="form-control" placeholder="이름" />
+                        <label class="form-label">메뉴명</label>
+                        <input type="text" name="m_name" id="m_name" class="form-control" placeholder="메뉴명" />
              	      </div>
              	      
                      <div class="col-9 row form-group">
-                        <label class="form-label">가게주소1</label>
-                        <input type="text" name="r_addr1" id="r_addr1" class="form-control" placeholder="비밀번호" />
+                        <label class="form-label">가격</label>
+                        <input type="text" name="m_cost" id="m_cost" class="form-control" placeholder="가격" />
                      </div>
                  
+                       
                   <div class="col-9 row form-group">
-                     <label class="form-label">가게주소2</label>
-                     <input type="text" name="r_addr2" id="r_addr2" class="form-control" placeholder="제목" />
+                     <label class="form-label">메뉴코드</label>
+                     <input type="text" name="m_code" id="m_code" class="form-control" placeholder="메뉴코드" />
                   </div>
                   
-                  <div class="col-9 row form-group">
-                     <label class="form-label">가게번호</label>
-                     <input type="text" name="r_tel" id="r_tel" class="form-control" placeholder="제목" />
-                  </div>
-                  
-                  <div class="col-9 row form-group">
-                     <label class="form-label">가게 도메인</label>
-                     <input type="text" name="r_url" id="r_url" class="form-control" placeholder="제목" />
-                  </div>
-                  
+                     
                   <div class="col-12">
-                     <textarea name="r_intro" id="r_intro" class="form-control"></textarea>
+                  <label class="form-label">메뉴소개</label>
+                     <textarea name="m_intro" id="m_intro" class="form-control"></textarea>
                   </div>
                   <!-- /게스트일때 적용-->
                   <div class="col-12 text-center my-5">

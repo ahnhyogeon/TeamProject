@@ -19,12 +19,13 @@
                 </div>
                 <table class="table table-hover">
                     <colgroup>
-                       <col width="16%">
-                       <col width="16%">
-                       <col width="16%">
-                       <col width="16%">
-                       <col width="16%">
-                       <col width="16%">            
+                       <col width="14%">
+                       <col width="14%">
+                       <col width="14%">
+                       <col width="14%">
+                       <col width="14%">
+                       <col width="14%">       
+                       <col width="14%">           
                     </colgroup>
                     <thead>
                         <tr>
@@ -34,6 +35,7 @@
                             <th>가격</th>
                             <th>소개글</th>
                             <th>메뉴코드</th>
+                            <th>삭제</th>
                                
                         </tr>
                     </thead>
@@ -47,7 +49,7 @@
                            <td class="text-center">${m_list.m_cost }</td>
                            <td class="text-center">${m_list.m_intro }</td>
                            <td class="text-center">${m_list.m_code }</td>  
-                                      
+                             <td class="text-center"><a href="#" data-id="${m_list.id }" data-business="${m_list.business}" id="mDelete" class="btn btn-danger">삭제</a></td>                          
                        </tr>
                        </c:forEach> 
                        <!-- /loop -->
@@ -59,29 +61,29 @@
                     
                     <ul class="paging">
                         <li>
-                            <a href="?business=${param.business }&cpg=1"><i class="ri-arrow-left-double-line"></i></a>
+                            <a href="?cpg=1"><i class="ri-arrow-left-double-line"></i></a>
                         </li>
                         <li>
-                            <a href="?business=${param.business }&cpg=${pg.startPage-1 > 0? pg.startPage-1:pg.startPage }"><i class="ri-arrow-left-s-line"></i></a>
+                            <a href="?cpg=${pg.startPage-1 > 0? pg.startPage-1:pg.startPage }"><i class="ri-arrow-left-s-line"></i></a>
                         </li>
                         <c:forEach begin="${pg.startPage }" end="${pg.endPage }" var="i">
                         <li>                       
-                           <a href="?business=${param.business }&cpg=${i }" class="${cpg==i?'active':'' }">${i}</a>
+                           <a href="?cpg=${i }" class="${cpg==i?'active':'' }">${i}</a>
                         </li>
                         </c:forEach>
                         
                         <li>
-                            <a href="?business=${param.business }&cpg=${pg.endPage + 1 > pg.totalPages? pg.totalPages : pg.endPage + 1 }"><i class="ri-arrow-right-s-line"></i></a>
+                            <a href="?cpg=${pg.endPage + 1 > pg.totalPages? pg.totalPages : pg.endPage + 1 }"><i class="ri-arrow-right-s-line"></i></a>
                         </li>
                         
                         <li>
-                            <a href="?business=${param.business }&cpg=${pg.totalPages }"><i class="ri-arrow-right-double-line"></i></a>
+                            <a href="?cpg=${pg.totalPages }"><i class="ri-arrow-right-double-line"></i></a>
                         </li>
                     </ul>
                     
                 
                </div>
-                 <form name="searchform" id="searchform" class="searchform" method="get">
+                <form name="searchform" id="searchform" class="searchform" method="get">
                    <div class="input-group my-3">
                         <div class="input-group-prepend">
                             <button type="button" 
@@ -97,7 +99,6 @@
                         </div>
                        <input type="hidden" name="searchname" id="searchname" value="m_name" />
                        <input type="search" name="searchvalue" class="form-control" placeholder="검색">
-                        <input type="hidden" name="business" class="form-control" value=${param.business }>
                        <div class="input-group-append">
                           <button class="btn btn-primary"><i class="ri-search-line"></i></button>
                        </div>

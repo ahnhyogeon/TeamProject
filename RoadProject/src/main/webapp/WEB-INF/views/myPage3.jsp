@@ -26,7 +26,7 @@
                         상위 10% 리뷰어
                     </div>
                     <div class="profile_name">
-                        <span>{닉네임}</span><img id="edit_gear" src="resources/images/icons _ emoji/Gear.png" alt="Gear">
+                        <span><%=session.getAttribute("nickname") %></span><img id="edit_gear" src="resources/images/icons _ emoji/Gear.png" alt="Gear">
                     </div>
                     <div class="profile_count">
                         <div>

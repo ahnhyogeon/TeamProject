@@ -9,6 +9,13 @@
     border-radius: 8px;
     border: 1px solid var(--mono-color-ccc, #CCC);
 }
+#loginForm{
+	display:flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
 .inpform{
     display: flex;
     flex-direction: column;

@@ -12,21 +12,21 @@
 <div id="container">
         <p>통합 로그인</p>
         <div class="login">
-            <form action="" method="post">
+            <form id="loginForm" action="searchMember" method="post">
                 <div class="inpform">
                 <div class="idBox">
                     <label>아이디</label>
-                    <input type="text" name="id" id="userid" placeholder="아이디">
+                    <input type="text" name="userid" id="userid" placeholder="아이디">
                 </div>
                 <div class="passBox">
                     <label>비밀번호</label>
-                    <input type="password" name="pass" id="userpass" placeholder="비밀번호">
+                    <input type="password" name="password" id="userpass" placeholder="비밀번호">
                 </div>
                 </div>
-            </form>
+            
             <div class="another">
                 <div class="saveidbox">
-                    <input type="radio" name="save" id="saveid">
+                    <input type="checkbox" name="save" id="saveid">
                     <label>아이디 저장하기</label>
                 </div>
                 <span></span>
@@ -37,7 +37,10 @@
                     <li class="pli"><a class="pa" href="#">비밀번호찾기</a></li>
                 </div> 
             </div>
+            
             <button type="submit" class="btn btn-danger">로그인</button>
+            
+            </form>
             <div class="ezloginbox">
             <div class="ezlogin">간편로그인</div>
             <div class="selectlogin">

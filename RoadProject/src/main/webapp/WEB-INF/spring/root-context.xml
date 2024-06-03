@@ -17,7 +17,7 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://39.120.113.50:3306/roaddb?useUnicode=true&amp;characterEncoding=utf-8"/>
-		<property name="username" value="admin2"/>
+		<property name="username" value="admin4"/>
 		<property name="password" value="1234"/>
 	</bean>
 	

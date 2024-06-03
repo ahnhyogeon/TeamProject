@@ -10,6 +10,7 @@
      m_cost,
      m_intro,
      m_code,
+     imnum
   </sql>
 
   
@@ -21,6 +22,7 @@
        #{m_cost},
        #{m_intro},
        #{m_code},
+       #{imnum}
    
      )
   </insert>
@@ -37,9 +39,9 @@
      UPDATE menu 
      SET
         business = #{business},
-        m_name = #{r_name},
-        m_cost = #{r_cost},
-        m_intro = #{r_intro}
+        m_name = #{m_name},
+        m_cost = #{m_cost},
+        m_intro = #{m_intro}
      WHERE
         id=#{id}   
   </update>
@@ -50,47 +52,64 @@
        id=#{selectId}  
   </delete>
   
-  <select id="selectMenuCount" resultType="int">
+  <select id="selectMenuCount" resultType="int" parameterType="hashMap" >
      SELECT
        COUNT(*)
      FROM
        menu
-  </select>
-
-  <select id="menuList" resultType="menuDto" parameterType="hashMap">
-    SELECT * 
-    FROM 
-       menu
-    <!-- 
-    where 1    
-    <if test="searchname != ''">
-       <choose>
-          <when test="searchname == 'title'">
-             and title Like 
-          </when>
-          <when test="searchname == 'writer'">
-             and writer Like
+         WHERE 1 = 1
+    <if test="searchname != '' and searchvalue != null and searchvalue != ''">
+       <choose>    
+          <when test="searchname != '' and searchvalue != null and searchvalue != ''">
+             AND m_name LIKE CONCAT('%', #{searchvalue}, '%')
           </when>
           <otherwise>
-             and content Like
+             AND m_cost LIKE CONCAT('%', #{searchvalue}, '%')
           </otherwise>
        </choose>
-       CONCAT('%', #{searchvalue}, '%')
     </if>
-     -->
-    where business = #{business}      
+    <if test="business != null and business != ''">
+        AND business = #{business}
+    </if>
+
+  </select>
+  
+  
+  <select id="menuList" resultType="menuDto" parameterType="hashMap"> <!-- business값이 있을 때 없을 때로 구분 -->
+       SELECT * 
+    FROM 
+       menu
+    WHERE 1 = 1
+    <if test="searchname != ''">
+       <choose>    
+          <when test="searchname == 'm_name'">
+             AND m_name LIKE CONCAT('%', #{searchvalue}, '%')
+          </when>
+          <otherwise>
+             AND m_cost LIKE CONCAT('%', #{searchvalue}, '%')
+          </otherwise>
+       </choose>
+    </if>
+    <if test="business != null and business != ''">
+        AND business = #{business}
+    </if>
     ORDER BY id DESC
-    LIMIT #{currentPage}, #{listCount}  
+    LIMIT #{currentPage}, #{listCount}
   </select>  
 
-  <select id="selectDetail" resultType="menuDto" parameterType="int">
+
+   
+  <select id="mSelectDetail" resultType="menuDto" parameterType="int">
      SELECT * FROM menu WHERE id= #{selectId}
   </select>
  
   <update id="increaseHit" parameterType="int">
      UPDATE menu SET hit = hit + 1 WHERE id=#{selectId}
   </update>
-
+	
+    <select id="mValidateBusiness" resultType="int" parameterType="hashMap">
+     SELECT count(*) FROM menu WHERE id=#{id} and business=#{business}
+ 	</select>	
 
 
 </mapper>

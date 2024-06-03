@@ -26,7 +26,7 @@ public class RestGetListService implements RestaurantService {
 		int currentPage = (int) map.get("cpg");
 		int postsPerPage = 10; 
 		int pagesPerBlock = 5; 
-		int totalPosts = dao.selectRestCount();
+		int totalPosts = dao.selectRestCount(map);
 		pg.setCurrentPage(currentPage);
 		pg.setPagesPerBlock(pagesPerBlock);
 		pg.setPostsPerPage(postsPerPage);
@@ -35,8 +35,8 @@ public class RestGetListService implements RestaurantService {
 		
         map.put("currentPage", limitCount);
         map.put("listCount", postsPerPage);    
-		
-		List<RestaurantDto> r_list = dao.restList(map);
+        
+		List<RestaurantDto> r_list = dao.restList(map);	
 		model.addAttribute("pg", pg);
 		model.addAttribute("r_list", r_list);
 	}

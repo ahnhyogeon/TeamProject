@@ -27,7 +27,7 @@ public class MenuGetListService implements MenuService {
 		int currentPage = (int) map.get("cpg");
 		int postsPerPage = 10; 
 		int pagesPerBlock = 5; 
-		int totalPosts = dao.selectMenuCount();
+		int totalPosts = dao.selectMenuCount(map);
 		pg.setCurrentPage(currentPage);
 		pg.setPagesPerBlock(pagesPerBlock);
 		pg.setPostsPerPage(postsPerPage);
@@ -36,10 +36,11 @@ public class MenuGetListService implements MenuService {
 		
         map.put("currentPage", limitCount);
         map.put("listCount", postsPerPage);    
-		
+  
+
 		List<MenuDto> m_list = dao.menuList(map);
 		model.addAttribute("pg", pg);
-		model.addAttribute("m_list", m_list);
+	    model.addAttribute("m_list", m_list);
 
 	}
 

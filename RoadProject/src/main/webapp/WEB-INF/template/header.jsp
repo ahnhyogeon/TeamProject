@@ -25,6 +25,46 @@
             <div id="line"></div>
             <div><img src="resources/images/icons _ emoji/Spiral Calendar.png" alt="Calendar">언제 이용하시나요?</div>
         </div>
-        <div class="loginBox"><img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="login.html">로그인</a></div>
+        <%
+       		Integer role = (Integer) session.getAttribute("role");
+        
+        	if(role != null){
+        	if(role == 1){
+        %>
+        	<div class="loginBox">
+        		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="myPage.html">마이페이지</a>
+        		<div id="line"></div>
+        		<a href="logout">로그아웃</a>	
+        	</div>
+        <%
+        			
+        	}
+        	else if(role == 2){
+        %>
+        	<div class="loginBox">
+        		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="myPage.html">마이페이지</a>
+        		<div id="line"></div>
+        		<a href="logout">로그아웃</a>
+        	</div>		
+        <%
+        	}
+        	else if(role == 99){
+        %>
+        	<div class="loginBox">
+        		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="#">관리페이지</a>	
+        		<div id="line"></div>
+        		<a href="logout">로그아웃</a>
+        	</div>		
+        <%
+        	}
+        	}
+            else{
+        %>
+        	<div class="loginBox">
+        		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="login.html">로그인</a>
+        	</div>
+        <%
+            }
+        %>
     </div>
 </div>

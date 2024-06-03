@@ -12,7 +12,7 @@
 	</select>
 	
 	<insert id="insertReview" parameterType="reviewDto">
-		INSERT INTO review(userid, nickname, title, detail, hashtag) VALUES(#{userid}, #{nickname}, #{title}, #{datail}, #{hashtag})
+		INSERT INTO review(userid, nickname, title, detail, hashtag) VALUES(#{userid}, #{nickname}, #{title}, #{detail}, #{hashtag})
 	</insert>
 	
 	<update id="ratingReview" parameterType="reviewDto">

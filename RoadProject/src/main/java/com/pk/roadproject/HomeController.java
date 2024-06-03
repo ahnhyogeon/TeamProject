@@ -381,7 +381,7 @@ public class HomeController {
 			        System.out.println("로그인에 실패했습니다.");
 			    }
 
-			    ModelAndView modelAndView = new ModelAndView("redirect:/detail");
+			    ModelAndView modelAndView = new ModelAndView("redirect:/index");
 			    return modelAndView;
 			}
 	  //로그아웃
@@ -391,7 +391,7 @@ public class HomeController {
 		  session.invalidate();
 		  System.out.println("로그아웃 완료");
 		  
-		  ModelAndView modelAndView = new ModelAndView("redirect:/detail");
+		  ModelAndView modelAndView = new ModelAndView("redirect:/index");
 		  return modelAndView;
 	  }
 	  

@@ -22,20 +22,24 @@
 <section id="section" class="bg-white pb-3">
   <div class="listbox">
   
-  	<form action="reviewfrom" >
+  	<form action="reviewEditok" method="post" class="mb-3">
 		<div class="form-group">
-			<p>임시 설정 : userid(4) / 이름(홍길동)</p>
+			<p>임시 설정 : userid(4)(아직 미구현ㅜ) / 이름(홍길동)</p>
 			<p>아직 작업중</p>
 			<label for="comment">제목 : </label>
-			<input type="text" name="title" id="title" class="form-control mb-3">
+				<input type="text" name="title" id="title" class="form-control mb-3">
 			<label for="comment">리뷰 작성 : </label>
-			<textarea class="form-control mb-3" rows="7" id="comment" name="comment"></textarea>
+				<textarea class="form-control mb-3" rows="7" id="detail" name="detail"></textarea>
 			<label for="comment">해시태그 : </label>
-			<textarea class="form-control" rows="1" id="hashtag" name="hashtag"></textarea>
-			<input type="hidden" name="nickname" id="nickname" value="홍길동">
+				<textarea class="form-control" rows="1" id="hashtag" name="hashtag"></textarea>
+				<input type="hidden" name="nickname" id="nickname" value="홍길동">
+				<input type="hidden" name="userid" id="userid" value="${userid }">
 		</div>
+		<a href="javascript:history.back();" class="btn btn-danger">뒤로</a>
 		<button type="submit" class="btn btn-primary">저장</button>
 	</form>
+	
+	<a href="review">리뷰 페이지</a>
 	
   </div>
 </section>
