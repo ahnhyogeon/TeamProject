@@ -77,6 +77,72 @@ const autoHyphen = (target) => {
       }
    });
    
+   //메뉴 삭제
+   $("#mDelete").click(function(e){
+      e.preventDefault();
+      var id = $(this).data("id");
+      var result = "";
+      const business = prompt("삭제를 위한 번호를 입력하세요.");
+      /** 직접 폼으로 만들어서 전달 하는 방법 **/
+      if(business) {
+         //삭제를 위해서는 서버에 business 와 id 를 전달해 주어야 한다.
+         /*
+         var form = $('<form>', {
+            'method' : 'post' ,
+            'action' : 'mDel'
+         }).append(
+           $('<input>', {
+              'name' : 'business',
+              'value' : business,
+              'type' : 'hidden'    
+           })).append(
+           $('<input>', {
+              'name' : 'id',
+              'value' : id,
+              'type' : 'hidden'    
+           }));
+          $(document.body).append(form);
+          form.submit();
+          */
+          $.ajax({
+             url: 'mDel',
+             type: 'post',
+             data: { id: id, business: business },
+             dataType: 'json',
+             async: false,   //비동기 처리
+             success: function(res){
+                console.log(res);
+                result = res;
+                const rs = Number(res);
+                if(rs){
+                	alert("삭제 성공");
+                	location.href="AllMenu";
+                }
+                else{
+                	alert("비밀번호가 틀렸습니다.");
+                }
+             },
+                error: function (request, status, error) {
+		        console.log("code: " + request.status)
+		        console.log("message: " + request.responseText)
+		        console.log("error: " + error);
+		        return result;
+         }     
+          });
+          
+      }
+   });
+   
+   
+    //검색
+   $('.dropdown-menu>a.dropdown-item').click(function(e){
+      e.preventDefault();
+      let $val = $(this).attr("href");
+      let $txt = $(this).text();
+      $('.dropdown-toggle').text($txt);
+      $('.dropdown-toggle').val($val);
+      $('#searchname').val($val);
+   });
    
  });
 

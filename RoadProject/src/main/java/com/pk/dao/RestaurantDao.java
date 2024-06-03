@@ -34,9 +34,9 @@ public class RestaurantDao implements RestaurantMapper {
 	}
 
 	@Override
-	public int selectRestCount() {
+	public int selectRestCount(Map<String, Object> params) {
 		
-		return session.selectOne("selectRestCount");
+		return session.selectOne("selectRestCount", params);
 	}
 
 	@Override

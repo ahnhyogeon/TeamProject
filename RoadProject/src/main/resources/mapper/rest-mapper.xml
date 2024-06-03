@@ -56,34 +56,53 @@
        id=#{selectId}  
   </delete>
   
-  <select id="selectRestCount" resultType="int">
+  <select id="selectRestCount" resultType="int" parameterType="hashMap">
      SELECT
        COUNT(*)
      FROM
-       restaurant 
+       restaurant
+       where 1    
+    <if test="searchname != ''">
+       <choose>
+       <!-- 
+          <when test="searchname == 'follow'">
+             and follow Like 
+          </when>
+           -->
+          <when test="searchname == 'r_name'">
+             and r_name Like
+          </when>
+          <otherwise>
+             and r_addr2 Like
+          </otherwise>
+       </choose>
+       CONCAT('%', #{searchvalue}, '%')
+    </if>   
   </select>
 
   <select id="restList" resultType="restDto" parameterType="hashMap">
     SELECT * 
     FROM 
        restaurant
-    <!-- 
+
     where 1    
     <if test="searchname != ''">
        <choose>
-          <when test="searchname == 'title'">
-             and title Like 
+       <!-- 
+          <when test="searchname == 'follow'">
+             and follow Like 
           </when>
-          <when test="searchname == 'writer'">
-             and writer Like
+           -->
+          <when test="searchname == 'r_name'">
+             and r_name Like
           </when>
           <otherwise>
-             and content Like
+             and r_addr2 Like
           </otherwise>
        </choose>
        CONCAT('%', #{searchvalue}, '%')
     </if>  
-     -->    
+    
     ORDER BY id DESC 
     LIMIT #{currentPage}, #{listCount}  
   </select>  

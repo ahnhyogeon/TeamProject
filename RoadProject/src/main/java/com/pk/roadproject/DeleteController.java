@@ -89,7 +89,7 @@ public class DeleteController {
 			
 	}
 	
-	@PostMapping("/mdel")
+	@PostMapping("/mDel")
 	@ResponseBody   //xml, json타입을 받을 때는 reponsebody
 	public String mdelok(@RequestParam("id") int id, @RequestParam("business") int business) { //여기 id는 r_list id
 			//int mbusiness = Integer.parseInt(business);

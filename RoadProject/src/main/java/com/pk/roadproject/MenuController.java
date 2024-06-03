@@ -62,6 +62,7 @@ public class MenuController {
 			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,
 			Model model) {
 		System.out.println("menu() 실행됨");
+		System.out.println(business);
 		//int mbusiness = Integer.parseInt(business);
 		model.addAttribute("business", business);
         model.addAttribute("cpg" , cpg);
@@ -71,6 +72,23 @@ public class MenuController {
         MenuTrashFileDel.menuDelCom();
         
 		return "menu";
+	}
+	
+	@RequestMapping("/AllMenu")
+	public String alllist(
+			@RequestParam(value="cpg", defaultValue="1") int cpg, 
+			@RequestParam(value="searchname", defaultValue="") String searchname,
+			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,
+			Model model) {
+		System.out.println("Allmenu() 실행됨");
+		//int mbusiness = Integer.parseInt(business);
+        model.addAttribute("cpg" , cpg);
+        model.addAttribute("searchname", searchname);
+        model.addAttribute("searchvalue", searchvalue);
+        getList.excute(model);
+        MenuTrashFileDel.menuDelCom();
+      
+		return "AllMenu";
 	}
 	
 	@GetMapping("/mRegister")
