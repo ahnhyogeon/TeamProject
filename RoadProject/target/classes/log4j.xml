@@ -31,7 +31,14 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
-
+    
+    <logger name="com.pk.dao.RestaurantMapper">
+       <level value="debug" />
+    </logger> 
+    <logger name="com.pk.dao.MenuMapper">
+       <level value="debug" />
+    </logger> 
+     
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />

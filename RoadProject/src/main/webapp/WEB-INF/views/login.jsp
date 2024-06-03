@@ -12,7 +12,7 @@
 <div id="container">
         <p>통합 로그인</p>
         <div class="login">
-            <form action="#" method="post">
+            <form action="" method="post">
                 <div class="inpform">
                 <div class="idBox">
                     <label>아이디</label>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.pk.dao.RestUploadMapper">
+
+     <insert id="rInsertFile" parameterType="ruploadDto">
+        INSERT INTO rest_img
+           (rest_id, ofilename, nfilename, ext, filesize, imnum)
+        VALUES
+           (#{rest_id}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum})
+     </insert>
+     
+     <delete id="rDeleteFileById" parameterType="int">
+        DELETE FROM rest_img WHERE id=#{selectId}
+     </delete>  
+     
+     <delete id="rDeleteFileByRestId" parameterType="int">
+        DELETE FROM rest_img WHERE rest_id=#{restId}
+     </delete>
+     
+     <delete id="rDeleteTrashFile">
+        DELETE FROM rest_img WHERE rest_id=0
+     </delete>
+     
+     <update id="rUpdateFile" parameterType="hashMap">
+        UPDATE rest_img SET rest_id=#{rest_id} WHERE imnum = #{imnum}
+     </update>
+        
+     <select id="rSelectFileById" resultType="ruploadDto" parameterType="int">
+        SELECT * FROM rest_img WHERE id=#{selectId}
+     </select>
+     
+     <select id="rSelectFileByRestId" resultType="ruploadDto" parameterType="int">
+        SELECT * FROM rest_img WHERE rest_id=#{restId}
+     </select>
+     
+ </mapper> 

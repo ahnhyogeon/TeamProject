@@ -14,20 +14,18 @@ public class FollowServiceImp implements FollowService {
 	private FollowDao dao;
 	
 	@Override
-	public void follow(FollowDto follow) throws Exception {
-		dao.follow(follow);
+	public void insertFollow(FollowDto follow) throws Exception {
+		dao.insertFollow(follow);
 	}
 
 	@Override
-	public void unfollow(FollowDto follow) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void unFollow(FollowDto follow) throws Exception {
+		dao.unFollow(follow);
 	}
 
 	@Override
 	public int isFollow(FollowDto follow) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.isFollow(follow);
 	}
 
 }

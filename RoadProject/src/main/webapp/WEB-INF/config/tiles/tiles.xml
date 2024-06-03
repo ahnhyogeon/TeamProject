@@ -3,6 +3,7 @@
 
 <tiles-definitions>
    <definition name="layout" template="/WEB-INF/template/layout.jsp">
+  	 <put-attribute name="title" value="맛집협업" />
       <put-attribute name="header" value="/WEB-INF/template/header.jsp"/>
       <put-attribute name="content" value=""/>
       <put-attribute name="footer" value="/WEB-INF/template/footer.jsp"/>

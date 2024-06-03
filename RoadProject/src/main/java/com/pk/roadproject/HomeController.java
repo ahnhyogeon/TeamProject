@@ -34,11 +34,7 @@ public class HomeController {
 	@Inject
 	private MemberService service;
 	
-	@Inject
-	private FollowService serviceF;
-	
 	MemberDto memberDto = new MemberDto();
-	FollowDto followDto = new FollowDto();
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -116,10 +112,105 @@ public class HomeController {
 	    }
 	  
 	  @RequestMapping(value = "/joinFine", method = {RequestMethod.GET, RequestMethod.POST})
-	    public String joinFine(Locale locale, Model model) {
-	        logger.info("joinFine 접속");
+	  public ModelAndView joinFine(
+	            @RequestParam String nickname,
+	            @RequestParam String userid,
+	            @RequestParam String pass1,
+	            @RequestParam String pass2,
+	            @RequestParam String addr1,
+	            @RequestParam String addr2,
+	            @RequestParam(required = false) String tel,
+	            @RequestParam(required = false) String role,
+	            @RequestParam(required = false) String buisness) throws Exception {
+		  logger.info("joinFine 접속");
+		  
+		  ModelAndView mav = new ModelAndView();
+		  int role2 = 0;
+		  String password = null;
+		  System.out.println(role);
+		  System.out.println(userid);
+		  System.out.println(nickname);
+		  System.out.println(pass1);
+		  System.out.println(pass2);
+		  System.out.println(addr1);
+		  System.out.println(addr2);
+		  
+		  if(role == null) {
+			  role2 = 1;
+		  }
+		  else {
+			  role2 = Integer.parseInt(role);
+		  }
 	        
-	        return "joinFine.tiles";
+		  if(role2 == 1) {
+			  if(pass1.equals(pass2)) {
+				  System.out.println("??");
+				  password = pass1;
+				  
+				  memberDto.setNickname(nickname);
+				  memberDto.setUserid(userid);
+				  memberDto.setPassword(password);
+				  memberDto.setAddr1(addr1);
+				  memberDto.setAddr2(addr2);
+				  memberDto.setRole(role2);
+				  
+				  service.insertDB(memberDto);
+				  
+			      mav.setViewName("joinFine.tiles");
+			  }
+			  else {
+				  
+				  	mav.setViewName("join.tiles"); // 여기서 ModelAndView 객체를 생성하고 뷰 이름을 설정합니다.
+				    mav.addObject("alert", "비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
+				    mav.addObject("nickname", nickname);
+				    mav.addObject("userid", userid);
+				    mav.addObject("addr1", addr1);
+				    mav.addObject("addr2", addr2);
+				    mav.addObject("role", role2);
+				    
+				    return mav;
+				  
+			  }
+	        
+
+	        
+		  }
+		  else if(role2 == 2) {
+			  
+			  if(pass1.equals(pass2)) {
+				  System.out.println("??");
+				  password = pass1;
+				  
+				  memberDto.setNickname(nickname);
+			      memberDto.setUserid(userid);
+			      memberDto.setPassword(password);
+			      memberDto.setTel(tel);
+			      memberDto.setAddr1(addr1);
+			      memberDto.setAddr2(addr2);
+			      memberDto.setRole(role2);
+			      memberDto.setBuisness(buisness);
+				  
+				  service.insertDB(memberDto);
+				  
+			      mav.setViewName("joinFine.tiles");
+			  }
+			  else {
+				  
+				  	mav.setViewName("join2.tiles"); // 여기서 ModelAndView 객체를 생성하고 뷰 이름을 설정합니다.
+				    mav.addObject("alert", "비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
+				    mav.addObject("nickname", nickname);
+				    mav.addObject("userid", userid);
+				    mav.addObject("tel", tel);
+				    mav.addObject("addr1", addr1);
+				    mav.addObject("addr2", addr2);
+				    mav.addObject("role", role2);
+				    
+				    return mav;
+				  
+			  }
+		  }
+		      
+	      return mav;
 	    }
 	  
 	  @RequestMapping(value = "/joinedit", method = {RequestMethod.GET, RequestMethod.POST})
@@ -190,25 +281,6 @@ public class HomeController {
 		  System.out.println("map 접속");
 		  
 		  return "map.tiles";
-	  }
-	  @RequestMapping(value = "/review", method = RequestMethod.GET)
-	  public String review(Locale locale, Model model) throws Exception {
-		  System.out.println("review 접속");
-		 
-		  FollowDto follow = new FollowDto();
-		  
-		  	System.out.println("follow() set 시작");
-		  
-			follow.setA_uname("테스트1");
-			follow.setP_uname("테스트2");
-			follow.setA_uid(2);
-			follow.setP_uid(3);
-			
-			System.out.println("follow() set 완료");
-			
-			serviceF.follow(follow);
-		  
-		  return "review.tiles";
 	  }
 	  
 	  //회원가입
@@ -329,15 +401,4 @@ public class HomeController {
 		  
 		  return "recommend.tiles";
 	  }
-	  
-	  @RequestMapping(value = "/recommend2", method = {RequestMethod.GET, RequestMethod.POST})
-	  public String recommend2(@RequestParam(required = false) String keyword, Locale locale, Model model) {
-		  System.out.println("recommend2 접속");
-		  
-		  model.addAttribute("keyword", keyword);
-		  
-		  return "recommend2.tiles";
-	  }
-
-	
 }

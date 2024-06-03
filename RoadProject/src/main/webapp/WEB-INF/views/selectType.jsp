@@ -11,6 +11,7 @@
 <script src="resources/js/script.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <div id="container">
+
         <div class="step">
         <p>회원가입</p>
             <div class="step-indicator">
@@ -19,6 +20,7 @@
                 <div class="step-item">가입 완료</div>
             </div>
         </div>
+        	<form id="joinForm" method="post"> 
             <div class="typeSelect">
                 <button id="common" class="btn">
                     <img src="resources/images/icons _ emoji/Winking Face.png" alt="winking face">
@@ -31,11 +33,12 @@
                     <p>사업자 인증을 진행합니다.</p>
                 </button>
             </div>
+           	<div class="checkBox">
             <div class="okBox">
-                <input type="checkbox">
+                <input type="checkbox" id="checkAll">
                 <label>전체 동의 합니다.</label>
             </div>
-                <div class="checkform">
+                <div class="checkform" >
                     <input type="checkbox" class="check">
                     <label><span>[필수]</span> 회원 약관 동의</label>
                     <div class="showdetail">
@@ -56,7 +59,9 @@
                         <a href="#">[전문 보기]</a>
                     </div>
                 </div>
+                </div>
             <div id="secondaryBox">
                 <button type="submit" id="nextbtn" class="btn btn-secondary">다음으로</button>
             </div>
+         </form>
     </div>

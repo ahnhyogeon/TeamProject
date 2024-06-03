@@ -44,7 +44,7 @@ body {
     font-style: normal;
     font-weight: 600;
     line-height: 31px; /* 129.167% */
-    letter-spacing: -0.096px;
+    letter-spacing: -0.096px !important;
 }
 .logoBox>a{
     width: 105px;
@@ -163,10 +163,10 @@ letter-spacing: -0.072px;
     display: flex;
     align-items: flex-start;
 }
-#nextbtn, 
-#join_nextbtn,
-#login_btn{
+#nextbtn, #join_nextbtn,
+#join2_nextbtn, #login_btn{
     width: 100% !important;
+    height : 52px !important;
 }
 .footer{
     width: 100%;

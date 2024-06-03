@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pk.dao.RestaurantMapper">
+
+  <sql id="restColumn">
+  	 business,
+     r_name,
+     r_code,
+     r_addr1,
+     r_addr2,
+     r_tel,
+     r_url,
+     imnum,
+     r_intro
+  </sql>
+
+  
+  <insert id="restInsert" parameterType="restDto" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO restaurant(<include refid="restColumn"/>) values (
+   	   1,
+       #{r_name},
+       1,
+       #{r_addr1},
+       #{r_addr2},
+       #{r_tel},
+       #{r_url},
+       #{imnum},
+       #{r_intro}
+     )
+  </insert>
+
+  <update id="updateRefId" parameterType="int">
+     UPDATE restaurant SET refid = #{id} WHERE id=#{id}
+  </update>
+  <!-- 
+  <update id="updateRenum" parameterType="hashMap">
+     UPDATE restaurant SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
+  </update>
+ -->
+  <update id="restUpdate" parameterType="restDto">
+     UPDATE restaurant 
+     SET
+        business = #{business},
+        r_name = #{r_name},
+        r_url = #{r_url},
+        r_intro = #{r_intro}
+     WHERE
+        id=#{id}   
+  </update>
+  
+  <delete id="restDelete" parameterType="int">
+     DELETE FROM restaurant
+     WHERE
+       id=#{selectId}  
+  </delete>
+  
+  <select id="selectRestCount" resultType="int">
+     SELECT
+       COUNT(*)
+     FROM
+       restaurant 
+  </select>
+
+  <select id="restList" resultType="restDto" parameterType="hashMap">
+    SELECT * 
+    FROM 
+       restaurant
+    <!-- 
+    where 1    
+    <if test="searchname != ''">
+       <choose>
+          <when test="searchname == 'title'">
+             and title Like 
+          </when>
+          <when test="searchname == 'writer'">
+             and writer Like
+          </when>
+          <otherwise>
+             and content Like
+          </otherwise>
+       </choose>
+       CONCAT('%', #{searchvalue}, '%')
+    </if>  
+     -->    
+    ORDER BY id DESC 
+    LIMIT #{currentPage}, #{listCount}  
+  </select>  
+
+  <select id="selectDetail" resultType="restDto" parameterType="int">
+     SELECT * FROM restaurant WHERE id= #{selectId}
+  </select>
+ 
+  <update id="increaseHit" parameterType="int">
+     UPDATE restaurant SET hit = hit + 1 WHERE id=#{selectId}
+  </update>
+  
+  <select id="validateBusiness" resultType="int" parameterType="hashMap">
+     SELECT count(*) FROM restaurant WHERE id=#{id} and business=#{business}
+  </select>
+
+
+</mapper>

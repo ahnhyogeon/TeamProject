@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pk.dao.MenuMapper">
+
+  <sql id="menuColumn">
+     business,
+     m_name,
+     m_cost,
+     m_intro,
+     m_code,
+  </sql>
+
+  
+  <insert id="menuInsert" parameterType="menuDto" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO menu(<include refid="menuColumn"/>) values (
+     
+       #{business},
+       #{m_name},
+       #{m_cost},
+       #{m_intro},
+       #{m_code},
+   
+     )
+  </insert>
+
+  <update id="updateRefId" parameterType="int">
+     UPDATE menu SET refid = #{id} WHERE id=#{id}
+  </update>
+
+  <update id="updateRenum" parameterType="hashMap">
+     UPDATE menu SET renum = renum + 1 WHERE renum >= #{renum} and refid = #{refid}
+  </update>
+
+  <update id="menuUpdate" parameterType="menuDto">
+     UPDATE menu 
+     SET
+        business = #{business},
+        m_name = #{r_name},
+        m_cost = #{r_cost},
+        m_intro = #{r_intro}
+     WHERE
+        id=#{id}   
+  </update>
+  
+  <delete id="menuDelete" parameterType="int">
+     DELETE FROM menu
+     WHERE
+       id=#{selectId}  
+  </delete>
+  
+  <select id="selectMenuCount" resultType="int">
+     SELECT
+       COUNT(*)
+     FROM
+       menu
+  </select>
+
+  <select id="menuList" resultType="menuDto" parameterType="hashMap">
+    SELECT * 
+    FROM 
+       menu
+    <!-- 
+    where 1    
+    <if test="searchname != ''">
+       <choose>
+          <when test="searchname == 'title'">
+             and title Like 
+          </when>
+          <when test="searchname == 'writer'">
+             and writer Like
+          </when>
+          <otherwise>
+             and content Like
+          </otherwise>
+       </choose>
+       CONCAT('%', #{searchvalue}, '%')
+    </if>
+     -->
+    where business = #{business}      
+    ORDER BY id DESC
+    LIMIT #{currentPage}, #{listCount}  
+  </select>  
+
+  <select id="selectDetail" resultType="menuDto" parameterType="int">
+     SELECT * FROM menu WHERE id= #{selectId}
+  </select>
+ 
+  <update id="increaseHit" parameterType="int">
+     UPDATE menu SET hit = hit + 1 WHERE id=#{selectId}
+  </update>
+
+
+
+</mapper>

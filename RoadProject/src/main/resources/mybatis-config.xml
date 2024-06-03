@@ -4,5 +4,9 @@
 	<!--mapper에서 매칭할 parmeter Type 별칭 설정-->
 	<typeAliases>
 		<typeAlias type="com.pk.dto.MemberDto" alias="memberDto"/>
+		 <typeAlias type="com.pk.dto.RestaurantDto" alias="restDto" />
+		 <typeAlias type="com.pk.dto.MenuDto" alias="menuDto" />
+		 <typeAlias type="com.pk.dto.ReviewDto" alias="reviewDto" />
+		 <typeAlias alias="ruploadDto" type="com.pk.dto.RestUploadFileDto"/>
 	</typeAliases>
 </configuration>

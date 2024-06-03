@@ -11,7 +11,7 @@ public class FollowDaoImp implements FollowDao {
 	
 	private SqlSession sqlSession;
 	
-	private static final String Namespace = "mapper";
+	private static final String Namespace = "followMapper";
 	
 	@Autowired
     public FollowDaoImp(SqlSession sqlSession) {
@@ -19,25 +19,29 @@ public class FollowDaoImp implements FollowDao {
     }
 
 	@Override
-	public void follow(FollowDto follow) {
+	public void insertFollow(FollowDto follow) {
 		
 		System.out.println("follow() 시작");
 		
-		sqlSession.insert(Namespace+".follow", follow);
+		sqlSession.insert(Namespace+".insertFollow", follow);
 		
 		System.out.println("follow() 정상 종료");
 	}
 
 	@Override
-	public void unfollow(FollowDto follow) {
-		// TODO Auto-generated method stub
+	public void unFollow(FollowDto follow) {
+		System.out.println("follow() 시작");
+		
+		sqlSession.insert(Namespace+".unFollow", follow);
+		
+		System.out.println("follow() 정상 종료");
 		
 	}
 
 	@Override
 	public int isFollow(FollowDto follow) {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("inFollow() 시작");
+		return sqlSession.selectOne(Namespace+".isFollow", follow);
 	}
 
 }
