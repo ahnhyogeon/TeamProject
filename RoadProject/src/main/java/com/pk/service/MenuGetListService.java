@@ -23,6 +23,7 @@ public class MenuGetListService implements MenuService {
 	
 	@Override
 	public void excute(Model model) {
+		
 		Map<String, Object> map = model.asMap();
 		int currentPage = (int) map.get("cpg");
 		int postsPerPage = 10; 
