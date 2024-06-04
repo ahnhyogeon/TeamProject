@@ -9,12 +9,12 @@
 </head>
 <body>
 <div class="header2">
-        <div class="logoBox2"><img id="logo" src="../resources/images/LOGO.png" alt="logo"></div>
+        <div id="header2_home_btn" class="logoBox2"><img id="logo" src="../resources/images/LOGO.png" alt="logo"></div>
         <div class="rightContent">
             <div class="loginBox2">
             <a>admin</a>	
             <div id="line"></div>
-            <a href="logout">로그아웃</a>
+            <a href="../logout">로그아웃</a>
         </div>
         </div>
 </div>

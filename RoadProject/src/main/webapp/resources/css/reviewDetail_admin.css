@@ -254,3 +254,11 @@ line-height: 116%; /* 16.24px */
 background: var(--main-color-100, #FF4147);
 border: 1px solid var(--main-color-100, #FF4147);
 }
+.rowside_review_content>div>span{
+	color: var(--input-field-icon, #83888F);
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; /* 15.6px */
+text-transform: capitalize;
+}

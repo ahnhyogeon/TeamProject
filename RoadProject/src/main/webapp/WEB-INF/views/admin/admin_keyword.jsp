@@ -5,11 +5,11 @@
     <div class="aside">
         <div class="aside_content">
             <div class="aside_content_main">
-                <div class="aside_content_sub">
+                <div id="admin_review_btn" class="aside_content_sub">
                     <img class="activeIcon"  src="../resources/images/Edit_light.png" alt="edit_light">
                     리뷰 관리
                 </div>
-                <div class="aside_content_sub active3">
+                <div id="admin_keyword_btn" class="aside_content_sub active3">
                     <img class="activeIcon" src="../resources/images/Chat_alt_add_red.png" alt="edit_light">
                     키워드 관리
                 </div>
@@ -20,12 +20,12 @@
                     <img id="toggleIcon" src="../resources/images/Expand_down_light.png" alt="expand_down">
                 </div>
                 <div class="user_management_sub" style="display: none;">
-                    <div class="user_management_sub2">
+                    <div id="admin_user_sub_btn" class="user_management_sub2">
                         <img class="activeIcon"  src="../resources/images/Group_light.png" alt="group">
                         사용자 관리
                     </div>
-                    <div class="user_management_sub2">
-                        <img class="activeIcon"  src="../resources/images/Remove_light.png" alt="remove">
+                    <div id="admin_user_decl_btn" class="user_management_sub2">
+                        <img class="activeIcon"  src="../resources/images/Remove_light.png" alt="remonve">
                         신고 관리
                     </div>
                 </div>
@@ -151,7 +151,8 @@
                 <div class="row_add_button">
                     키워드 등록
                     <img src="../resources/images/add.png" alt="add">
-                </div>
-            </div>
+               </div>
+           </div>
         </div>
-</body>
+	</div>
+</div>

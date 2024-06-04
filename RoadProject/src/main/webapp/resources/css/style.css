@@ -20,6 +20,17 @@ body {
     border-bottom: 1px solid var(--mono-color-e-6-e-6-e-6, #E6E6E6);
     background: var(--mono-color-fff, #FFF);
 }
+
+.header2{
+    display: flex;
+padding: 0px 20px;
+align-items: center;
+flex: 1 0 0;
+align-self: stretch;
+}
+#header2_home_btn:hover{
+	cursor:pointer;
+}
 .toolbar{
     display: flex;
     width: 1440px;
