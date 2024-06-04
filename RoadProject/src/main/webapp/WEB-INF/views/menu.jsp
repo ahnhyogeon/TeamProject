@@ -14,6 +14,7 @@
                     <div>
                         <fmt:formatNumber value="${pg.totalPosts }" groupingUsed="true"/>posts /
                         <fmt:formatNumber value="${pg.totalPages }" groupingUsed="true" />pages
+                        <a href="mRegister?business=${param.business }">메뉴등록</a>
                     </div>            
                 </div>
                 <table class="table table-hover">
@@ -32,7 +33,8 @@
                             <th>메뉴명</th>
                             <th>가격</th>
                             <th>소개글</th>
-                            <th>메뉴코드</th>                  
+                            <th>메뉴코드</th>
+                               
                         </tr>
                     </thead>
                     <tbody>
@@ -40,8 +42,7 @@
                                                                                      
                        <tr>
                            <td class="text-center">${m_list.id }</td>
-                           <td><a href="contents?id=${m_list.id }&cpg=${cpg}">${m_list.business }</a>                        
-                           </td>                           
+                           <td class="text-center">${m_list.business }</td>                           
                            <td class="text-center">${m_list.m_name }</td>
                            <td class="text-center">${m_list.m_cost }</td>
                            <td class="text-center">${m_list.m_intro }</td>
@@ -52,57 +53,56 @@
                        <!-- /loop -->
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-between py-4">
+                <div class="justify-content-between py-4">
                     <div>
                     </div>
                     
                     <ul class="paging">
                         <li>
-                            <a href="?cpg=1"><i class="ri-arrow-left-double-line"></i></a>
+                            <a href="?business=${param.business }&cpg=1"><i class="ri-arrow-left-double-line"></i></a>
                         </li>
                         <li>
-                            <a href="?cpg=${pg.startPage-1 > 0? pg.startPage-1:pg.startPage }"><i class="ri-arrow-left-s-line"></i></a>
+                            <a href="?business=${param.business }&cpg=${pg.startPage-1 > 0? pg.startPage-1:pg.startPage }"><i class="ri-arrow-left-s-line"></i></a>
                         </li>
                         <c:forEach begin="${pg.startPage }" end="${pg.endPage }" var="i">
                         <li>                       
-                           <a href="?cpg=${i }" class="${cpg==i?'active':'' }">${i}</a>
+                           <a href="?business=${param.business }&cpg=${i }" class="${cpg==i?'active':'' }">${i}</a>
                         </li>
                         </c:forEach>
                         
                         <li>
-                            <a href="?cpg=${pg.endPage + 1 > pg.totalPages? pg.totalPages : pg.endPage + 1 }"><i class="ri-arrow-right-s-line"></i></a>
+                            <a href="?business=${param.business }&cpg=${pg.endPage + 1 > pg.totalPages? pg.totalPages : pg.endPage + 1 }"><i class="ri-arrow-right-s-line"></i></a>
                         </li>
                         
                         <li>
-                            <a href="?cpg=${pg.totalPages }"><i class="ri-arrow-right-double-line"></i></a>
+                            <a href="?business=${param.business }&cpg=${pg.totalPages }"><i class="ri-arrow-right-double-line"></i></a>
                         </li>
                     </ul>
                     
                 
                </div>
-               <!-- 
-               <form name="searchform" id="searchform" class="searchform" method="get">
+                 <form name="searchform" id="searchform" class="searchform" method="get">
                    <div class="input-group my-3">
                         <div class="input-group-prepend">
                             <button type="button" 
                                     class="btn btn-outline-secondary dropdown-toggle" 
                                     data-toggle="dropdown"
-                                    value="title">
-                                제목검색
+                                    value="m_name">
+                                메뉴명검색
                               </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="writer">이름검색</a>
-                                <a class="dropdown-item" href="title">제목검색</a>
-                                <a class="dropdown-item" href="content">내용검색</a>
+                                <a class="dropdown-item" href="m_name">메뉴명검색</a>
+                                <a class="dropdown-item" href="m_cost">가격검색</a>
                             </div>
                         </div>
-                       <input type="hidden" name="searchname" id="searchname" value="title" />
+                       <input type="hidden" name="searchname" id="searchname" value="m_name" />
                        <input type="search" name="searchvalue" class="form-control" placeholder="검색">
+                        <input type="hidden" name="business" class="form-control" value=${param.business }>
                        <div class="input-group-append">
                           <button class="btn btn-primary"><i class="ri-search-line"></i></button>
                        </div>
                    </div>
                </form>
-                -->
             </div>
+       
             <!-- /listbox-->

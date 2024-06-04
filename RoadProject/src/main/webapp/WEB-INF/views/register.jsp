@@ -49,17 +49,20 @@
 	      });
 	   }
 	   
-	   
+	   /*
 	   function delData(file) {
 	      const fileUrl = file.src; //delete 될 image 의 url
+	      console.log(fileUrl);
+	      
 	      $.ajax({
 	         url: 'delete',
 	         type: 'post',
 	         data: { "fileUrl" : fileUrl },
+	         
 	         success: function(data) {
-	           if(data ){
+	           if( data ){
 	        	  const dt = JSON.parse(data);
-		          $("#contents").summernote("insertImage", dt.url);
+		          $("#r_intro").summernote("deleteImage", dt.url);
 	             console.log("파일삭제");
 	           }else{
 	             console.log("파일삭제 실패");
@@ -70,7 +73,7 @@
 	         }
 	      });
 	   }
-	   
+	   */
 	});
    </script> 
        <div class="container">
@@ -112,5 +115,6 @@
                      <button class="btn btn-primary px-5 mx-2" type="submit">등록</button>
                   </div>
                   <input type="hidden" name="imnum" id="imnum" value="${imnum }" />
+                  
               </form>
            </div>

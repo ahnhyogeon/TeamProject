@@ -20,10 +20,10 @@ public interface RestaurantMapper {
 		public int restDelete(int selectId);
 		
 		//전체 가게 수
-		public int selectRestCount();
+		public int selectRestCount(Map<String, Object> params);
 		
 		//상세보기
-		public RestaurantDto selectDetail(int selectId);
+		public RestaurantDto rSelectDetail(int selectId);
 		
 		//목록보기
 		public List<RestaurantDto> restList(Map<String, Object> params);

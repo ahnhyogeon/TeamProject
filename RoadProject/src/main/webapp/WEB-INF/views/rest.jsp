@@ -18,16 +18,15 @@
                 </div>
                 <table class="table table-hover">
                     <colgroup>
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -39,7 +38,6 @@
                             <th>상세주소</th>
                             <th>가게번호</th>
                             <th>가게도메인</th>
-                            <th>가게이미지</th>
                             <th>소개글</th>
                         </tr>
                     </thead>
@@ -55,14 +53,13 @@
                            <td class="text-center">${r_list.r_addr2 }</td>  
                            <td class="text-center">${r_list.r_tel }</td>
                            <td class="text-center">${r_list.r_url }</td>
-                           <td class="text-center">${r_list.imnum }</td>
                            <td class="text-center">${r_list.r_intro }</td>                      
                        </tr>
                        </c:forEach> 
                        <!-- /loop -->
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-between py-4">
+                <div class="justify-content-between py-4">
                     <div>
                     </div>
                     
@@ -90,29 +87,29 @@
                     
                
                </div>
-               <!-- 후에 가게 유형별 검색 만들기 위해 남겨둠
+            
                <form name="searchform" id="searchform" class="searchform" method="get">
                    <div class="input-group my-3">
                         <div class="input-group-prepend">
                             <button type="button" 
                                     class="btn btn-outline-secondary dropdown-toggle" 
                                     data-toggle="dropdown"
-                                    value="title">
-                                제목검색
+                                    value="r_name">
+                                가게명검색
                               </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="writer">이름검색</a>
-                                <a class="dropdown-item" href="title">제목검색</a>
-                                <a class="dropdown-item" href="content">내용검색</a>
+                                <a class="dropdown-item" href="follow">팔로우검색</a>
+                                <a class="dropdown-item" href="r_name">가게명검색</a>
+                                <a class="dropdown-item" href="address">주소검색</a>
                             </div>
                         </div>
-                       <input type="hidden" name="searchname" id="searchname" value="title" />
+                       <input type="hidden" name="searchname" id="searchname" value="r_name" />
                        <input type="search" name="searchvalue" class="form-control" placeholder="검색">
                        <div class="input-group-append">
                           <button class="btn btn-primary"><i class="ri-search-line"></i></button>
                        </div>
                    </div>
                </form>
-                -->
+             
             </div>
             <!-- /listbox-->

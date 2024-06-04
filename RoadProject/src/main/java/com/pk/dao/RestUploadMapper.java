@@ -10,7 +10,7 @@ import com.pk.dto.RestUploadFileDto;
 @Mapper
 public interface RestUploadMapper {
 	
-public int rInsertFile(RestUploadFileDto uDto);
+	public int rInsertFile(RestUploadFileDto uDto);
 	
 	public int rDeleteFile(int uploadId);
 	

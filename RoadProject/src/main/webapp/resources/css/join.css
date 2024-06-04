@@ -1,0 +1,326 @@
+.step{
+    display: flex;
+width: 710px;
+flex-direction: column;
+align-items: center;
+gap: 24px;
+}
+.step-indicator {
+    display: flex;
+align-items: center;
+gap: 36px;
+}
+.step-indicator::before {
+    width: 350px;
+    content: "";
+    position: absolute;
+    left: 180px;
+    top: 237.5px;
+    height: 2px;
+    background-color: #ccc;
+    z-index: 0;
+}
+
+.step-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    left: -30px;
+    margin-left: 50px;
+    color: var(--mono-color-bfbfbf, #BFBFBF);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 25px; /* 138.889% */
+    letter-spacing: -0.072px;
+}
+
+.step-item::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.step-item.active {
+    font-weight: 600;
+    color: #ff4147;
+}
+
+.step-item.active::before {
+    background-color: #ff4147;
+}
+.joinBox{
+    width: 70%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.joinsub{
+    padding: 0;
+    margin: 30px;
+    width: 90%;
+    height: auto;
+    text-align: left;
+    border-radius: 5px;
+}
+.textbox{
+    display: flex;
+width: 710px;
+padding: 40px 255px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+background: var(--mono-color-fafafa, #FAFAFA);
+color: var(--mono-color-333, #333);
+font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: 25px; /* 138.889% */
+letter-spacing: -0.072px;
+}
+.textbox>span{
+    width: 200px;
+    height: 25px;
+}
+
+.lineBox{
+    width: 710px;
+    height: 1px;
+    background: #E6E6E6;
+}
+
+/* 일반회원용 */
+
+.joinformBox{
+    width: 710px;
+    display: flex;
+flex-direction: column;
+align-items: center;
+gap: 16px;
+align-self: stretch;
+}
+.joinformBox>form{
+    display: flex;
+flex-direction: column;
+align-items: center;
+gap: 16px;
+align-self: stretch;
+}
+.pictureBox{
+    display: flex;
+    width: 100px;
+    height: 100px;
+    margin-top: 0;
+    margin-left: 255px;
+    margin-right: 255px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 999px;
+border: 1px solid var(--mono-color-ccc, #CCC);
+background: var(--mono-color-fff, #FFF);
+}
+.pictureBox>img{
+    display: flex;
+width: 48px;
+height: 48px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+}
+.inpicture{
+    display: flex;
+width: 32px;
+height: 32px;
+justify-content: center;
+align-items: center;
+position: absolute;
+right: 303px;
+top:610px;
+border-radius: 1000px;
+background: var(--main-color-100, #FF4147);
+}
+.inpicture>img{
+    display: flex;
+width: 20px;
+height: 20px;
+transform: rotate(90deg);
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+}
+
+.formbox{
+    width: 710px;
+    height: 82px;
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+align-self: stretch;
+margin-bottom: 16px;
+}
+.formbox>div,
+.formbox2>div{
+    width: 710px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+}
+.formbox>div>input,
+.formbox2>div>input{
+    width: 570px;
+    height: 52px;
+    display: flex;
+padding: 15px 16px;
+align-items: center;
+gap: 4px;
+flex: 1 0 0;
+border-radius: 8px;
+border: 1px solid var(--mono-color-ccc, #CCC);
+background: var(--mono-color-fff, #FFF);
+}
+.btn{
+    display: flex;
+width: 100px !important;
+height: 52px !important;
+justify-content: center;
+align-items: center;
+}
+.formbox label,
+.formbox2 label{
+    display: flex;
+align-items: flex-start;
+gap: 2px;
+color: var(--mono-color-111, #111);
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+margin-bottom: 0;
+}
+.formbox2{
+    width: 710px;
+    height: 142px;
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+align-self: stretch;
+margin-bottom: 16px;
+}
+.formbox2>input:last-of-type{
+    height: 52px;
+    display: flex;
+    padding: 15px 16px;
+    align-items: center;
+    gap: 4px;
+    flex: 1 0 0;
+    border-radius: 8px;
+border: 1px solid var(--mono-color-ccc, #CCC);
+background: var(--mono-color-fff, #FFF);
+}
+.formbox label span,
+.formbox2 label span{
+    color: var(--main-color-100, #FF4147);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.056px;
+}
+
+/* 사업자용 */
+.textbox2{
+    display: flex;
+    width: 710px;
+    padding: 40px 315px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--mono-color-333, #333);
+font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: 25px; /* 138.889% */
+letter-spacing: -0.072px;
+background: var(--mono-color-fafafa, #FAFAFA);
+}
+.textbox2 span:first-of-type{
+    width: 215px;
+}
+.textbox2 span:last-of-type{
+    width: 341px;
+    color: var(--mono-color-808080, #808080);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.056px;
+}
+/* 회원가입 완료*/
+.joinBox{
+    width: 710px;
+    height: 281px;
+    display: flex;
+padding: 48px 0px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 32px;
+align-self: stretch;
+border-radius: 8px;
+border: 1px solid var(--mono-color-ccc, #CCC);
+}
+.pictureBox2{
+    display: flex;
+width: 100px;
+height: 100px;
+justify-content: center;
+align-items: center;
+border-radius: 999px;
+border: 1px solid var(--mono-color-ccc, #CCC);
+background: var(--mono-color-fff, #FFF);
+}
+.pictureBox2>img{
+    display: flex;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.textBox2{
+    width: 329;
+    height: 53px;
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 8px;
+}
+.textBox2>span:first-of-type{
+    color: var(--mono-color-333, #333);
+font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: 25px; /* 138.889% */
+letter-spacing: -0.072px;
+}
+.textBox2>span:last-of-type{
+    color: var(--mono-color-808080, #808080);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.056px;
+}
