@@ -111,6 +111,34 @@ public class HomeController {
 	        return "login.tiles";
 	    }
 	  
+	  @RequestMapping(value = "admin/adminPage", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String adminPage(Locale locale, Model model) {
+	        logger.info("adminPage 접속");
+	        
+	        return "admin/adminPage.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_reviewDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_reviewDetail(Locale locale, Model model) {
+	        logger.info("admin_reviewDetail 접속");
+	        
+	        return "admin/admin_reviewDetail.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_keyword", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_keyword(Locale locale, Model model) {
+	        logger.info("admin_keyword 접속");
+	        
+	        return "admin/admin_keyword.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_keywordDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_keywordDetail(Locale locale, Model model) {
+	        logger.info("admin_keywordDetail 접속");
+	        
+	        return "admin/admin_keywordDetail.tiles";
+	    }
+	  
 	  @RequestMapping(value = "/joinFine", method = {RequestMethod.GET, RequestMethod.POST})
 	  public ModelAndView joinFine(
 	            @RequestParam String nickname,
