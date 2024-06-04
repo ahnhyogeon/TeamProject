@@ -26,8 +26,6 @@
     <p class="mb-3">팔로우 기능 (임시 test1 -> test2): <button type="button" onclick="followUser()">팔로우</button></p>
     <p class="mb-3">팔로우 취소 기능 (임시 test1 -> test2를 삭제): <button type="button" onclick="unfollowUser()">팔로우 취소</button></p>  
     
-    <h4 class="mb-3">기능 : 제목 출력, 글쓴이 출력, 내용 약식 출력(120자), 조회수 출력, 해시테그 출력, 추천율(추천수 x 100 / 조회수 ) 출력</h4>
-    
     <div class="row">
 	    <table class="table col-4">
 	        <colgroup>

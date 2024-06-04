@@ -50,6 +50,8 @@ public class FollowController {
 	  @RequestMapping(value = "/review", method = RequestMethod.GET)
 	  public String review(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  System.out.println("review 접속");
+		  
+		  //리뷰 사진 첨부되면서 게시글은 보이지 않음. count만 표시
 		  		  
 		  List<ReviewDto> reviews = serviceR.reviewSelectList(reviewDto);
 		  for(ReviewDto review : reviews) {
