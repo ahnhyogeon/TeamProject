@@ -6,11 +6,11 @@
     <div class="aside">
         <div class="aside_content">
             <div class="aside_content_main">
-                <div class="aside_content_sub active3">
+                <div id="admin_review_btn" class="aside_content_sub active3">
                     <img class="activeIcon"  src="../resources/images/Edit_red.png" alt="edit_light">
                     리뷰 관리
                 </div>
-                <div class="aside_content_sub">
+                <div id="admin_keyword_btn" class="aside_content_sub">
                     <img class="activeIcon" src="../resources/images/Chat_alt_add_light.png" alt="edit_light">
                     키워드 관리
                 </div>
@@ -21,11 +21,11 @@
                     <img id="toggleIcon" src="../resources/images/Expand_down_light.png" alt="expand_down">
                 </div>
                 <div class="user_management_sub" style="display: none;">
-                    <div class="user_management_sub2">
+                    <div id="admin_user_sub_btn" class="user_management_sub2">
                         <img class="activeIcon"  src="../resources/images/Group_light.png" alt="group">
                         사용자 관리
                     </div>
-                    <div class="user_management_sub2">
+                    <div id="admin_user_decl_btn" class="user_management_sub2">
                         <img class="activeIcon"  src="../resources/images/Remove_light.png" alt="remonve">
                         신고 관리
                     </div>
@@ -36,7 +36,7 @@
     </div>
     <div class="seperator"></div>
     </div>
-    <div class="rowside"></div>
+    <div class="rowside">
         <div class="row_main1">
         <form id="reviewSearchForm">
             <div class="row_main1_sub">
@@ -135,6 +135,7 @@
                         <div>
                             <div class="row_main2_paging_drop_num">
                                 10
+                                
                             </div>
                             <div class="row_main2_paging_drop_button">
                                 <div>
@@ -147,3 +148,34 @@
                 <span></span>
             </div>
         </div>
+	</div>
+</div>
+                        <div id="paging_drop_numBox" class="row_main2_paging_drop_num">
+                                <div>
+                                	9
+                                </div>
+                                <div>
+                                	8
+                                </div>
+                                <div>
+                                	7
+                                </div>
+                                <div>
+                                	6
+                                </div>
+                                <div>
+                                	5
+                                </div>
+                                <div>
+                                	4
+                                </div>
+                                <div>
+                                	3
+                                </div>
+                                <div>
+                                	2
+                                </div>
+                                <div>
+                                	1
+                                </div>
+                                </div>

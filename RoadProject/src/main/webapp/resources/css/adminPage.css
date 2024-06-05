@@ -1,10 +1,4 @@
-.header2{
-    display: flex;
-padding: 0px 20px;
-align-items: center;
-flex: 1 0 0;
-align-self: stretch;
-}
+
 .logoBox2{
     display: flex;
     width: 105px;
@@ -429,6 +423,10 @@ line-height: 19px; /* 135.714% */
     align-items: center;
     flex-shrink: 0;
 }
+
+#paging_drop_numBox{
+	
+}
 .row_main2_paging_drop_button>div>img{
     width: 12px;
 height: 6.796px;
@@ -474,4 +472,65 @@ align-items: center;
 gap: 6px;
 border-radius: 5px;
 background: var(--main-color-100, #FF4147);
+color: var(--mono-color-fff, #FFF);
+text-align: center;;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 116%; /* 16.24px */
+}
+
+.admin_user_select{
+	display: flex;
+padding: 7.5px 0px;
+align-items: center;
+gap: 24px;
+align-self: stretch;
+}
+.admin_user_select_radio{
+	width:81px;
+	height:21px;
+	display: flex;
+align-items: center;
+gap: 8px;
+color: var(--mono-color-333, #333);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 19px; /* 135.714% */
+}
+.admin_user_select_radio:last-of-type{
+	width:93px;
+	
+}
+.admin_user_select_radio>label{
+	margin-bottom:0;
+}
+.admin_user_select_radio>input[type="radio"]{
+	width: 20px;
+height: 20px;
+}
+#row_main1_sub_inputBox_last>input[type="text"]{
+	width: 498px !important;
+}
+.admin_user_activate1{
+	color: var(--main-color-100, #FF4147);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 19px; /* 135.714% */
+}
+.admin_user_activate2{
+	color: var(--sub-color-120, #7EB61E);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 19px; /* 135.714% */
+}
+.row_main1_sub_inputBox2{
+	display:flex;
+	flex:0 !important;
+}
+.row_main1_sub_inputBox2>input{
+	width:498px !important;
 }

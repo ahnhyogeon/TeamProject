@@ -17,6 +17,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 <script src="../resources/js/jquery.min.js"></script>        
 <script src="../resources/js/script.js"></script>
+
   <title><tiles:getAsString name="title"/></title>
 </head>
 <body>

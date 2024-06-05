@@ -41,6 +41,41 @@ $(function(){
             window.location.href = "joinedit.html";
         });
     }
+    
+    const partner_homeTab = document.getElementById('partner_tabMenu_home');
+    if(partner_homeTab){
+        partner_homeTab.addEventListener('click', function(){
+            window.location.href = 'partnerPage.html';
+        });
+    }
+
+    const partner_reviewTab = document.getElementById('partner_tabMenu_review');
+    if(partner_reviewTab){
+        partner_reviewTab.addEventListener('click', function(){
+            window.location.href = 'partnerPage2.html';
+        });
+    }
+
+    const partner_themeTab = document.getElementById('partner_tabMenu_res');
+    if(partner_themeTab){
+        partner_themeTab.addEventListener('click', function(){
+            window.location.href = 'partnerPage3.html';
+        });
+    }
+    
+    const partner_avgTab = document.getElementById('partner_tabMenu_avg');
+    if(partner_avgTab){
+        partner_avgTab.addEventListener('click', function(){
+            window.location.href = 'partnerPage4.html';
+        });
+    }
+
+    const partner_editGear = document.getElementById('partner_edit_gear');
+    if(partner_editGear){
+        partner_editGear.addEventListener('click', function(){
+            window.location.href = "partneredit.html";
+        });
+    }
 
     const followTab = document.getElementById('follow_tab');
     if(followTab){
@@ -373,5 +408,139 @@ $('#join_nextbtn').click(function(event) {
 
 
 });
+
+$(document).ready(function() {
+    $('.aside_content_sub').click(function() {
+        // 모든 aside_content_sub 요소에서 active3 클래스를 제거
+        $('.aside_content_sub').removeClass('active3');
+        // 클릭한 요소에만 active3 클래스를 추가
+        $(this).addClass('active3');
+
+        // 모든 아이콘 이미지를 초기 상태로 되돌림
+        $('.aside_content_sub img').each(function() {
+            var imgSrc = $(this).attr('src');
+            var newSrc = imgSrc.replace('_red.png', '_light.png');
+            $(this).attr('src', newSrc);
+        });
+
+        $('.user_management_sub2').removeClass('active3');
+        $('.user_management_sub2 img').each(function() {
+            var imgSrc = $(this).attr('src');
+            var newSrc = imgSrc.replace('_red.png', '_light.png');
+            $(this).attr('src', newSrc);
+        });
+
+        // 클릭한 요소의 이미지 경로를 변경
+        var icon = $(this).find('.activeIcon');
+        var iconSrc = icon.attr('src');
+        var newIconSrc = iconSrc.replace('_light.png', '_red.png');
+        icon.attr('src', newIconSrc);
+
+        if ($(this).attr('id') === 'userManagementToggle') {
+            $('.user_management_sub').show();
+
+            // 토글 아이콘을 변경
+            var toggleIcon = $(this).find('#toggleIcon');
+            if (toggleIcon.attr('src') === '../resources/images/Expand_up_red.png') {
+                toggleIcon.attr('src', '../resources/images/Expand_down_light.png');
+            } else {
+                toggleIcon.attr('src', '../resources/images/Expand_up_red.png');
+            }
+            
+            $('#admin_user_sub_btn').addClass('active3');
+            var icon = $('#admin_user_sub_btn').find('.activeIcon');
+        	var iconSrc = icon.attr('src');
+        	var newIconSrc = iconSrc.replace('_light.png', '_red.png');
+        	icon.attr('src', newIconSrc);
+            
+        } else {
+            // 다른 메뉴를 클릭했을 때 사용자 관리 메뉴를 숨기기
+            $('.user_management_sub').hide();
+            
+            // 토글 아이콘을 초기 상태로 되돌림
+            $('#toggleIcon').attr('src', '../resources/images/Expand_down_light.png');
+        }
+    });
+
+    $('.user_management_sub2').click(function() {
+        // 모든 aside_content_sub 요소에서 active3 클래스를 제거
+        $('.user_management_sub2').removeClass('active3');
+        // 클릭한 요소에만 active3 클래스를 추가
+        $(this).addClass('active3');
+
+        // 모든 아이콘 이미지를 초기 상태로 되돌림
+        $('.user_management_sub2 img').each(function() {
+            var imgSrc = $(this).attr('src');
+            var newSrc = imgSrc.replace('_red.png', '_light.png');
+            $(this).attr('src', newSrc);
+        });
+
+        // 클릭한 요소의 이미지 경로를 변경
+        var icon = $(this).find('.activeIcon');
+        var iconSrc = icon.attr('src');
+        var newIconSrc = iconSrc.replace('_light.png', '_red.png');
+        icon.attr('src', newIconSrc);
+    });
+    
+    $('#logo').click(function(){
+		console.log("되냐?");
+		window.location.href = "../index";
+	});
+    
+    $('#rowside_review_backbtn').click(function(){
+		console.log("되냐?");
+        window.location.href = "adminPage";
+    });
+    
+     $('#admin_review_btn').click(function(){
+		console.log("되냐?");
+        window.location.href = "adminPage";
+    });
+    
+    $('#admin_keyword_btn').click(function(){
+		console.log("되냐?");
+        window.location.href = "admin_keyword";
+    });
+    
+    $('#rowside_keyword_backbtn').click(function(){
+		console.log("되냐?");
+        window.location.href = "admin_keyword";
+    });
+    
+    $('#userManagementToggle').click(function(){
+		console.log("되냐?");
+        window.location.href = "admin_user";
+    });
+    
+    $('#rowside_user_backbtn').click(function(){
+		console.log("되냐?");
+        window.location.href = "admin_user";
+    });
+    
+    $('#admin_user_sub_btn').click(function(){
+		console.log("되냐?");
+        window.location.href = "admin_user";
+    });
+    
+    $('#admin_user_decl_btn').click(function(){
+		console.log("되냐?");
+        window.location.href = "admin_decl";
+    }); 
+    
+    $('#admin_user_decl_btn2').click(function(){
+		console.log("되냐?");
+        window.location.href = "admin_decl";
+    });
+    
+    $('#partner_tab_1').click(function(){
+    	window.location.href = "partneredit";
+    }); 
+    
+    $('#partner_tab_2').click(function(){
+    	window.location.href = "partneredit2";
+    });
+});
+
+
 
 
