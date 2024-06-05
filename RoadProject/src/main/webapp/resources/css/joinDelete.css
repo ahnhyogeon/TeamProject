@@ -1,0 +1,211 @@
+.joindelete_mainbox1{
+    display: flex;
+width: 1920px;
+padding: 0px 605px;
+flex-direction: column;
+align-items: center;
+background: var(--mono-color-fafafa, #FAFAFA);
+color: var(--mono-color-111, #111);
+text-align: center;
+font-size: 48px;
+font-style: normal;
+font-weight: 600;
+line-height: 58px; /* 120.833% */
+letter-spacing: -0.192px;
+}
+.joindelete_inner{
+    display: flex;
+width: 710px;
+padding: 120px 0px 40px 0px;
+flex-direction: column;
+align-items: center;
+gap: 48px;
+}
+
+.joindelete_mainbox2{
+    width: 1920px;
+    display: inline-flex;
+flex-direction: column;
+align-items: center;
+gap: 48px;
+background: #fff;
+margin-top: 48px;
+}
+.joindelete_edit{
+    display: flex;
+width: 710px;
+flex-direction: column;
+align-items: center;
+gap: 16px;
+}
+.joindelete_edit>form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 710px;
+    gap: 16px;
+}
+.delete_div{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 8px;
+align-self: stretch;
+}
+.delete_div>label{
+    display: flex;
+align-items: flex-start;
+gap: 2px;
+color: var(--mono-color-111, #111);
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+}
+.delete_div>label>span{
+    color: var(--main-color-100, #FF4147);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.056px;
+}
+.delete_div>input{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch; 
+}
+.delete_div>input,
+.delete_div>div>input{
+    height: 52px;
+    display: flex;
+padding: 15px 16px;
+align-items: center;
+gap: 4px;
+flex: 1 0 0;
+border-radius: 8px;
+border: 1px solid var(--mono-color-ccc, #CCC);
+background: var(--mono-color-fff, #FFF);
+color: var(--mono-color-111, #111);
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+}
+.delete_id_input{
+border: 1px solid var(--mono-color-e-6-e-6-e-6, #E6E6E6) !important;
+background: var(--mono-color-fafafa, #FAFAFA) !important;
+}
+.delete_text{
+    display: flex;
+width: 710px;
+padding: 24px;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+border-radius: 8px;
+background: var(--mono-color-fafafa, #FAFAFA);
+color: var(--mono-color-808080, #808080);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.056px;
+}
+.delete_btnbox{
+    display: flex;
+justify-content: center;
+align-items: center;
+gap: 8px;
+}
+.delete_btnbox>button{
+    display: flex;
+width: 348px;
+padding: 15px 16px;
+justify-content: center;
+align-items: center;
+gap: 4px;
+border-radius: 8px !important;
+}
+#delete_sbtn{
+    color: var(--mono-color-333, #333);
+text-align: center;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+border: 1px solid var(--mono-color-e-6-e-6-e-6, #E6E6E6);
+background: var(--mono-color-fff, #FFF);
+}
+#delete_rbtn{
+    color: var(--mono-color-fff, #FFF);
+text-align: center;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+}
+
+.joindelete_success_edit{
+    display: flex;
+    width: 710px;
+    padding: 48px 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    border-radius: 8px;
+border: 1px solid var(--mono-color-ccc, #CCC);
+background: #FFF;
+}
+.delete_success_title{
+    color: var(--mono-color-333, #333);
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 31px; /* 129.167% */
+    letter-spacing: -0.096px;
+}
+.delete_success_text{
+    display: flex;
+    width: 710px;
+    padding: 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    color: var(--mono-color-333, #333);
+text-align: center;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.056px;
+}
+.delete_btn{
+    display: flex;
+width: 348px;
+padding: 15px 16px;
+justify-content: center;
+align-items: center;
+gap: 4px;
+border-radius: 8px;
+background: var(--main-color-100, #FF4147);
+    color: var(--mono-color-fff, #FFF);
+text-align: center;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+}
+.joindelete_mainbox2>a:hover{
+    text-decoration: none;
+    color: var(--mono-color-fff, #FFF);
+}

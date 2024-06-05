@@ -108,7 +108,7 @@
   </select>  
 
   <select id="rSelectDetail" resultType="restDto" parameterType="int">
-     SELECT * FROM restaurant WHERE id= #{selectId}
+     SELECT * FROM restaurant WHERE business= #{business}
   </select>
  
   <update id="increaseHit" parameterType="int">

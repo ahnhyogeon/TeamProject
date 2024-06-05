@@ -43,29 +43,13 @@
 <div class="map_wrap">
     <div id="map"></div>
     <ul id="category">
-        <li id="BK9" data-order="0" > 
-            <span class="category_bg bank" ></span>
-            은행
-        </li>       
-        <li id="MT1" data-order="1"> 
-            <span class="category_bg mart"></span>
-            마트
-        </li>  
-        <li id="PM9" data-order="2"> 
-            <span class="category_bg pharmacy"></span>
-            약국
-        </li>  
-        <li id="OL7" data-order="3"> 
-            <span class="category_bg oil"></span>
-            주유소
-        </li>  
         <li id="CE7" data-order="4" data-keyword="카페"> 
-            <span class="category_bg cafe"></span>
+            <span></span>
             카페
         </li>  
-        <li id="CS2" data-order="5" data-keyword="편의점"> 
-            <span class="category_bg store"></span>
-            편의점
+        <li id="FD6" data-order="5" data-keyword="맛집"> 
+            <span></span>
+            음식점
         </li>      
     </ul>
 </div>
@@ -74,9 +58,23 @@
 var map; // 전역 변수로 map 선언
 var infowindow = null; // 전역 변수로 인포윈도우 선언 및 초기화
 var markers = [];
-var ps = new kakao.maps.services.Places();
+var ps;
+var currCategory = '';
 
+// 각 카테고리 클릭 이벤트에 대해 검색 키워드를 읽어와서 설정
+function addCategoryClickEvent() {
+    var categoryItems = document.querySelectorAll('#category li');
+    categoryItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            var categoryId = this.id;
+            currCategory = categoryId;
+            console.log('클릭한 카테고리:', categoryId);
+            searchPlaces(categoryId); // 카테고리 ID를 넘겨줌
+        });
+    });
+}
 
+// 지도를 초기화하고 이벤트 리스너 설정
 function searchCity() {
     var keyword = document.getElementById('searchInput').value;
 
@@ -91,7 +89,7 @@ function searchCity() {
             var mapContainer = document.getElementById('map');
             var options = {
                 center: coords,
-                level: 6
+                level: 9
             };
             map = new kakao.maps.Map(mapContainer, options); // 전역 변수로 할당
 
@@ -114,7 +112,7 @@ function searchCity() {
             });
 
             searchNearbyRestaurants(result[0]);
-            
+
             // 각 카테고리 클릭 이벤트 등록
             addCategoryClickEvent();
         } else {
@@ -127,7 +125,9 @@ function searchNearbyRestaurants(result) {
     var keyword = result.address_name;
 
     var places = new kakao.maps.services.Places();
-    places.keywordSearch(keyword+'맛집', function(result, status) {
+    
+
+    places.keywordSearch(keyword+" 맛집", function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
             displayPlaces(result);
         }
@@ -135,6 +135,7 @@ function searchNearbyRestaurants(result) {
 }
 
 function displayPlaces(places) {
+    console.log("displayPlaces 호출됨", places);
     for (var i = 0; i < places.length; i++) {
         var place = places[i];
         var markerPosition = new kakao.maps.LatLng(place.y, place.x);
@@ -142,6 +143,9 @@ function displayPlaces(places) {
             position: markerPosition,
             map: map // 전역 변수로 할당된 map 사용
         });
+
+        // markers 배열에 마커 추가
+        markers.push(marker);
 
         // 클로저를 사용하여 마커와 관련된 정보를 전달
         kakao.maps.event.addListener(marker, 'click', (function(place) {
@@ -154,17 +158,17 @@ function displayPlaces(places) {
 
 function displayPlaceInfo(place) {
     var content = '<div class="placeinfo">' +
-        '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';   
+        '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">' + place.place_name + '</a>';
 
     if (place.road_address_name) {
         content += '    <span title="' + place.road_address_name + '">' + place.road_address_name + '</span>' +
             '  <span class="jibun" title="' + place.address_name + '">(지번 : ' + place.address_name + ')</span>';
-    }  else {
+    } else {
         content += '    <span title="' + place.address_name + '">' + place.address_name + '</span>';
-    }                
+    }
 
-    content += '    <span class="tel">' + place.phone + '</span>' + 
-        '</div>' + 
+    content += '<span class="rating">'+place.rating+'</span>    <span class="tel">' + place.phone + '</span>' +
+        '</div>' +
         '<div class="after"></div>';
 
     // 이전에 열려있던 인포윈도우가 있으면 닫기
@@ -176,8 +180,8 @@ function displayPlaceInfo(place) {
         position: new kakao.maps.LatLng(place.y, place.x)
     });
     infowindow.open(map);
-    
- 	// 지도 클릭 시 인포윈도우 닫기
+
+    // 지도 클릭 시 인포윈도우 닫기
     kakao.maps.event.addListener(map, 'click', function() {
         if (infowindow !== null) {
             infowindow.close();
@@ -185,43 +189,38 @@ function displayPlaceInfo(place) {
     });
 }
 
-//각 카테고리 클릭 이벤트에 대해 검색 키워드를 읽어와서 설정
-function addCategoryClickEvent() {
-    var categoryItems = document.querySelectorAll('#category li');
-    categoryItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            var categoryId = this.id;
-            currCategory = categoryId;
-            var keyword = this.getAttribute('data-keyword');
-            console.log('클릭한 카테고리:', categoryId);
-            console.log('검색 키워드:', keyword);
-            searchPlaces(keyword); // 검색 키워드를 넘겨줌
-        });
-    });
-}
-
-function searchPlaces(keyword) {
-    if (!currCategory || !keyword) {
+function searchPlaces(category) {
+    if (!category) {
         return;
     }
 
+    console.log('searchPlaces 호출됨:', category);
+
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
-    
-    ps.categorySearch(keyword, placesSearchCB, {useMapBounds:true}); 
+
+    // 현재 지도 범위 내에서 장소를 검색합니다
+    var bounds = map.getBounds();
+    var options = {
+        bounds: bounds // 지도 범위 내에서 검색
+    };
+
+    ps.categorySearch(category, placesSearchCB, options);
 }
 
-//마커를 제거하는 함수
+// 마커를 제거하는 함수
 function removeMarker() {
     for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);  // 지도에서 마커를 제거합니다
+        markers[i].setMap(null); // 지도에서 마커를 제거합니다
     }
+    markers = [];
 }
 
-//장소 검색 결과 처리 콜백 함수 정의
+// 장소 검색 결과 처리 콜백 함수 정의
 function placesSearchCB(data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
         // 검색 결과가 정상적으로 받아온 경우
+        console.log('placesSearchCB 호출됨', data);
         displayPlaces(data);
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
         // 검색 결과가 없는 경우
@@ -232,7 +231,19 @@ function placesSearchCB(data, status, pagination) {
     }
 }
 
-// 카카오맵 API 로드
-kakao.maps.load(searchCity);
+// DOM이 완전히 로드된 후에 실행
+document.addEventListener("DOMContentLoaded", function() {
+    // 카카오맵 API 로드 후 초기화 함수 호출
+    kakao.maps.load(function() {
+        ps = new kakao.maps.services.Places(); // Places 객체 초기화
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                searchCity();
+            }
+        });
+        document.querySelector('button').addEventListener('click', searchCity);
+    });
+});
+
 
 </script>

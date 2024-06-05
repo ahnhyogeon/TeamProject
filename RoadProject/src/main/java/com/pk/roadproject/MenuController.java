@@ -1,6 +1,8 @@
 package com.pk.roadproject;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -22,8 +24,10 @@ import com.pk.dao.MenuDao;
 import com.pk.dao.MenuUploadDao;
 import com.pk.dto.MenuDto;
 import com.pk.dto.MenuUploadFileDto;
+import com.pk.service.GetMenuService;
 import com.pk.service.MenuGetListService;
 import com.pk.service.MenuTrashFileDel;
+import com.pk.service.SetMenuEditService;
 import com.pk.service.SetMenuService;
 
 @Controller
@@ -31,6 +35,12 @@ public class MenuController {
 	
 	@Autowired
 	MenuGetListService getList;
+	
+	@Autowired
+	GetMenuService getMenu;
+	
+	@Autowired
+	SetMenuEditService setMenuEdit;
 	
 	@Autowired
 	MenuDao mdao;
@@ -121,6 +131,43 @@ public class MenuController {
 			  }
 		
 	}
+	
+	@RequestMapping("/menuedit")
+	public String edit(HttpServletRequest request, HttpServletResponse response,Model model) {
+		System.out.println("menuedit() 실행됨");
+		model.addAttribute("req", request);
+		//model.addAttribute("increaseHit", false);
+		
+		getMenu.excute(model);		
+		return "edit";
+	}
+	
+	@PostMapping("/menueditok")
+	public String editok( HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("menueditok() 실행됨");
+		String ids = request.getParameter("id");
+		
+		Map<String, Object> params = new HashMap<>();
+		try {
+			params.put("id", Integer.parseInt(ids));
+			params.put("pass", request.getParameter("pass"));
+			
+		}catch(NumberFormatException e) {
+			model.addAttribute("error", "에러가 발생했습니다.");
+			return "redirect:edit?id="+ids;
+		}
+		int result = mdao.mValidateBusiness(params);
+		if(result > 0) {
+			model.addAttribute("request", request);
+			setMenuEdit.excute(model);
+			return "redirect:contents?id="+ids;
+		}else {
+			//경고 보내기
+			model.addAttribute("error", "비밀번호가 틀렸습니다.");
+			return "redirect:edit?id="+ids;
+		}
+	}
+	
 	
 	@PostMapping("/mupload")
 	@ResponseBody

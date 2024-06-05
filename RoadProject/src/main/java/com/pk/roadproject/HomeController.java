@@ -41,14 +41,12 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+		return "index.tiles";
+	}
+	//확인용 home.jsp 나중에 삭제할것임.
+	@RequestMapping(value = "home", method = RequestMethod.GET)
+	public String hometest(Locale locale, Model model) {
 		
 		return "home";
 	}
@@ -86,13 +84,202 @@ public class HomeController {
 		  return "SelectJoin.tiles";
 	  }
 	  
+	  //회원가입
 	  @RequestMapping(value = "/join", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String join(@RequestParam(required = false) String role, Locale locale, Model model) {
-	        logger.info("content3 접속");
+	        logger.info("join 접속");
 	        
 	        model.addAttribute("role", role);
 	        
 	        return "join.tiles";
+	    }
+	  @RequestMapping(value = "/join2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String join2(@RequestParam(required = false) String role, Locale locale, Model model) {
+	        logger.info("join2 접속");
+	        
+	        model.addAttribute("role", role);
+	        
+	        return "join2.tiles";
+	    }
+	  
+	  
+	  @RequestMapping(value = "/index", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String index(Locale locale, Model model) {
+	        logger.info("index 접속");
+	        
+	        return "index.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String login(Locale locale, Model model) {
+	        logger.info("login 접속");
+	        
+	        return "login.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/joinFine", method = {RequestMethod.GET, RequestMethod.POST})
+	  public ModelAndView joinFine(
+	            @RequestParam String nickname,
+	            @RequestParam String userid,
+	            @RequestParam String pass1,
+	            @RequestParam String pass2,
+	            @RequestParam String addr1,
+	            @RequestParam String addr2,
+	            @RequestParam(required = false) String tel,
+	            @RequestParam(required = false) String role,
+	            @RequestParam(required = false) String buisness) throws Exception {
+		  logger.info("joinFine 접속");
+		  
+		  ModelAndView mav = new ModelAndView();
+		  int role2 = 0;
+		  String password = null;
+		  System.out.println(role);
+		  System.out.println(userid);
+		  System.out.println(nickname);
+		  System.out.println(pass1);
+		  System.out.println(pass2);
+		  System.out.println(addr1);
+		  System.out.println(addr2);
+		  
+		  if(role == null) {
+			  role2 = 1;
+		  }
+		  else {
+			  role2 = Integer.parseInt(role);
+		  }
+	        
+		  if(role2 == 1) {
+			  if(pass1.equals(pass2)) {
+				  System.out.println("??");
+				  password = pass1;
+				  
+				  memberDto.setNickname(nickname);
+				  memberDto.setUserid(userid);
+				  memberDto.setPassword(password);
+				  memberDto.setAddr1(addr1);
+				  memberDto.setAddr2(addr2);
+				  memberDto.setRole(role2);
+				  
+				  service.insertDB(memberDto);
+				  
+			      mav.setViewName("joinFine.tiles");
+			  }
+			  else {
+				  
+				  	mav.setViewName("join.tiles"); // 여기서 ModelAndView 객체를 생성하고 뷰 이름을 설정합니다.
+				    mav.addObject("alert", "비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
+				    mav.addObject("nickname", nickname);
+				    mav.addObject("userid", userid);
+				    mav.addObject("addr1", addr1);
+				    mav.addObject("addr2", addr2);
+				    mav.addObject("role", role2);
+				    
+				    return mav;
+				  
+			  }
+	        
+
+	        
+		  }
+		  else if(role2 == 2) {
+			  
+			  if(pass1.equals(pass2)) {
+				  System.out.println("??");
+				  password = pass1;
+				  
+				  memberDto.setNickname(nickname);
+			      memberDto.setUserid(userid);
+			      memberDto.setPassword(password);
+			      memberDto.setTel(tel);
+			      memberDto.setAddr1(addr1);
+			      memberDto.setAddr2(addr2);
+			      memberDto.setRole(role2);
+			      memberDto.setBuisness(buisness);
+				  
+				  service.insertDB(memberDto);
+				  
+			      mav.setViewName("joinFine.tiles");
+			  }
+			  else {
+				  
+				  	mav.setViewName("join2.tiles"); // 여기서 ModelAndView 객체를 생성하고 뷰 이름을 설정합니다.
+				    mav.addObject("alert", "비밀번호가 일치하지 않습니다. 다시 입력해 주세요.");
+				    mav.addObject("nickname", nickname);
+				    mav.addObject("userid", userid);
+				    mav.addObject("tel", tel);
+				    mav.addObject("addr1", addr1);
+				    mav.addObject("addr2", addr2);
+				    mav.addObject("role", role2);
+				    
+				    return mav;
+				  
+			  }
+		  }
+		      
+	      return mav;
+	    }
+	  
+	  @RequestMapping(value = "/joinedit", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String joinedit(Locale locale, Model model) {
+	        logger.info("joinedit 접속");
+	        
+	        return "joinedit.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/joinDelete", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String joineDelete(Locale locale, Model model) {
+	        logger.info("joineDelete 접속");
+	        
+	        return "joinDelete.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/joinDelete_success", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String joineDelete_success(Locale locale, Model model) {
+	        logger.info("joinDelete_success 접속");
+	        
+	        return "joinDelete_success.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/selectType", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String selectType(Locale locale, Model model) {
+	        logger.info("selectType 접속");
+	        
+	        return "selectType.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/follow", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String follow(Locale locale, Model model) {
+	        logger.info("follow 접속");
+	        
+	        return "follow.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/following", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String following(Locale locale, Model model) {
+	        logger.info("following 접속");
+	        
+	        return "following.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/myPage", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String myPage(Locale locale, Model model) {
+	        logger.info("myPage 접속");
+	        
+	        return "myPage.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/myPage2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String myPage2(Locale locale, Model model) {
+	        logger.info("myPage2 접속");
+	        
+	        return "myPage2.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/myPage3", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String myPage3(Locale locale, Model model) {
+	        logger.info("myPage3 접속");
+	        
+	        return "myPage3.tiles";
 	    }
 	  
 	  @RequestMapping(value = "/map", method = RequestMethod.GET)
@@ -200,17 +387,17 @@ public class HomeController {
 			        System.out.println("로그인에 실패했습니다.");
 			    }
 
-			    ModelAndView modelAndView = new ModelAndView("redirect:/detail");
+			    ModelAndView modelAndView = new ModelAndView("redirect:/index");
 			    return modelAndView;
 			}
-	  
+	  //로그아웃
 	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	  public ModelAndView logout(HttpSession session) {
 		  
 		  session.invalidate();
 		  System.out.println("로그아웃 완료");
 		  
-		  ModelAndView modelAndView = new ModelAndView("redirect:/detail");
+		  ModelAndView modelAndView = new ModelAndView("redirect:/index");
 		  return modelAndView;
 	  }
 	  
@@ -220,9 +407,4 @@ public class HomeController {
 		  
 		  return "recommend.tiles";
 	  }
-	  
-	  
-	  /**************** restaurant **************/
-
-	
 }

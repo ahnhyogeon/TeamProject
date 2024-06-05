@@ -38,10 +38,10 @@ public class RestaurantDao implements RestaurantMapper {
 		
 		return session.selectOne("selectRestCount", params);
 	}
-
+ 
 	@Override
-	public RestaurantDto rSelectDetail(int selectId) {
-		return session.selectOne("rSelectDetail", selectId);
+	public List<RestaurantDto> rSelectDetail(int business) {
+		return session.selectList("rSelectDetail", business);
 	}
 
 	@Override

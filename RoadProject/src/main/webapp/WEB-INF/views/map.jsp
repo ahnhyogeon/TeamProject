@@ -79,6 +79,7 @@
                         // 위치 정보를 가져온 후에 지도를 생성하고 검색을 수행
                         createMap(locPosition);
                         searchNearbyRestaurants(locPosition);
+                        console.log(locPosition);
                     });
                 } else {
                     // 사용자가 동의하지 않은 경우, 기본 위치로 지도 생성
@@ -95,7 +96,7 @@
             var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
             var mapOption = { 
                 center: locPosition, // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨 
+                level: 2 // 지도의 확대 레벨 
             }; 
             window.map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
             map.setCenter(locPosition); // 지도 중심 설정
@@ -179,7 +180,7 @@
             var el = document.createElement('li'),
                 itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                             '<div class="info">' +
-                            '   <h5>' + place.place_name + '</h5>';
+                            '<a href="' + place.place_url + '" target="_blank">' + place.place_name + '</a><br>';
             if (place.road_address_name) {
                 itemStr += '    <span>' + place.road_address_name + '</span>' +
                             '   <span class="jibun gray">' +  place.address_name  + '</span>';
@@ -241,6 +242,7 @@
                                          '평점: ' + place.rating + '<br>' +
                                          '전화번호: ' + place.phone;
                     infowindow.setContent(detailEl);
+                    console.log(place);
                 } else {
                     // 검색 결과가 없는 경우, 간단한 정보만 표시
                     var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
@@ -287,7 +289,7 @@
                 for(var i = 0; i < result.length; i++) {
                     if (result[i].region_type === 'H') {
                         console.log(result[i].address_name+", "+i);
-                        localStorage.setItem("address",result[i].address_name);
+                        
                         break;
                     }
                 }

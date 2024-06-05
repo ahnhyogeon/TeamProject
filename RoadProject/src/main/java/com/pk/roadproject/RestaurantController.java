@@ -1,6 +1,8 @@
 package com.pk.roadproject;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -22,8 +24,10 @@ import com.pk.dao.RestUploadDao;
 import com.pk.dao.RestaurantDao;
 import com.pk.dto.RestUploadFileDto;
 import com.pk.dto.RestaurantDto;
+import com.pk.service.GetRestService;
 import com.pk.service.RestGetListService;
 import com.pk.service.RestTrashFileDel;
+import com.pk.service.SetRestEditService;
 import com.pk.service.SetRestService;
 
 
@@ -33,6 +37,12 @@ public class RestaurantController {
 
 		@Autowired
 		RestGetListService getList;
+		
+		@Autowired
+		GetRestService getRest;
+		
+		@Autowired
+		SetRestEditService setRestEdit;
 		
 		@Autowired
 		RestaurantDao rdao;
@@ -73,6 +83,25 @@ public class RestaurantController {
 		return "rest";
 	}
 	
+	@RequestMapping("/restDetail")
+	public String restdetail(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="cpg", defaultValue="1") int cpg,
+			/*
+			@RequestParam(value="searchname", defaultValue="") String searchname,
+			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,*/
+			Model model) {
+		System.out.println("restDetail() 실행됨");
+        model.addAttribute("cpg" , cpg);
+        /*
+        model.addAttribute("searchname", searchname);
+        model.addAttribute("searchvalue", searchvalue);
+        */
+        model.addAttribute("req", request);
+        getRest.excute(model);
+   
+		return "restDetail";
+	}
+	
 	@RequestMapping("/delrest")  //관리자만 들어갈 수 있는 삭제버튼이 있는 가게 리스트 페이지.
 	public String delrest(
 			@RequestParam(value="cpg", defaultValue="1") int cpg, 
@@ -107,6 +136,43 @@ public class RestaurantController {
 		setRest.excute(model);
 		
 		return "redirect:rest";
+	}
+	
+	
+	@RequestMapping("/restedit")
+	public String edit(HttpServletRequest request, HttpServletResponse response,Model model) {
+		System.out.println("restedit() 실행됨");
+		model.addAttribute("req", request);
+		//model.addAttribute("increaseHit", false);
+		
+		getRest.excute(model);		
+		return "edit";
+	}
+	
+	@PostMapping("/resteditok")
+	public String editok( HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("resteditok() 실행됨");
+		String ids = request.getParameter("id");
+		
+		Map<String, Object> params = new HashMap<>();
+		try {
+			params.put("id", Integer.parseInt(ids));
+			params.put("pass", request.getParameter("pass"));
+			
+		}catch(NumberFormatException e) {
+			model.addAttribute("error", "에러가 발생했습니다.");
+			return "redirect:edit?id="+ids;
+		}
+		int result = rdao.validateBusiness(params);
+		if(result > 0) {
+			model.addAttribute("request", request);
+			setRestEdit.excute(model);
+			return "redirect:contents?id="+ids;
+		}else {
+			//경고 보내기
+			model.addAttribute("error", "비밀번호가 틀렸습니다.");
+			return "redirect:edit?id="+ids;
+		}
 	}
 	
 	@PostMapping("/upload")
