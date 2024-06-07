@@ -13,7 +13,8 @@
      r_tel,
      r_url,
      imnum,
-     r_intro
+     r_intro,
+     notice
   </sql>
 
   
@@ -27,7 +28,8 @@
        #{r_tel},
        #{r_url},
        #{imnum},
-       #{r_intro}
+       #{r_intro},
+       #{notice}
      )
   </insert>
 

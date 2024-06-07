@@ -51,7 +51,7 @@
         	else if(role == 99){
         %>
         	<div class="loginBox">
-        		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="#">관리페이지</a>	
+        		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="admin/adminPage">관리페이지</a>	
         		<div id="line"></div>
         		<a href="logout">로그아웃</a>
         	</div>		

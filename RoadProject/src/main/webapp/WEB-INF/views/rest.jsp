@@ -18,15 +18,16 @@
                 </div>
                 <table class="table table-hover">
                     <colgroup>
-                       <col width="11%">
-                       <col width="11%">
-                       <col width="11%">
-                       <col width="11%">
-                       <col width="11%">
-                       <col width="11%">
-                       <col width="11%">
-                       <col width="11%">
-                       <col width="11%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
+                       <col width="10%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -39,6 +40,7 @@
                             <th>가게번호</th>
                             <th>가게도메인</th>
                             <th>소개글</th>
+                            <th>공지사항</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +55,8 @@
                            <td class="text-center">${r_list.r_addr2 }</td>  
                            <td class="text-center">${r_list.r_tel }</td>
                            <td class="text-center">${r_list.r_url }</td>
-                           <td class="text-center">${r_list.r_intro }</td>                      
+                           <td class="text-center">${r_list.r_intro }</td>
+                           <td class="text-center">${r_list.notice }</td>                       
                        </tr>
                        </c:forEach> 
                        <!-- /loop -->

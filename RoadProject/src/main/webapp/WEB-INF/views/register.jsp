@@ -11,69 +11,37 @@
   
    <script>
    $(function(){
-	   $("#r_intro").summernote({
-	       placeholder: "내용을 입력하세요.",
-	       tabsize: 2,
-	       height:300,
-	       lang: 'ko-KR',
-	       callbacks: {
-	         onImageUpload: function(files){
+	    $("#fileInput").change(function(){
+	        const files = $(this)[0].files;
+	        if (files.length > 0) {
 	            sendData(files[0]);
-	         },
-	         onMediaDelete: function(files){
-	            delData(files[0]);
-	         }   
-	       }
-	   });
+	        }
+	    });
 	   
-	   function sendData(file) {
-	      const imnum = $("#imnum").val();
-	      const data = new FormData();
-	      data.append("file", file);
-	      data.append("imnum", imnum);
-	      $.ajax({
-	         url: "upload",
-	         type: "post",
-	         data: data,
-	         contentType: false,
-	         processData: false,
-	         success: function( data ) {
-	            const dt = JSON.parse(data);
-	            $("#r_intro").summernote("insertImage", dt.url);
-	           // $("#imnum").val(data.imnum);
-	         },
-	         error: function(jqXHR, textStatus, errorThrown){
-	            console.error(textStatus + ", " + errorThrown);
-	         }
-	      
-	      });
-	   }
-	   
-	   /*
-	   function delData(file) {
-	      const fileUrl = file.src; //delete 될 image 의 url
-	      console.log(fileUrl);
-	      
-	      $.ajax({
-	         url: 'delete',
-	         type: 'post',
-	         data: { "fileUrl" : fileUrl },
-	         
-	         success: function(data) {
-	           if( data ){
-	        	  const dt = JSON.parse(data);
-		          $("#r_intro").summernote("deleteImage", dt.url);
-	             console.log("파일삭제");
-	           }else{
-	             console.log("파일삭제 실패");
-	           } 
-	         },
-	         error: function(jqXHR, textStatus, errorThrown){
-	           console.log("삭제실패");   
-	         }
-	      });
-	   }
-	   */
+	    function sendData(file) {
+	        const imnum = $("#imnum").val();
+	        const data = new FormData();
+	        data.append("file", file);
+	        data.append("imnum", imnum);
+	        $.ajax({
+	            url: "upload",
+	            type: "post",
+	            data: data,
+	            contentType: false,
+	            processData: false,
+	            success: function(data) {
+	                // 서버에서 받은 JSON 데이터를 파싱합니다.
+	                const dt = JSON.parse(data);
+	                // 이미지의 URL을 사용하여 이미지를 표시합니다.
+	                const imageUrl =  dt.url;
+	                const imageDiv = $('<div><img src="' + imageUrl + '"></div>');
+	                $("#imagePreview").append(imageDiv);
+	            },
+	            error: function(jqXHR, textStatus, errorThrown){
+	                console.error(textStatus + ", " + errorThrown);
+	            }
+	        });
+	    }
 	});
    </script> 
        <div class="container">
@@ -105,9 +73,25 @@
                      <label class="form-label">가게 도메인</label>
                      <input type="text" name="r_url" id="r_url" class="form-control" placeholder="제목" />
                   </div>
-                  
-                  <div class="col-12">
+                
+                  <div class="col-12 row form-group">
+                     <label>소개글</label>
                      <textarea name="r_intro" id="r_intro" class="form-control"></textarea>
+                  </div>
+             
+                  <div class="col-12  row form-group">
+                       <label>공지사항</label>
+                     <textarea name="notice" id="notice" class="form-control"></textarea>
+                  </div>
+                   <div class="col-12 ">
+						<!-- 파일 선택(input 요소)를 감싸는 컨테이너 -->
+						<label>가게 이미지/영상</label>
+						<br>
+						<label class="file-input-container text-center">
+						    <input type="file" id="fileInput" multiple>
+						    파일 선택 <!-- 파일 선택 옆에 표시할 텍스트 -->
+						</label>
+						<div class="image-container" id="imagePreview"></div>
                   </div>
                   <!-- /게스트일때 적용-->
                   <div class="col-12 text-center my-5">

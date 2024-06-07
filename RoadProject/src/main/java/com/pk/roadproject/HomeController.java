@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -44,12 +45,14 @@ public class HomeController {
 		
 		return "index.tiles";
 	}
+
 	//확인용 home.jsp 나중에 삭제할것임.
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String hometest(Locale locale, Model model) {
-		
+	
 		return "home";
 	}
+	
 	
 	 @RequestMapping(value = "/content1", method = RequestMethod.GET)
 	  public String list(Locale locale, Model model) throws Exception {
@@ -68,6 +71,7 @@ public class HomeController {
 		  
 			return "list.tiles";
 	  }	
+
 
 	  @RequestMapping(value = "/detail", method = RequestMethod.GET)
 	  public String detail(Locale locale, Model model) {
@@ -115,6 +119,66 @@ public class HomeController {
 	        logger.info("login 접속");
 	        
 	        return "login.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/adminPage", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String adminPage(Locale locale, Model model) {
+	        logger.info("adminPage 접속");
+	        
+	        return "admin/adminPage.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_reviewDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_reviewDetail(Locale locale, Model model) {
+	        logger.info("admin_reviewDetail 접속");
+	        
+	        return "admin/admin_reviewDetail.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_keyword", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_keyword(Locale locale, Model model) {
+	        logger.info("admin_keyword 접속");
+	        
+	        return "admin/admin_keyword.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_keywordDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_keywordDetail(Locale locale, Model model) {
+	        logger.info("admin_keywordDetail 접속");
+	        
+	        return "admin/admin_keywordDetail.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_user", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_user(Locale locale, Model model) {
+	        logger.info("admin_user 접속");
+	        
+	        return "admin/admin_user.tiles";
+	    }
+	  @RequestMapping(value = "admin/admin_userDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_userDetail(Locale locale, Model model) {
+	        logger.info("admin_userDetail 접속");
+	        
+	        return "admin/admin_userDetail.tiles";
+	    }
+	  @RequestMapping(value = "admin/admin_userDetail2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_userDetail2(Locale locale, Model model) {
+	        logger.info("admin_userDetail2 접속");
+	        
+	        return "admin/admin_userDetail2.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_decl", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_decl(Locale locale, Model model) {
+	        logger.info("admin_decl 접속");
+	        
+	        return "admin/admin_decl.tiles";
+	    }
+	  @RequestMapping(value = "admin/admin_declDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_declDetail(Locale locale, Model model) {
+	        logger.info("admin_declDetail 접속");
+	        
+	        return "admin/admin_declDetail.tiles";
 	    }
 	  
 	  @RequestMapping(value = "/joinFine", method = {RequestMethod.GET, RequestMethod.POST})

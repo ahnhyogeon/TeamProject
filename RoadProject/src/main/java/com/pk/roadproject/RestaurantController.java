@@ -179,7 +179,8 @@ public class RestaurantController {
 	@ResponseBody
 	public ResponseEntity<?> handleImageUpload(
 			@RequestParam("file") MultipartFile uploadFile,
-			@RequestParam("imnum") String imnum){
+			@RequestParam("imnum") String imnum,
+			Model model){
 		System.out.println("upload() 실행됨");
 		if(!uploadFile.isEmpty()) {
 			try {
