@@ -26,18 +26,6 @@
     <p class="mb-3">팔로우 기능 (임시 test1 -> test2): <button type="button" onclick="followUser()">팔로우</button></p>
     <p class="mb-3">팔로우 취소 기능 (임시 test1 -> test2를 삭제): <button type="button" onclick="unfollowUser()">팔로우 취소</button></p>  
     
-    <div class="reviewSummary row">
-    	<div class="col-9">
-    		<h3>리뷰 요약</h3>
-    	</div>
-    	<div class="col-3">
-    		<a href="reviewEdit?userid=4" class="col-9 btn btn-primary">리뷰 등록</a>
-    	</div>
-    	<div class="col-4 d-flex justify-content align-items align-items">
-    	
-    	</div>
-    </div>
-    
     <nav class="navbar navbar-light bg-light">
   		<div class="container-fluid">
 	    	<form class="d-flex" action="reviewSearch" method="post">
@@ -53,39 +41,39 @@
 	           <col width="35%">
 	        </colgroup>
 	     	<!-- 루프 -->
-	        <c:forEach var="review" items="${reviews}">
+	        <c:forEach var="reviews" items="${reviews}">
 	        <tbody>	
 	            <tr>
-	            	<td class="mt-3"><a href="reviewDetail?id=${review.id }">${review.title}</a></td>
-	            	<td class="mt-3">${review.nickname}</td>
+	            	<td class="mt-3"><a href="reviewDetail?id=${reviews.id }">${reviews.title}</a></td>
+	            	<td class="mt-3">${reviews.nickname}</td>	
 	            </tr>
 	            <tr>
 	                <td>방문기록?</td>
-	                <td>조회수 : ${review.hits}</td>
+	                <td>조회수 : ${reviews.hits}</td>
 	            </tr>
 	            <tr>
 	                <td colspan="2">
                     	<c:choose>
-                        	<c:when test="${fn:length(review.detail) > 120}">
-                            	${fn:substring(review.detail, 0, 120)}...
+                        	<c:when test="${fn:length(reviews.detail) > 120}">
+                            	${fn:substring(reviews.detail, 0, 120)}...
                             </c:when>
                         	<c:otherwise>
-                        		${review.detail}
+                        		${reviews.detail}
                        		</c:otherwise>
                     	</c:choose>
                 	</td>
 	            </tr>
 	            <tr>
-	                <td colspan="2">${review.hashtag}</td>
+	                <td colspan="2">${reviews.hashtag}</td>
 	            </tr>
 	            <tr>
 	                <td colspan="2">루트보기?</td>
 	            </tr>	
 	            <tr>
-	                <td>추천율 : <fmt:formatNumber value="${review.result}" type="number" maxFractionDigits="1"/>%</td>
+	                <td>추천율 : <fmt:formatNumber value="${reviews.result}" type="number" maxFractionDigits="1"/>%</td>
 	                <td>
 	                	<form action="rating" method="get">
-	                		<input type="hidden" name="id" id="id" value="${review.id}">
+	                		<input type="hidden" name="id" id="id" value="${reviews.id}">
 	                		<button type="submit">좋아요</button>
 	                	</form>
 	                </td>

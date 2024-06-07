@@ -15,6 +15,7 @@ public class ReviewDto {
 	private int rtCode;
 	private String imnum;
 	private double result;
+	private String search;
 	
 	public ReviewDto() {}
 	

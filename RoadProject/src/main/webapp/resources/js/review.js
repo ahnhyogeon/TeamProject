@@ -47,3 +47,26 @@ function unfollowUser() {
     }
   }
   
+  function search(){
+    if (userId !== null && userId.trim() !== "") {
+      $.ajax({
+        type: "POST",
+        url: "unfollow",
+        dataType: "json",
+        success: function(response) {
+          if(response.message) {
+            console.log(response.message);
+            alert(response.message);
+          } else {
+          	console.log(response.message);
+          	console.log(response);
+            alert("팔로우가 취소되었습니다.");
+          }
+        },
+        error: function(xhr, error) {
+          console.error("팔로우 실패: " + error);      
+        }
+      });
+    }
+  }
+  

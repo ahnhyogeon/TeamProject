@@ -10,6 +10,9 @@ public interface ReviewDao {
 	//리뷰 조회
 	public List<ReviewDto> reviewSelectList(ReviewDto reviews) throws Exception;
 	
+	//리뷰 검색
+	public List<ReviewDto> reviewSelectSearchList(ReviewDto reviews) throws Exception;
+	
 	//리뷰 만들기
 	public void insertReview(ReviewDto reviews) throws Exception;
 	
@@ -21,6 +24,11 @@ public interface ReviewDao {
 	
 	//리뷰 디테일
 	public List<ReviewDto> reviewDetail(ReviewDto reviews) throws Exception;
+	
+	//리뷰 조회수 증가
+	public void reviewHitUp(int id) throws Exception;
+	
+
 
 }
 	

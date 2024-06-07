@@ -27,6 +27,14 @@ public class ReviewDaoImp implements ReviewDao {
 		return sqlSession.selectList(Namespace+".reviewSelectList", reviews);
 	}
 	
+	//리뷰 검색
+	@Override
+	public List<ReviewDto> reviewSelectSearchList(ReviewDto reviews) {
+		
+		System.out.println("reviewSelectSearchList() 시작");
+		return sqlSession.selectList(Namespace+".reviewSelectSearchList", reviews);
+	}
+	
 	@Override
 	public void insertReview(ReviewDto reviews) {
 		
@@ -55,6 +63,14 @@ public class ReviewDaoImp implements ReviewDao {
 		
 		System.out.println("reviewDetail() 시작");
 		return sqlSession.selectList(Namespace+".reviewDetail", reviews);
+	}
+	
+	// 리뷰 조회수 증가
+	@Override
+	public void reviewHitUp(int id) {
+		
+		System.out.println("reviewHitUp() 시작");
+		sqlSession.update(Namespace+".reviewHitUp", id);
 	}
 	
 }

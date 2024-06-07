@@ -19,6 +19,12 @@ public class ReviewServicelmp implements ReviewService {
 	public List<ReviewDto> reviewSelectList(ReviewDto reviews) throws Exception {
 		return dao.reviewSelectList(reviews);
 	}
+	
+	//리뷰 검색
+	@Override
+	public List<ReviewDto> reviewSelectSearchList(ReviewDto reviews) throws Exception {
+		return dao.reviewSelectSearchList(reviews);
+	}
 
 	@Override
 	public void insertReview(ReviewDto reviews) throws Exception {
@@ -39,6 +45,12 @@ public class ReviewServicelmp implements ReviewService {
 	@Override
 	public List<ReviewDto> reviewDetail(ReviewDto reviews) throws Exception {
 		return dao.reviewDetail(reviews);
+	}
+	
+	//리뷰 조회수 증가
+	@Override
+	public void reviewHitUp(int id) throws Exception {
+		dao.reviewHitUp(id);
 	}
 
 }

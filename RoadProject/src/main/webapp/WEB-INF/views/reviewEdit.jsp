@@ -20,11 +20,11 @@
   </c:if>
 
 <section id="section" class="bg-white pb-3">
-  <div class="listbox">
+  <div class="listbox container">
   
   	<form action="reviewEditok" method="post" class="mb-3">
 		<div class="form-group">
-			<p>임시 설정 : userid(4)(아직 미구현ㅜ) / 이름(홍길동)</p>
+			<p>임시 설정 : userid(4) / 이름(홍길동)</p>
 			<p>아직 작업중</p>
 			<label for="comment">제목 : </label>
 				<input type="text" name="title" id="title" class="form-control mb-3">

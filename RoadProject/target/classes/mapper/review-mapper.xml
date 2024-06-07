@@ -7,6 +7,10 @@
 		SELECT * FROM review
 	</select>
 	
+	<select id="reviewSelectSearchList" resultType="reviewDto">
+		SELECT * FROM review WHERE title LIKE #{search}
+	</select>
+	
 	<select id="reviewDetail" resultType="reviewDto">
 		SELECT * FROM review where id = #{id}
 	</select>
@@ -17,6 +21,10 @@
 	
 	<update id="ratingReview" parameterType="reviewDto">
 		UPDATE review SET rating = rating + 1 WHERE id = #{id}
+	</update>
+	
+	<update id="reviewHitUp" parameterType="reviewDto">
+		UPDATE review SET hits = hits + 1 WHERE id = #{id}
 	</update>
 	
 	

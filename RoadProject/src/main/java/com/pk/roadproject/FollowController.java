@@ -14,10 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
@@ -64,6 +64,28 @@ public class FollowController {
 		  }
 		  model.addAttribute("reviews", reviews);
 		  return "review.tiles";
+	  }
+	  
+	  //search 페이지
+	  @PostMapping("/reviewSearch")
+	  public String reviewSearch(@RequestParam("search") String search, 
+			  					Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		  System.out.println("reviewSearch 접속");
+		  
+		  reviewDto.setSearch("%"+search+"%");
+		  
+		  List<ReviewDto> reviews = serviceR.reviewSelectSearchList(reviewDto);
+		  for(ReviewDto review : reviews) {
+			  if(review.getRating() == 0 || review.getHits() == 0) {
+				  review.setResult(0);
+			  }else {
+			  double result = (review.getRating() * 100) / (double) review.getHits();
+			  review.setResult(result);
+			  }
+		  }
+		  System.out.println("reviewSelectSearchList 실행 완료");
+		  model.addAttribute("reviews", reviews);
+		  return "reviewSearch.tiles";
 	  }
 	  
 	  // 좋아요
@@ -117,6 +139,7 @@ public class FollowController {
 		  reviewDto.setTitle(request.getParameter("title"));
 		  reviewDto.setDetail(request.getParameter("detail"));
 		  reviewDto.setHashtag(request.getParameter("hashtag"));
+		  reviewDto.setHits(1);
 		  System.out.println(reviewDto.getNickname() + " set 완료");
 		  
 		  serviceR.insertReview(reviewDto);
@@ -135,6 +158,8 @@ public class FollowController {
 		  System.out.println("set : " + reviewId);
 		  
 		  List<ReviewDto> reviews = serviceR.reviewDetail(reviewDto);
+		  
+		  
 		  	  
 		  for(ReviewDto review : reviews) {
 			  if(review.getRating() == 0 || review.getHits() == 0) {
