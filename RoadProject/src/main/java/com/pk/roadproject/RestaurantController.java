@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,9 @@ public class RestaurantController {
 		
 		@Autowired
 		ServletContext servletContext;
+		
+		@Autowired
+		HttpSession session;
 		
 		//insert
 		@Autowired
@@ -117,62 +121,51 @@ public class RestaurantController {
 		return "delrest";
 	}
 	
+	/*
 	@GetMapping("/register")
 	public String register(Model model) {
 		System.out.println("register() 실행됨");
 		String upDir = servletContext.getRealPath("/resources/");
 		System.out.println(upDir);
 		String imnum = UUID.randomUUID().toString();
-		
 		model.addAttribute("imnum", imnum);
 		return "register";
 	}
-	
-	@PostMapping("/register")
+	*/
+	@PostMapping("/registerok")
 	public String registerOk(HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		System.out.println("registerok() 실행됨");
+		int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
+		model.addAttribute("buisness", rbusiness);
 		model.addAttribute("request", request);
 		setRest.excute(model);
 		
-		return "redirect:rest";
+		return "partnerPage.tiles";
 	}
 	
-	
+	/*
 	@RequestMapping("/restedit")
-	public String edit(HttpServletRequest request, HttpServletResponse response,Model model) {
+	public String edit(HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("restedit() 실행됨");
 		model.addAttribute("req", request);
 		//model.addAttribute("increaseHit", false);
 		
 		getRest.excute(model);		
-		return "edit";
+		return "";
 	}
+	*/
 	
 	@PostMapping("/resteditok")
-	public String editok( HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String resteditok( HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("resteditok() 실행됨");
+		
 		String ids = request.getParameter("id");
 		
 		Map<String, Object> params = new HashMap<>();
-		try {
-			params.put("id", Integer.parseInt(ids));
-			params.put("pass", request.getParameter("pass"));
-			
-		}catch(NumberFormatException e) {
-			model.addAttribute("error", "에러가 발생했습니다.");
-			return "redirect:edit?id="+ids;
-		}
-		int result = rdao.validateBusiness(params);
-		if(result > 0) {
-			model.addAttribute("request", request);
-			setRestEdit.excute(model);
-			return "redirect:contents?id="+ids;
-		}else {
-			//경고 보내기
-			model.addAttribute("error", "비밀번호가 틀렸습니다.");
-			return "redirect:edit?id="+ids;
-		}
+		
+		return "partneredit2.tiles";
+		
 	}
 	
 	@PostMapping("/upload")

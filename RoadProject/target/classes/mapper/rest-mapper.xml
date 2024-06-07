@@ -4,6 +4,30 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pk.dao.RestaurantMapper">
 
+
+
+
+
+ <sql id="restColumn"> 	
+       business,
+ 	   imnum,
+ 	   r_intro,
+ 	   r_time,
+       r_url
+  </sql>
+  
+  <insert id="restInsert" parameterType="restDto" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO restaurant(<include refid="restColumn"/>) values (  	
+       #{business},
+       #{imnum},
+       #{r_intro},
+       #{r_time},
+       #{r_url}
+     )
+  </insert>
+
+
+<!-- 
   <sql id="restColumn">
   	 business,
      r_name,
@@ -20,7 +44,8 @@
   
   <insert id="restInsert" parameterType="restDto" useGeneratedKeys="true" keyProperty="id">
      INSERT INTO restaurant(<include refid="restColumn"/>) values (
-   	   1234,   <!-- 나중에 관리자가 주는 사업자코드로 바꿔야함. -->
+   	   1234,    나중에 관리자가 주는 사업자코드로 바꿔야함. -->
+ <!--  
        #{r_name},
        1,
        #{r_addr1},
@@ -32,7 +57,7 @@
        #{notice}
      )
   </insert>
-
+ -->
   <update id="updateRefId" parameterType="int">
      UPDATE restaurant SET refid = #{id} WHERE id=#{id}
   </update>
@@ -44,7 +69,6 @@
   <update id="restUpdate" parameterType="restDto">
      UPDATE restaurant 
      SET
-        business = #{business},
         r_name = #{r_name},
         r_url = #{r_url},
         r_intro = #{r_intro}

@@ -20,17 +20,19 @@
 <div class="header">
     <div class="toolbar">
         <div class="logoBox"><a href="index.html"><img id="logo" src="resources/images/LOGO.png" alt="logo"></a></div>
-        <div class="hdtextBox">
-            <div><img src="resources/images/icons _ emoji/World Map.png" alt="map">어디를 이용하시나요?</div>
-            <div id="line"></div>
-            <div><img src="resources/images/icons _ emoji/Spiral Calendar.png" alt="Calendar">언제 이용하시나요?</div>
-        </div>
+
         <%
        		Integer role = (Integer) session.getAttribute("role");
         
         	if(role != null){
         	if(role == 1){
         %>
+            <div class="hdtextBox">
+            	<div><img src="resources/images/icons _ emoji/World Map.png" alt="map">어디를 이용하시나요?</div>
+            	<div id="line"></div>
+            	<div><img src="resources/images/icons _ emoji/Spiral Calendar.png" alt="Calendar">언제 이용하시나요?</div>
+        	</div>
+        	
         	<div class="loginBox">
         		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="myPage.html">마이페이지</a>
         		<div id="line"></div>
@@ -42,7 +44,7 @@
         	else if(role == 2){
         %>
         	<div class="loginBox">
-        		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="myPage.html">마이페이지</a>
+        		<img src="resources/images/icons _ emoji/Camping.png" alt="Camping.png"><a href="partnerPage.html">마이 스페이스</a>
         		<div id="line"></div>
         		<a href="logout">로그아웃</a>
         	</div>		
@@ -50,6 +52,12 @@
         	}
         	else if(role == 99){
         %>
+        	<div class="hdtextBox">
+            	<div><img src="resources/images/icons _ emoji/World Map.png" alt="map">어디를 이용하시나요?</div>
+            	<div id="line"></div>
+            	<div><img src="resources/images/icons _ emoji/Spiral Calendar.png" alt="Calendar">언제 이용하시나요?</div>
+        	</div>
+        	
         	<div class="loginBox">
         		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="admin/adminPage">관리페이지</a>	
         		<div id="line"></div>
@@ -60,6 +68,12 @@
         	}
             else{
         %>
+        	<div class="hdtextBox">
+            	<div><img src="resources/images/icons _ emoji/World Map.png" alt="map">어디를 이용하시나요?</div>
+            	<div id="line"></div>
+            	<div><img src="resources/images/icons _ emoji/Spiral Calendar.png" alt="Calendar">언제 이용하시나요?</div>
+        	</div>
+        	
         	<div class="loginBox">
         		<img src="resources/images/icons _ emoji/Hugging Face.png" alt="hugging face"><a href="login.html">로그인</a>
         	</div>

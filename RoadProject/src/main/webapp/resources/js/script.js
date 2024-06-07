@@ -41,6 +41,41 @@ $(function(){
             window.location.href = "joinedit.html";
         });
     }
+    
+    const partner_homeTab = document.getElementById('partner_tabMenu_home');
+    if(partner_homeTab){
+        partner_homeTab.addEventListener('click', function(){
+            window.location.href = 'partnerPage.html';
+        });
+    }
+
+    const partner_reviewTab = document.getElementById('partner_tabMenu_review');
+    if(partner_reviewTab){
+        partner_reviewTab.addEventListener('click', function(){
+            window.location.href = 'partnerPage2.html';
+        });
+    }
+
+    const partner_themeTab = document.getElementById('partner_tabMenu_res');
+    if(partner_themeTab){
+        partner_themeTab.addEventListener('click', function(){
+            window.location.href = 'partnerPage3.html';
+        });
+    }
+    
+    const partner_avgTab = document.getElementById('partner_tabMenu_avg');
+    if(partner_avgTab){
+        partner_avgTab.addEventListener('click', function(){
+            window.location.href = 'partnerPage4.html';
+        });
+    }
+
+    const partner_editGear = document.getElementById('partner_edit_gear');
+    if(partner_editGear){
+        partner_editGear.addEventListener('click', function(){
+            window.location.href = "partneredit.html";
+        });
+    }
 
     const followTab = document.getElementById('follow_tab');
     if(followTab){
@@ -79,6 +114,7 @@ const autoHyphen = (target) => {
 }
 
 $(function(){
+
     $("#addrsearch").click(function(event){
         event.preventDefault(); // 폼 제출 방지
         dPostcode();
@@ -94,7 +130,7 @@ $(function(){
         $('.searchname').val($val);
     });
 
-    // 삭제
+    // 가게 삭제
     $("#delete").click(function(e){
         e.preventDefault();
         var id = $(this).data("id");
@@ -126,42 +162,18 @@ $(function(){
                     return result;
                 }     
             });
-
-
-		        console.log("code: " + request.status)
-		        console.log("message: " + request.responseText)
-		        console.log("error: " + error);
-		        return result;
-         }     
-          });
+        }
+    });
           
-          //메뉴 삭제
+         
+         
+    //메뉴 삭제
    $("#mDelete").click(function(e){
       e.preventDefault();
       var id = $(this).data("id");
       var result = "";
       const business = prompt("삭제를 위한 번호를 입력하세요.");
-      /** 직접 폼으로 만들어서 전달 하는 방법 **/
-      if(business) {
-         //삭제를 위해서는 서버에 business 와 id 를 전달해 주어야 한다.
-         /*
-         var form = $('<form>', {
-            'method' : 'post' ,
-            'action' : 'mDel'
-         }).append(
-           $('<input>', {
-              'name' : 'business',
-              'value' : business,
-              'type' : 'hidden'    
-           })).append(
-           $('<input>', {
-              'name' : 'id',
-              'value' : id,
-              'type' : 'hidden'    
-           }));
-          $(document.body).append(form);
-          form.submit();
-          */
+
           $.ajax({
              url: 'mDel',
              type: 'post',
@@ -185,13 +197,12 @@ $(function(){
 		        console.log("message: " + request.responseText)
 		        console.log("error: " + error);
 		        return result;
-         }     
-          });
-          
-      }
-   });
-   
-   
+         	}     
+          })
+        });
+
+
+     
     //검색
    $('.dropdown-menu>a.dropdown-item').click(function(e){
       e.preventDefault();
@@ -202,10 +213,10 @@ $(function(){
       $('#searchname').val($val);
    });   
           
-
-   });
-   
-   
+      
+});
+ 
+ 
 function dPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -495,7 +506,14 @@ $(document).ready(function() {
     $('#admin_user_decl_btn2').click(function(){
 		console.log("되냐?");
         window.location.href = "admin_decl";
+    });
+    
+    $('#partner_tab_1').click(function(){
+    	window.location.href = "partneredit";
     }); 
+    
+    $('#partner_tab_2').click(function(){
+    	window.location.href = "partneredit2";
+    });
 });
-
 

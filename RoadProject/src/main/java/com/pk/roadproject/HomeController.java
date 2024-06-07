@@ -7,10 +7,14 @@ import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping; 
@@ -22,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
 import com.pk.service.FollowService;
+import com.pk.service.GetRestService;
 import com.pk.service.MemberService;
 
 /**
@@ -36,6 +41,12 @@ public class HomeController {
 	private MemberService service;
 	
 	MemberDto memberDto = new MemberDto();
+	
+	@Autowired
+	ServletContext servletContext;
+	
+	@Autowired
+	GetRestService getRest;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -353,6 +364,66 @@ public class HomeController {
 		  return "map.tiles";
 	  }
 	  
+	  @RequestMapping(value = "/partnerPage", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage(Locale locale, Model model) {
+	        logger.info("partnerPage 접속");
+	        
+	        return "partnerPage.tiles";
+	    }
+	  @RequestMapping(value = "/partnerPage2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage2(Locale locale, Model model) {
+	        logger.info("partnerPage2 접속");
+	        
+	        return "partnerPage2.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partnerPage3", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage3(Locale locale, Model model) {
+	        logger.info("partnerPage3 접속");
+	        
+	        return "partnerPage3.tiles";
+	    }
+	  @RequestMapping(value = "/partnerPage4", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage4(Locale locale, Model model) {
+	        logger.info("partnerPage4 접속");
+	        
+	        return "partnerPage4.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partneredit", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partneredit(Locale locale, Model model) {
+	        logger.info("partneredit 접속");
+	        
+	        return "partneredit.tiles";
+	    }
+	  
+	  /* 원래 쓰던거
+	  @RequestMapping(value = "/partneredit2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partneredit2(Locale locale, Model model, HttpSession session) {
+		
+	        logger.info("partneredit2 접속");
+	        String upDir = servletContext.getRealPath("/resources/");
+			System.out.println(upDir);
+			String imnum = UUID.randomUUID().toString();
+			session.getAttribute("buisness");
+			model.addAttribute("imnum", imnum);
+	        return "partneredit2.tiles";
+	    }
+	  */
+	  @RequestMapping(value = "/partneredit2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partneredit2(Locale locale, Model model, HttpSession session) {
+		
+	        logger.info("partneredit2 접속");
+	        String upDir = servletContext.getRealPath("/resources/");
+			System.out.println(upDir);
+			String imnum = UUID.randomUUID().toString();
+			int rbusiness = Integer.parseInt((String) session.getAttribute("buisness"));
+			model.addAttribute("imnum", imnum);
+			model.addAttribute("buisness", rbusiness);
+			getRest.excute(model);	
+	        return "partneredit2.tiles";
+	    }
+	  
 	  //회원가입
 	  @RequestMapping(value = "/addMember", method = RequestMethod.POST)
 	    public ModelAndView addMember(
@@ -439,13 +510,26 @@ public class HomeController {
 			        System.out.println(search); // 회원 정보 가져오기
 			        String nick = search.getNickname();
 			        int role = search.getRole();
+			        String buisness = search.getBuisness();
+			        String tel = search.getTel();
 			        System.out.println(nick);
 			        
-			        session.setAttribute("nickname", nick);
-			        session.setAttribute("userid", userid);
-			        session.setAttribute("role", role);
+			        if(role == 2) {
+			        	session.setAttribute("nickname", nick);
+			        	session.setAttribute("userid", userid);
+			        	session.setAttribute("role", role);
+			        	session.setAttribute("buisness", buisness);
+			        	session.setAttribute("tel", tel);
+			        	
+			        	System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role")+", buisness : "+session.getAttribute("buisness"));
+			        }else {
+			        	session.setAttribute("nickname", nick);
+			        	session.setAttribute("userid", userid);
+			        	session.setAttribute("role", role);
+			        	
+			        	System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role"));
+			        }
 			        
-			        System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role"));
 			 
 			    } else {
 			        System.out.println("로그인에 실패했습니다.");

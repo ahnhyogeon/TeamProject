@@ -62,6 +62,7 @@
             </div>
             <div class="rowside_review_delete">
                 <button id="admin_user_decl" class="rowside_review_deletebtn">제제하기</button>
+                <button id="admin_user_edit" class="rowside_review_editbtn">반려하기</button>
             </div>
         </div>
         <div class="rowside_review_back">

@@ -180,7 +180,7 @@ font-weight: 500;
 line-height: 22px; /* 137.5% */
 letter-spacing: -0.064px;
 }
-.edit_addr{
+.edit_addr2{
     margin-bottom: 48px;
 }
 .edit_save{
@@ -200,6 +200,11 @@ font-style: normal;
 font-weight: 500;
 line-height: 22px; /* 137.5% */
 letter-spacing: -0.064px;
+}
+.edit_save:hover{
+	border: 3px solid var(--mono-color-e-6-e-6-e-6, #ccc);
+	background: var(--mono-color-fafafa, #FAFAFA);
+    color: var(--mono-color-ccc, #CCC);
 }
 .edit_out{
     color: var(--mono-color-808080, #808080);
@@ -223,6 +228,155 @@ text-decoration-line: underline;
 .edit_out>a:hover{
     color: var(--mono-color-808080, #808080);
 }
+.partner_edit_profile_picture{
+	display: flex;
+width: 100px;
+height: 100px;
+justify-content: center;
+align-items: center;
+border-radius: 20px;
+border: 1px solid var(--mono-color-ccc, #CCC);
+background: var(--mono-color-fff, #FFF);
+}
+.partner_picture_input{
+	border-color:var(--mono-color-333, #333) !important;
+	background: var(--mono-color-333, #333) !important;
+}
+.partnerdeit_inner_tab{
+    display: flex;
+width: 710px;
+justify-content: space-between;
+align-items: flex-start;
+}
+.partnerdeit_inner_tab>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex: 1 0 0;
+}
+.partnerdeit_inner_tab>div>label{
+    color: var(--mono-color-bfbfbf, #BFBFBF);
+text-align: center;
+font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: 25px; /* 138.889% */
+letter-spacing: -0.072px;
+}
+.partnerdeit_inner_tab>div>span{
+    color: var(--mono-color-bfbfbf, #BFBFBF);
+text-align: center;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: 25px; /* 138.889% */
+letter-spacing: -0.072px;
+margin-bottom: 8px;
+}
+#partner_tab_1:hover, #partner_tab_1>label:hover, #partner_tab_1>span:hover,
+#partner_tab_2:hover, #partner_tab_2>label:hover, #partner_tab_2>span:hover{
+    cursor: pointer;
+}
+.partner_active{
+    border-bottom: 2px solid #111;
+    color: var(--mono-color-111, #111);
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 25px; /* 138.889% */
+    letter-spacing: -0.072px;
+}
+.partner_active>label{
+    color: var(--mono-color-111, #111) !important;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 25px; /* 138.889% */
+    letter-spacing: -0.072px;
+}
+.joinedit_profile>.partneredit_profile_text{
+	color: var(--mono-color-111, #111);
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+}
+.joinedit_profile>.partneredit_profile_text>span{
+	color: var(--main-color-100, #FF4147);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.056px;
+}
+#partneredit_inner{
+	padding-bottom:0 !important;
+}
+
+.partner_menu_btn{
+    width: 710px;
+    height: 52px;
+    display: flex;
+padding: 15px 16px;
+justify-content: center;
+align-items: center;
+gap: 4px;
+flex: 1 0 0;
+border-radius: 8px;
+border: 1px solid var(--mono-color-333, #333);
+background: var(--mono-color-fff, #FFF);
+color: var(--mono-color-333, #333);
+text-align: center;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+}
+#partner_textarea{
+	display: flex;
+	width:710px;
+height: 120px;
+padding: 12px;
+align-items: flex-start;
+gap: 8px;
+align-self: stretch;
+border-radius: 4px;
+border: 1px solid var(--mono-color-e-6-e-6-e-6, #E6E6E6);
+background: var(--mono-color-fff, #FFF);
+color: var(--mono-color-333, #333);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: -0.056px;
+}
+#partner_file_up>label:last-of-type{
+	color: var(--mono-color-808080, #808080);
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 17px;
+letter-spacing: -0.048px;
+}
+#partner_file_up>label:last-of-type>span{
+	color: var(--main-color-100, #FF4147);
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 17px; /* 141.667% */
+letter-spacing: -0.048px;
+}
+.partner_upload_show{
+	display: flex;
+align-items: flex-start;
+gap: 10px;
+}
+
 .bannerBox{
     margin-bottom: 48px;
 }

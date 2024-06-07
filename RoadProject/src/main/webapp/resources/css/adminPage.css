@@ -423,6 +423,10 @@ line-height: 19px; /* 135.714% */
     align-items: center;
     flex-shrink: 0;
 }
+
+#paging_drop_numBox{
+	
+}
 .row_main2_paging_drop_button>div>img{
     width: 12px;
 height: 6.796px;

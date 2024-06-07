@@ -89,7 +89,7 @@
                         <tbody>
                             <tr>
                                 <td>{num}</td>
-                                <td><a href="admin_keywordDetail.html">{아이디}</a></td>
+                                <td><a href="admin_keywordDetail.html">{키워드}</a></td>
                                 <td>2024.06.04</td>
                                 <td>
                                     <div class="row_btn_box">
