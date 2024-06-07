@@ -44,24 +44,6 @@ public class HomeController {
 		
 		return "index.tiles";
 	}
-	
-	 @RequestMapping(value = "/content1", method = RequestMethod.GET)
-	  public String list(Locale locale, Model model) throws Exception {
-		 System.out.println("content1 접속");
-		 logger.info("home");
-		 
-		 MemberDto search = new MemberDto();
-		    search.setName("학생1");
-			
-		    List<MemberDto> memberList = service.selectMember();
-			search = service.searchName(search);
-			
-			model.addAttribute("memberList", memberList);
-			model.addAttribute("search", search);
-			model.addAttribute("url", "content1" );
-		  
-			return "list.tiles";
-	  }	
 
 	  @RequestMapping(value = "/detail", method = RequestMethod.GET)
 	  public String detail(Locale locale, Model model) {
@@ -109,6 +91,66 @@ public class HomeController {
 	        logger.info("login 접속");
 	        
 	        return "login.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/adminPage", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String adminPage(Locale locale, Model model) {
+	        logger.info("adminPage 접속");
+	        
+	        return "admin/adminPage.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_reviewDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_reviewDetail(Locale locale, Model model) {
+	        logger.info("admin_reviewDetail 접속");
+	        
+	        return "admin/admin_reviewDetail.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_keyword", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_keyword(Locale locale, Model model) {
+	        logger.info("admin_keyword 접속");
+	        
+	        return "admin/admin_keyword.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_keywordDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_keywordDetail(Locale locale, Model model) {
+	        logger.info("admin_keywordDetail 접속");
+	        
+	        return "admin/admin_keywordDetail.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_user", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_user(Locale locale, Model model) {
+	        logger.info("admin_user 접속");
+	        
+	        return "admin/admin_user.tiles";
+	    }
+	  @RequestMapping(value = "admin/admin_userDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_userDetail(Locale locale, Model model) {
+	        logger.info("admin_userDetail 접속");
+	        
+	        return "admin/admin_userDetail.tiles";
+	    }
+	  @RequestMapping(value = "admin/admin_userDetail2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_userDetail2(Locale locale, Model model) {
+	        logger.info("admin_userDetail2 접속");
+	        
+	        return "admin/admin_userDetail2.tiles";
+	    }
+	  
+	  @RequestMapping(value = "admin/admin_decl", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_decl(Locale locale, Model model) {
+	        logger.info("admin_decl 접속");
+	        
+	        return "admin/admin_decl.tiles";
+	    }
+	  @RequestMapping(value = "admin/admin_declDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String admin_declDetail(Locale locale, Model model) {
+	        logger.info("admin_declDetail 접속");
+	        
+	        return "admin/admin_declDetail.tiles";
 	    }
 	  
 	  @RequestMapping(value = "/joinFine", method = {RequestMethod.GET, RequestMethod.POST})
@@ -283,6 +325,46 @@ public class HomeController {
 		  return "map.tiles";
 	  }
 	  
+	  @RequestMapping(value = "/partnerPage", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage(Locale locale, Model model) {
+	        logger.info("partnerPage 접속");
+	        
+	        return "partnerPage.tiles";
+	    }
+	  @RequestMapping(value = "/partnerPage2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage2(Locale locale, Model model) {
+	        logger.info("partnerPage2 접속");
+	        
+	        return "partnerPage2.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partnerPage3", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage3(Locale locale, Model model) {
+	        logger.info("partnerPage3 접속");
+	        
+	        return "partnerPage3.tiles";
+	    }
+	  @RequestMapping(value = "/partnerPage4", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage4(Locale locale, Model model) {
+	        logger.info("partnerPage4 접속");
+	        
+	        return "partnerPage4.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partneredit", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partneredit(Locale locale, Model model) {
+	        logger.info("partneredit 접속");
+	        
+	        return "partneredit.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partneredit2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partneredit2(Locale locale, Model model) {
+	        logger.info("partneredit2 접속");
+	        
+	        return "partneredit2.tiles";
+	    }
+	  
 	  //회원가입
 	  @RequestMapping(value = "/addMember", method = RequestMethod.POST)
 	    public ModelAndView addMember(
@@ -369,13 +451,26 @@ public class HomeController {
 			        System.out.println(search); // 회원 정보 가져오기
 			        String nick = search.getNickname();
 			        int role = search.getRole();
+			        String buisness = search.getBuisness();
+			        String tel = search.getTel();
 			        System.out.println(nick);
 			        
-			        session.setAttribute("nickname", nick);
-			        session.setAttribute("userid", userid);
-			        session.setAttribute("role", role);
+			        if(role == 2) {
+			        	session.setAttribute("nickname", nick);
+			        	session.setAttribute("userid", userid);
+			        	session.setAttribute("role", role);
+			        	session.setAttribute("buisness", buisness);
+			        	session.setAttribute("tel", tel);
+			        	
+			        	System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role")+", buisness : "+session.getAttribute("buisness"));
+			        }else {
+			        	session.setAttribute("nickname", nick);
+			        	session.setAttribute("userid", userid);
+			        	session.setAttribute("role", role);
+			        	
+			        	System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role"));
+			        }
 			        
-			        System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role"));
 			 
 			    } else {
 			        System.out.println("로그인에 실패했습니다.");

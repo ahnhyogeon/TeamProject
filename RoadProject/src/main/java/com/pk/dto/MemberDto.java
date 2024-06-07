@@ -20,7 +20,7 @@ public class MemberDto {
 	private Timestamp date;
 	private String buisness;
 	private int role;
-	
+
 	public MemberDto() {
     }
 }

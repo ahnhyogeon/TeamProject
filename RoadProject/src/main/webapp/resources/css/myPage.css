@@ -91,14 +91,16 @@ font-weight: 600;
 line-height: 25px; /* 138.889% */
 letter-spacing: -0.072px;
 }
-#edit_gear{
+#edit_gear,
+#partner_edit_gear{
     display: flex;
 width: 24px;
 height: 24px;
 justify-content: center;
 align-items: center;
 }
-#edit_gear:hover{
+#edit_gear:hover,
+#partner_edit_gear:hover{
     cursor: pointer;
 }
 .profile_count{

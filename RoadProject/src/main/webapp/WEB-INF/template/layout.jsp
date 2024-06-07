@@ -10,6 +10,7 @@
   <title><tiles:getAsString name="title"/></title>
 </head>
 <body>
+
 	<!-- header -->
     <tiles:insertAttribute name="header"/>
     
