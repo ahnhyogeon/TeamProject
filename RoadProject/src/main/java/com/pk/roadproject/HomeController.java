@@ -435,7 +435,6 @@ public class HomeController {
 			    HttpSession session) throws Exception {
 		  
 		  
-			      
 		  		System.out.println(userid);
 			    memberDto.setUserid(userid);
 			    memberDto.setPassword(password);
