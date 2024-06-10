@@ -18,6 +18,7 @@ public class MenuDto {
 	private String m_code;
 	private String imnum;
 	private Timestamp wdate;
+	private int visible;
 	
 	public MenuDto() {
 		

@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,9 @@ public class MenuController {
 	@Autowired
 	ServletContext servletContext;
 	
+	@Autowired
+	HttpSession session;
+	
 	//insert
 	@Autowired
 	SetMenuService setMenu;
@@ -66,22 +70,22 @@ public class MenuController {
 	
 	@RequestMapping("/menu")
 	public String list(
-			@RequestParam(value="business") String business,
 			@RequestParam(value="cpg", defaultValue="1") int cpg, 
 			@RequestParam(value="searchname", defaultValue="") String searchname,
 			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,
 			Model model) {
 		System.out.println("menu() 실행됨");
-		System.out.println(business);
+		int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
+		System.out.println(rbusiness);
 		//int mbusiness = Integer.parseInt(business);
-		model.addAttribute("business", business);
+		model.addAttribute("business", rbusiness);
         model.addAttribute("cpg" , cpg);
         model.addAttribute("searchname", searchname);
         model.addAttribute("searchvalue", searchvalue);
         getList.excute(model);
         MenuTrashFileDel.menuDelCom();
         
-		return "menu";
+		return "menu.tiles";
 	}
 	
 	@RequestMapping("/AllMenu")

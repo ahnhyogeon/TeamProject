@@ -108,7 +108,7 @@
                     </div>
                     <div class="edit_pass edit_div">
                         <label class="edit_addr_title">메뉴<span>*</span></label>
-                        <button class="partner_menu_btn">메뉴 수정하기</button>
+                        <button type="button" class="partner_menu_btn" onclick="location.href='menu'" >메뉴 수정하기</button>
                     </div>
                     <div class="edit_addr2 edit_div">
                         <label class="edit_addr_title">사이트<span>*</span></label>
