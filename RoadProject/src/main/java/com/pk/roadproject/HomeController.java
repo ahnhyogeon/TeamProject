@@ -397,6 +397,7 @@ public class HomeController {
 	        return "partneredit.tiles";
 	    }
 	  
+	  
 	  /* 원래 쓰던거
 	  @RequestMapping(value = "/partneredit2", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String partneredit2(Locale locale, Model model, HttpSession session) {
