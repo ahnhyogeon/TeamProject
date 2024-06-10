@@ -83,7 +83,7 @@
                     <img src="resources/images/icons _ emoji/Candle.png" alt="Candle">
                 </div>
                 생성하신 테마가 아직 없습니다.
-                <button>테마 만들기</button>
+                <button id="make_theme" >테마 만들기</button>
             </div>
         </div>
         <div class="myPage_content">
@@ -99,7 +99,7 @@
                     <img src="resources/images/icons _ emoji/Candle.png" alt="Candle">
                 </div>
                 저장하신 장소가 아직 없습니다.
-                <button>장소 저장하기</button>
+                <button id="save_theme" >장소 저장하기</button>
             </div>
         </div>
         <div class="bannerBox">

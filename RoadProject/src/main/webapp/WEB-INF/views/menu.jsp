@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<link rel="stylesheet" href="resources/css/style.css">
+
+<link rel="stylesheet" href="resources/css/style2.css">
   <script src="resources/js/jquery.min.js"></script>
   <script src="resources/js/popper.min.js"></script>
   <script src="resources/js/bootstrap.min.js"></script>
@@ -19,12 +20,13 @@
                 </div>
                 <table class="table table-hover">
                     <colgroup>
-                       <col width="16%">
-                       <col width="16%">
-                       <col width="16%">
-                       <col width="16%">
-                       <col width="16%">
-                       <col width="16%">            
+                       <col width="14%">
+                       <col width="14%">
+                       <col width="14%">
+                       <col width="14%">
+                       <col width="14%">
+                       <col width="14%">   
+                       <col width="14%">         
                     </colgroup>
                     <thead>
                         <tr>
@@ -34,7 +36,7 @@
                             <th>가격</th>
                             <th>소개글</th>
                             <th>메뉴코드</th>
-                               
+                            <th>등록일</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +49,7 @@
                            <td class="text-center">${m_list.m_cost }</td>
                            <td class="text-center">${m_list.m_intro }</td>
                            <td class="text-center">${m_list.m_code }</td>  
-                                      
+                            <td class="text-center"><fmt:formatDate value="${m_list.wdate}" pattern="yyyy/MM/dd"/></td>              
                        </tr>
                        </c:forEach> 
                        <!-- /loop -->

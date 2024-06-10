@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/myPage.css">
+    <link rel="stylesheet" href="resources/css/partnerPage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,78 +16,107 @@
     <div class="myPage_mainbox1">
         <div class="myInner">
             <div class="myInner_title">
-                마이 페이지
+                스페이스 정보
             </div>
-            <div class="myInner_profile">
+            <div class="partnerInner_profile">
                 <div class="profile_picture">
                     <img src="resources/images/icons _ emoji/Winking Face.png" alt="winking">  
                 </div>
-                <div class="profile_info">
-                    <div class="profile_title">
-                        상위 10% 리뷰어
+                <div class="partnerInner_info">
+                    <div class="partnerInner_info_title">
+                        <span>{카테고리}</span>
+                        {상호명}
                     </div>
-                    <div class="profile_name">
-                        <span><%=session.getAttribute("nickname") %></span><img id="partner_edit_gear" src="resources/images/icons _ emoji/Gear.png" alt="Gear">
-                    </div>
-                    <div class="profile_count">
-                        <div>
-                            <label>마이 리뷰</label>
-                            <span>0</span>
-                        </div>
-                        <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                        <div id="profile_follow">
-                            <label>팔로워</label>
-                             <span>0</span>
-                        </div>
-                        <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                        <div id="profile_following">
-                            <label>팔로잉</label>
-                            <span>0</span>
-                        </div>
-                    </div>
+						인천광역시 부평구 부평대로 44
+                </div>
+                <div class="partnerInner_info_btn">
+                	<div class="partner_info_btn">
+                		<img src="resources/images/Timer Clock.png" alt="clock"/>
+                		오픈런 예약 대기
+                	</div>
+                	<div class="partner_info_btn">
+                		<img src="resources/images/icons _ emoji/Spiral Calendar.png" alt="calendar"/>
+                		일반 예약
+                	</div>
+                	<div class="partner_info_btn">
+                		<img src="resources/images/pushpin.png" alt="pushpin"/>
+                		스크랩
+                	</div>
                 </div>
             </div>
         </div>
         <div class="myTabMenu">
             <div id="partner_tabMenu_home" class="subTabMenu active">홈</div>
-            <div id="partner_tabMenu_review" class="subTabMenu">마이 리뷰</div>
-            <div id="partner_tabMenu_res" class="subTabMenu">예약 관리</div>
-            <div id="partner_tabMenu_avg" class="subTabMenu">통계 현황</div>
+            <div id="partner_tabMenu_review" class="subTabMenu">메뉴</div>
+            <div id="partner_tabMenu_res" class="subTabMenu">리뷰 0</div>
         </div>
     </div>
     <div class="myPage_mainbox2">
-        <div class="myPage_content">
-            <div class="content_title">
-                <div>
-                    <img src="resources/images/icons _ emoji/Black Nib.png" alt="black nib">
-                </div>
-                가장 인기 있는 마이 리뷰는?
-                <img src="resources/images/Expand_right_light.png" alt="right">
-            </div>
-            <div class="content_item">
-                <div>
-                    <img src="resources/images/icons _ emoji/Candle.png" alt="Candle">
-                </div>
-                작성하신 리뷰가 아직 없습니다.
-                <button>리뷰 쓰러가기</button>
-            </div>
+        <div class="partner_imageBox">
+            <div class="partner_imageBox_sub"></div>
+            <div class="partner_imageBox_sub"></div>
+            <div class="partner_imageBox_sub"></div>
+            <div class="partner_imageBox_sub"></div>
         </div>
-        <div class="myPage_content">
-            <div class="content_title">
-                <div>
-                    <img src="resources/images/icons _ emoji/Card Index Dividers.png" alt="Card Index Dividers">
-                </div>
-                가장 인기 있는 마이 테마는?
-                <img src="resources/images/Expand_right_light.png" alt="right">
-            </div>
-            <div class="content_item">
-                <div>
-                    <img src="resources/images/icons _ emoji/Candle.png" alt="Candle">
-                </div>
-                생성하신 테마가 아직 없습니다.
-                <button>테마 만들기</button>
-            </div>
-        </div>
+        <div class="partner_infoBox">
+			<div>
+				<img src="resources/images/icons _ emoji/Camping.png" alt="camping">
+				스페이스 정보
+			</div>
+			<div class="partner_infoBox_info">
+				<div>
+					<div class="partner_infoBox_info_title">
+						<img src="" alt="">
+						소개
+					</div>
+					저희는 이런 가계 입니다 :)
+				</div>
+			<div>
+					<div class="partner_infoBox_info_title">
+						<img src="" alt="">
+						전화번호
+					</div>
+					02-1234-1234
+				</div>
+			<div>
+					<div class="partner_infoBox_info_title">
+						<img src="" alt="">
+						위치
+					</div>
+					서울시 **구 **
+					<img src="" alt="">
+					**로 1번길
+				</div>
+			<div>
+					<div class="partner_infoBox_info_title">
+						<img src="" alt="">
+						운영시간
+					</div>
+					매일 10:00 ~ 24:00
+				</div>
+			<div>
+					<div class="partner_infoBox_info_title">
+						<img src="" alt="">
+						메뉴
+					</div>
+					<div class="partner_infoBox_menu">
+						<div>
+							<div class="partner_menu_list">
+								<div>에피타이저 9000원</div>
+								<div>에피타이저 9000원</div>
+							</div>
+						</div>
+					</div>
+					</div>
+			<div>
+					<div class="partner_infoBox_info_title">
+						<img src="" alt="">
+						사이트
+					</div>
+					<a href="#">www.naver.com</a>
+				</div>
+				</div>
+				</div>
         <div class="myPage_content">
             <div class="content_title">
                 <div>

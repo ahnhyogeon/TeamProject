@@ -9,11 +9,17 @@
       <put-attribute name="footer" value="/WEB-INF/template/footer.jsp"/>
    </definition>
    
-   <definition name="layout2" template="/WEB-INF/template/layout2.jsp">
+   <definition name="layout2" template="/WEB-INF/template/admin_layout.jsp">
         <put-attribute name="title" value="관리자 페이지" />
         <put-attribute name="header" value="/WEB-INF/template/header2.jsp"/>
         <put-attribute name="content" value="/WEB-INF/views/admin/{1}.jsp"/>
-    </definition>  
+    </definition>
+    
+    <definition name="layout3" template="/WEB-INF/template/map_layout.jsp">
+        <put-attribute name="title" value="테마 페이지" />
+        <put-attribute name="header" value="/WEB-INF/template/header3.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/map/{1}.jsp"/> 
+    </definition>   
    
    
    <!-- content -->
@@ -26,6 +32,11 @@
    <!-- 관리자 페이지 -->
     <definition name="admin/*.tiles" extends="layout2">
         <put-attribute name="content" value="/WEB-INF/views/admin/{1}.jsp"/>
+    </definition>
+    
+    <!-- 테마 페이지 -->
+    <definition name="map/*.tiles" extends="layout3">
+        <put-attribute name="content" value="/WEB-INF/views/map/{1}.jsp"/>
     </definition>
    
 </tiles-definitions>

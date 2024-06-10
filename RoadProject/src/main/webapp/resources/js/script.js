@@ -104,11 +104,48 @@ $(function(){
             window.location.href = "following.html";
         });
     }
+    
+    const make_theme = document.getElementById('make_theme');
+    if(make_theme){
+        make_theme.addEventListener('click', function(){
+            if (sessionStorage.getItem('mapCenter')) {
+            sessionStorage.removeItem('mapCenter');
+        }
+        if (sessionStorage.getItem('mapZoom')) {
+            sessionStorage.removeItem('mapZoom');
+        }
+
+        window.location.href = "map/map";
+        });
+    }
+    
+    const save_theme = document.getElementById('save_theme');
+    if(save_theme){
+        save_theme.addEventListener('click', function(){
+            if (sessionStorage.getItem('mapCenter')) {
+            sessionStorage.removeItem('mapCenter');
+        }
+        if (sessionStorage.getItem('mapZoom')) {
+            sessionStorage.removeItem('mapZoom');
+        }
+
+        window.location.href = "map/map";
+        });
+    }
+    
+    const map_test = document.getElementById('map_test');
+    if(map_test){
+        map_test.addEventListener('click', function(){
+
+        window.location.href = "../partnerPage";
+        });
+    }
 });
 
 
 
 $(function(){
+
     $("#addrsearch").click(function(event){
         event.preventDefault(); // 폼 제출 방지
         dPostcode();
@@ -124,7 +161,7 @@ $(function(){
         $('.searchname').val($val);
     });
 
-    // 삭제
+    // 가게 삭제
     $("#delete").click(function(e){
         e.preventDefault();
         var id = $(this).data("id");
@@ -156,42 +193,18 @@ $(function(){
                     return result;
                 }     
             });
-
-
-		        console.log("code: " + request.status)
-		        console.log("message: " + request.responseText)
-		        console.log("error: " + error);
-		        return result;
-         }     
-          });
+        }
+    });
           
-          //메뉴 삭제
+         
+         
+    //메뉴 삭제
    $("#mDelete").click(function(e){
       e.preventDefault();
       var id = $(this).data("id");
       var result = "";
       const business = prompt("삭제를 위한 번호를 입력하세요.");
-      /** 직접 폼으로 만들어서 전달 하는 방법 **/
-      if(business) {
-         //삭제를 위해서는 서버에 business 와 id 를 전달해 주어야 한다.
-         /*
-         var form = $('<form>', {
-            'method' : 'post' ,
-            'action' : 'mDel'
-         }).append(
-           $('<input>', {
-              'name' : 'business',
-              'value' : business,
-              'type' : 'hidden'    
-           })).append(
-           $('<input>', {
-              'name' : 'id',
-              'value' : id,
-              'type' : 'hidden'    
-           }));
-          $(document.body).append(form);
-          form.submit();
-          */
+
           $.ajax({
              url: 'mDel',
              type: 'post',
@@ -215,13 +228,12 @@ $(function(){
 		        console.log("message: " + request.responseText)
 		        console.log("error: " + error);
 		        return result;
-         }     
-          });
-          
-      }
-   });
-   
-   
+         	}     
+          })
+        });
+
+
+     
     //검색
    $('.dropdown-menu>a.dropdown-item').click(function(e){
       e.preventDefault();
@@ -235,9 +247,14 @@ $(function(){
 
    });
    
-   
+/*  
 function dPostcode(event) {
-    event.preventDefault();
+    event.preventDefault();     
+});
+ */
+ 
+function dPostcode() {
+
     new daum.Postcode({
         oncomplete: function(data) {
             var addr = ''; // 주소 변수
@@ -554,7 +571,4 @@ document.getElementById('tel').addEventListener('input', function() {
     this.value = formattedValue;
 });
 });
-
-
-
 

@@ -20,23 +20,50 @@
   </c:if>
 
 <section id="section" class="bg-white pb-3">
-  <div class="listbox">
+  <div class="listbox container mt-4">
   
-  	<form action="reviewEditok" method="post" class="mb-3">
+	<h4 class="text-center">임시 설정 : userid(4) / 이름(홍길동)</h4>
+	<h4 class="text-center">리뷰 등록</h4>
+  
+  	<form action="reviewEditok" method="post" class="mb-3" enctype="multipart/form-data">
 		<div class="form-group">
-			<p>임시 설정 : userid(4)(아직 미구현ㅜ) / 이름(홍길동)</p>
-			<p>아직 작업중</p>
-			<label for="comment">제목 : </label>
-				<input type="text" name="title" id="title" class="form-control mb-3">
-			<label for="comment">리뷰 작성 : </label>
+
+			<p>레스토랑 정보</p>
+
+			<label for="comment">이용 소감<span style="color:red">*</span></label>
+			<div class="d-flex justify-content-center align-items-center">
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				  <input type="radio" class="btn-check" name="score" id="btnradio1" autocomplete="off" value="5" checked>
+				  <label class="btn btn-outline-primary m-3" for="btnradio1">정말 최고예요!</label>
+				
+				  <input type="radio" class="btn-check" name="score" id="btnradio2" autocomplete="off" value="4">
+				  <label class="btn btn-outline-primary m-3" for="btnradio2">너무 만족해요!</label>
+				
+				  <input type="radio" class="btn-check" name="score" id="btnradio3" autocomplete="off" value="3">
+				  <label class="btn btn-outline-primary m-3" for="btnradio3">그냥 평범해요!</label>
+				  
+				  <input type="radio" class="btn-check" name="score" id="btnradio4" autocomplete="off" value="2">
+				  <label class="btn btn-outline-primary m-3" for="btnradio4">그저 그래요!</label>
+				  
+				  <input type="radio" class="btn-check" name="score" id="btnradio5" autocomplete="off" value="1">
+				  <label class="btn btn-outline-primary m-3" for="btnradio5">별로예요!</label>
+				</div>
+			</div>
+			<label for="title">제목<span style="color:red">*</span></label>
+				<textarea class="form-control mb-3" rows="1" id="title" name="title"></textarea>
+			<label for="comment">상세 내용 입력<span style="color:red">*</span></label>
 				<textarea class="form-control mb-3" rows="7" id="detail" name="detail"></textarea>
-			<label for="comment">해시태그 : </label>
-				<textarea class="form-control" rows="1" id="hashtag" name="hashtag"></textarea>
-				<input type="hidden" name="nickname" id="nickname" value="홍길동">
-				<input type="hidden" name="userid" id="userid" value="${userid }">
+				<div class="form-group">
+			        <label for="image">이미지 첨부</label>
+			        <input type="file" name="imnum" accept="image/*" multiple>
+			    </div>
 		</div>
 		<a href="javascript:history.back();" class="btn btn-danger">뒤로</a>
 		<button type="submit" class="btn btn-primary">저장</button>
+		
+		<input type="hidden" name="userid" value="4">
+		<input type="hidden" name="nickname" value="홍길동">
+		<input type="hidden" name="restaurant_id" value="61">
 	</form>
 	
 	<a href="review">리뷰 페이지</a>

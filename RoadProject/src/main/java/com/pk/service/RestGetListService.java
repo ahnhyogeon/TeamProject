@@ -35,8 +35,9 @@ public class RestGetListService implements RestaurantService {
 		
         map.put("currentPage", limitCount);
         map.put("listCount", postsPerPage);    
-        
+       
 		List<RestaurantDto> r_list = dao.restList(map);	
+		
 		model.addAttribute("pg", pg);
 		model.addAttribute("r_list", r_list);
 	}

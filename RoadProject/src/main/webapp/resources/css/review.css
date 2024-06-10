@@ -8,10 +8,46 @@ body{
     font-weight: 500;
     font-style: normal;
 }
-
-.listbox i{
+.reviewbox i{
 	font-size: 25px;
+}
+.reviewSummary{
+	border: 2px solid #333;
+  	border-radius: 20%;
+  	width: 700px;
+  	height: 350px;
+  	position: relative;
+  	margin-left: auto;
+  	margin-right: auto;
+  	display: flex;
+  	justify-content: center;
+  	padding: 30px;
 }
 .no-line{
 	border: none;
 }
+.reviewbox p{
+	font-size: 18px;
+	line-height: 25px;
+}
+    /* 기본 라디오 버튼 숨기기 */
+    .btn-check {
+      position: absolute;
+      opacity: 0;
+    }
+    
+    /* 라디오 버튼이 선택된 경우의 스타일 */
+    .btn-check:checked + .btn-outline-primary {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .btn-outline-primary {
+      border-color: #0d6efd;
+      color: #0d6efd;
+    }
+    
+    .btn-outline-primary:hover {
+      background-color: #0d6efd;
+      color: white;
+    }

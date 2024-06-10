@@ -19,6 +19,8 @@ public class RestaurantDto {
 	private String r_url;
 	private String imnum;
 	private String r_intro;
+ 	private String notice;
+	private String r_time;
  	
     public RestaurantDto() {
     	
