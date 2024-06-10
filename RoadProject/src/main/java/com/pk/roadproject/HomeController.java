@@ -357,11 +357,25 @@ public class HomeController {
 	        return "myPage3.tiles";
 	    }
 	  
-	  @RequestMapping(value = "/map", method = RequestMethod.GET)
+	  @RequestMapping(value = "map/map", method = RequestMethod.GET)
 	  public String map(Locale locale, Model model) {
 		  System.out.println("map 접속");
 		  
-		  return "map.tiles";
+		  return "map/map.tiles";
+	  }
+	  
+	  @RequestMapping(value = "map/map_book", method = RequestMethod.GET)
+	  public String map_book(Locale locale, Model model) {
+		  System.out.println("map_book 접속");
+		  
+		  return "map/map_book.tiles";
+	  }
+	  
+	  @RequestMapping(value = "map/map_thema", method = RequestMethod.GET)
+	  public String map_thema(Locale locale, Model model) {
+		  System.out.println("map_thema 접속");
+		  
+		  return "map/map_thema.tiles";
 	  }
 	  
 	  @RequestMapping(value = "/partnerPage", method = {RequestMethod.GET, RequestMethod.POST})
@@ -421,7 +435,9 @@ public class HomeController {
 			int rbusiness = Integer.parseInt((String) session.getAttribute("buisness"));
 			model.addAttribute("imnum", imnum);
 			model.addAttribute("buisness", rbusiness);
+			
 			getRest.excute(model);	
+			
 	        return "partneredit2.tiles";
 	    }
 	  
@@ -495,7 +511,6 @@ public class HomeController {
 			    HttpSession session) throws Exception {
 		  
 		  
-			      
 		  		System.out.println(userid);
 			    memberDto.setUserid(userid);
 			    memberDto.setPassword(password);

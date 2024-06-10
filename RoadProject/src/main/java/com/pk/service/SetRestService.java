@@ -46,7 +46,7 @@ public class SetRestService implements RestaurantService {
 		rdto.setNotice(req.getParameter("notice"));
 		rdto.setR_time(req.getParameter("r_time"));
 			
-		rdao.restInsert(rdto);
+		rdao.restInsert(rdto);	
 		
 		Map<String, Object> paramsFile = new HashMap(); //map put 으로 rest_id와 imnum을 넘겨줘서 rest_img와 rest의 db가 이어지게 함.
 		paramsFile.put("rest_id", rdto.getId());

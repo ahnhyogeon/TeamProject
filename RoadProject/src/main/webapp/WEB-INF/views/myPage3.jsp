@@ -98,7 +98,7 @@
                 </div>
                 <img src="resources/images/Meatballs_menu.png" alt="Meatballs_menu">
             </div>
-            <button class="theme_content_btn btn-danger btn">
+            <button id="make_theme" class="theme_content_btn btn-danger btn">
                 테마 만들기
             </button>
     </div>

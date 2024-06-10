@@ -10,7 +10,8 @@
      m_cost,
      m_intro,
      m_code,
-     imnum
+     imnum,
+     visible
   </sql>
 
   
@@ -22,7 +23,8 @@
        #{m_cost},
        #{m_intro},
        #{m_code},
-       #{imnum}
+       #{imnum},
+       0
    
      )
   </insert>
@@ -41,7 +43,8 @@
         business = #{business},
         m_name = #{m_name},
         m_cost = #{m_cost},
-        m_intro = #{m_intro}
+        m_intro = #{m_intro},
+        visible = #{visible}
      WHERE
         id=#{id}   
   </update>

@@ -104,14 +104,45 @@ $(function(){
             window.location.href = "following.html";
         });
     }
+    
+    const make_theme = document.getElementById('make_theme');
+    if(make_theme){
+        make_theme.addEventListener('click', function(){
+            if (sessionStorage.getItem('mapCenter')) {
+            sessionStorage.removeItem('mapCenter');
+        }
+        if (sessionStorage.getItem('mapZoom')) {
+            sessionStorage.removeItem('mapZoom');
+        }
+
+        window.location.href = "map/map";
+        });
+    }
+    
+    const save_theme = document.getElementById('save_theme');
+    if(save_theme){
+        save_theme.addEventListener('click', function(){
+            if (sessionStorage.getItem('mapCenter')) {
+            sessionStorage.removeItem('mapCenter');
+        }
+        if (sessionStorage.getItem('mapZoom')) {
+            sessionStorage.removeItem('mapZoom');
+        }
+
+        window.location.href = "map/map";
+        });
+    }
+    
+    const map_test = document.getElementById('map_test');
+    if(map_test){
+        map_test.addEventListener('click', function(){
+
+        window.location.href = "../partnerPage";
+        });
+    }
 });
 
-/*자동 하이픈 기능*/
-const autoHyphen = (target) => {
-    target.value = target.value
-     .replace(/[^0-9]/g, '')
-     .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
-}
+
 
 $(function(){
 
@@ -213,11 +244,17 @@ $(function(){
       $('#searchname').val($val);
    });   
           
-      
+
+   });
+   
+/*  
+function dPostcode(event) {
+    event.preventDefault();     
 });
- 
+ */
  
 function dPostcode() {
+
     new daum.Postcode({
         oncomplete: function(data) {
             var addr = ''; // 주소 변수
@@ -515,5 +552,23 @@ $(document).ready(function() {
     $('#partner_tab_2').click(function(){
     	window.location.href = "partneredit2";
     });
+    
+    /*자동 하이픈 기능*/
+document.getElementById('tel').addEventListener('input', function() {
+
+    let value = this.value;
+    
+    value = value.replace(/[^0-9]/g, '');
+    
+    let formattedValue = '';
+    for (let i = 0; i < value.length; i++) {
+        if (i === 3 || i === 7) {
+            formattedValue += '-';
+        }
+        formattedValue += value[i];
+    }
+
+    this.value = formattedValue;
+});
 });
 
