@@ -18,6 +18,8 @@ public class SetRestEditService implements RestaurantService {
 	
 	@Autowired
 	RestaurantDao rdao;
+	
+	@Autowired
 	RestUploadDao rudao;
 	
 	@Override
@@ -27,16 +29,20 @@ public class SetRestEditService implements RestaurantService {
 		HttpServletRequest req = (HttpServletRequest) map.get("request");
 		
 		RestaurantDto rdto = new RestaurantDto();
-		
+	
+		/*
 		rdto.setR_name(req.getParameter("r_name"));
 		rdto.setR_code(Integer.parseInt(req.getParameter("r_code")));
 		rdto.setR_addr1(req.getParameter("r_addr1"));
 		rdto.setR_addr2(req.getParameter("r_addr2"));
-		rdto.setR_tel(req.getParameter("r_tel"));
+			rdto.setR_tel(req.getParameter("r_tel"));
+		*/
+		rdto.setR_intro(req.getParameter("r_intro"));
 		rdto.setR_url(req.getParameter("r_url"));
 		rdto.setImnum(req.getParameter("imnum"));
+		rdto.setR_time(req.getParameter("r_time"));
 		rdto.setId(Integer.parseInt(req.getParameter("id")));
-			
+		
 		rdao.restUpdate(rdto);
 		
 		Map<String, Object> paramsFile = new HashMap<>();

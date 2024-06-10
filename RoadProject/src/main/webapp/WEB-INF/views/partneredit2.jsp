@@ -85,8 +85,8 @@
     <div class="joinedit_mainbox2">
     <div class="joinedit_edit">
         <c:choose>
-            <c:when test="${{not empty rdto.r_url and not empty rdto.r_intro and not empty rdto.r_time and not empty rdto.imnum}">
-                <form id="editForm" method="post">
+            <c:when test="${not empty rdto.r_url and not empty rdto.r_intro and not empty rdto.r_time and not empty rdto.imnum}">
+                <form id="editForm" action="resteditok" method="post" >         
                     <div id="partner_file_up" class="edit_id edit_div">
                         <label class="edit_nick_title">가게 이미지/영상<span>*</span></label>
                         <label class="file-input-container partner_menu_btn text-center">
@@ -108,23 +108,26 @@
                     </div>
                     <div class="edit_pass edit_div">
                         <label class="edit_addr_title">메뉴<span>*</span></label>
-                        <button class="partner_menu_btn">메뉴 수정하기</button>
+                        <button type="button" class="partner_menu_btn" onclick="location.href='menu'" >메뉴 수정하기</button>
                     </div>
                     <div class="edit_addr2 edit_div">
                         <label class="edit_addr_title">사이트<span>*</span></label>
                         <input type="text" class="edit_addr2_input" name="r_url" id="r_url" value="${rdto.r_url}">
                     </div>
                     <div class="row">
+                    <!-- 
                         <button type="submit" id="edit_save_btn" class="edit_save" formaction="register">저장하기</button>
-                        <button type="submit" data-id="${rdto.id}" data-business="${sessionScope.buisness}"
-                            id="edit_update_btn" class="edit_save" formaction="resteditok">수정하기</button>
+                         -->
+                        <button type="submit" data-id="${rdto.id}" data-business="<%=session.getAttribute("buisness") %>"
+                            id="edit_update_btn" class="edit_save">수정하기</button>
                     </div>
                     <input type="hidden" name="imnum" id="imnum" value="${imnum}" />
-                    <input type="hidden" name="business" id="business" value="${sessionScope.buisness}" />
+                    <input type="hidden" name="id" value="${rdto.id }">
+                    <input type="hidden" name="business" id="business" value="<%=session.getAttribute("buisness") %>" />
                 </form>
             </c:when>
             <c:otherwise>
-                <form id="editForm" method="post">
+                <form id="editForm" action="registerok" method="post">
                     <div id="partner_file_up" class="edit_id edit_div">
                         <label class="edit_nick_title">가게 이미지/영상<span>*</span></label>
                         <label class="file-input-container partner_menu_btn text-center">
@@ -154,9 +157,11 @@
                         <input type="text" class="edit_addr2_input" name="r_url" id="r_url" placeholder="가게 도메인">
                     </div>
                     <div class="row">
-                        <button type="submit" id="edit_save_btn" class="edit_save" formaction="register">저장하기</button>
+                        <button type="submit" id="edit_save_btn" class="edit_save" >저장하기</button>
+                        <!--  
                         <button type="submit" data-id="${rdto.id}" data-business="<%=session.getAttribute("buisness") %>"
                             id="edit_update_btn" class="edit_save" formaction="resteditok">수정하기</button>
+                            -->
                     </div>
                     <input type="hidden" name="imnum" id="imnum" value="${imnum}" />
                     <input type="hidden" name="business" id="business" value="<%=session.getAttribute("buisness") %>" />

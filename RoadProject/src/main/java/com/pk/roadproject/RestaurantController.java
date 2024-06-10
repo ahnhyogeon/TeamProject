@@ -132,6 +132,8 @@ public class RestaurantController {
 		return "register";
 	}
 	*/
+	
+	//등록하기
 	@PostMapping("/registerok")
 	public String registerOk(HttpServletRequest request, HttpServletResponse response, Model model) {
 		
@@ -156,15 +158,36 @@ public class RestaurantController {
 	}
 	*/
 	
+	//수정하기
 	@PostMapping("/resteditok")
 	public String resteditok( HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("resteditok() 실행됨");
-		
+					
+		int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
 		String ids = request.getParameter("id");
-		
+		System.out.println(ids);
+		System.out.println(rbusiness);
 		Map<String, Object> params = new HashMap<>();
+		try {
+			params.put("business", rbusiness);
+			params.put("id", Integer.parseInt(ids));
+			/*
+			params.put("r_intro", request.getParameter("r_intro"));
+	        params.put("r_time", request.getParameter("r_time"));
+	        params.put("r_url", request.getParameter("r_url"));
+	        params.put("imnum", request.getParameter("imnum"));
+	        */
+			//params.put("pass", request.getParameter("pass"));
+			
+		}catch(NumberFormatException e) {
+			model.addAttribute("error", "에러가 발생했습니다.");
+			return "redirect:partneredit2";
+		}
+		model.addAttribute("request", request);
+		setRestEdit.excute(model);
 		
-		return "partneredit2.tiles";
+		return "redirect:partnerPage";
+
 		
 	}
 	
