@@ -69,7 +69,8 @@
   <update id="restUpdate" parameterType="restDto">
      UPDATE restaurant 
      SET
-        r_name = #{r_name},
+      	imnum = #{imnum},
+        r_time = #{r_time},
         r_url = #{r_url},
         r_intro = #{r_intro}
      WHERE

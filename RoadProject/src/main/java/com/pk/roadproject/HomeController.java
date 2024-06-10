@@ -420,7 +420,9 @@ public class HomeController {
 			int rbusiness = Integer.parseInt((String) session.getAttribute("buisness"));
 			model.addAttribute("imnum", imnum);
 			model.addAttribute("buisness", rbusiness);
+			
 			getRest.excute(model);	
+			
 	        return "partneredit2.tiles";
 	    }
 	  
