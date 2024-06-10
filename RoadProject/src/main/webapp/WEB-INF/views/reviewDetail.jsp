@@ -21,7 +21,7 @@
   </c:if>
 
 <section id="section" class="bg-white pb-3">
-  <div class="listbox">
+  <div class="listbox container">
   
     <p class="mb-3">팔로우 기능 (임시 test1 -> test2): <button type="button" onclick="followUser()">팔로우</button></p>
     <p class="mb-3">팔로우 취소 기능 (임시 test1 -> test2를 삭제): <button type="button" onclick="unfollowUser()">팔로우 취소</button></p>

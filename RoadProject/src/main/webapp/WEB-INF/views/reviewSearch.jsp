@@ -51,7 +51,7 @@
     </div>
     
 	<div class="d-flex justify-content-between align-items-center">
-	    <p>총 ${reviewCount}개</p>
+	    <p>총 ${reviewSearchCount}개</p>
 	    <p><a href="#">등록순</a> | <a href="#">조회순</a></p>
 	</div>
     
