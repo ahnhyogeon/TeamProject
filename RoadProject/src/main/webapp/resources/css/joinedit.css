@@ -201,6 +201,11 @@ font-weight: 500;
 line-height: 22px; /* 137.5% */
 letter-spacing: -0.064px;
 }
+.edit_save:hover{
+	border: 3px solid var(--mono-color-e-6-e-6-e-6, #ccc);
+	background: var(--mono-color-fafafa, #FAFAFA);
+    color: var(--mono-color-ccc, #CCC);
+}
 .edit_out{
     color: var(--mono-color-808080, #808080);
 text-align: center;

@@ -1,11 +1,14 @@
 package com.pk.roadproject;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +25,10 @@ import com.pk.dao.RestUploadDao;
 import com.pk.dao.RestaurantDao;
 import com.pk.dto.RestUploadFileDto;
 import com.pk.dto.RestaurantDto;
+import com.pk.service.GetRestService;
 import com.pk.service.RestGetListService;
 import com.pk.service.RestTrashFileDel;
+import com.pk.service.SetRestEditService;
 import com.pk.service.SetRestService;
 
 
@@ -35,6 +40,12 @@ public class RestaurantController {
 		RestGetListService getList;
 		
 		@Autowired
+		GetRestService getRest;
+		
+		@Autowired
+		SetRestEditService setRestEdit;
+		
+		@Autowired
 		RestaurantDao rdao;
         
 		@Autowired
@@ -42,6 +53,9 @@ public class RestaurantController {
 		
 		@Autowired
 		ServletContext servletContext;
+		
+		@Autowired
+		HttpSession session;
 		
 		//insert
 		@Autowired
@@ -73,6 +87,25 @@ public class RestaurantController {
 		return "rest";
 	}
 	
+	@RequestMapping("/restDetail")
+	public String restdetail(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="cpg", defaultValue="1") int cpg,
+			/*
+			@RequestParam(value="searchname", defaultValue="") String searchname,
+			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,*/
+			Model model) {
+		System.out.println("restDetail() 실행됨");
+        model.addAttribute("cpg" , cpg);
+        /*
+        model.addAttribute("searchname", searchname);
+        model.addAttribute("searchvalue", searchvalue);
+        */
+        model.addAttribute("req", request);
+        getRest.excute(model);
+   
+		return "restDetail";
+	}
+	
 	@RequestMapping("/delrest")  //관리자만 들어갈 수 있는 삭제버튼이 있는 가게 리스트 페이지.
 	public String delrest(
 			@RequestParam(value="cpg", defaultValue="1") int cpg, 
@@ -88,32 +121,59 @@ public class RestaurantController {
 		return "delrest";
 	}
 	
+	/*
 	@GetMapping("/register")
 	public String register(Model model) {
 		System.out.println("register() 실행됨");
 		String upDir = servletContext.getRealPath("/resources/");
 		System.out.println(upDir);
 		String imnum = UUID.randomUUID().toString();
-		
 		model.addAttribute("imnum", imnum);
 		return "register";
 	}
-	
-	@PostMapping("/register")
+	*/
+	@PostMapping("/registerok")
 	public String registerOk(HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		System.out.println("registerok() 실행됨");
+		int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
+		model.addAttribute("buisness", rbusiness);
 		model.addAttribute("request", request);
 		setRest.excute(model);
 		
-		return "redirect:rest";
+		return "partnerPage.tiles";
+	}
+	
+	/*
+	@RequestMapping("/restedit")
+	public String edit(HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("restedit() 실행됨");
+		model.addAttribute("req", request);
+		//model.addAttribute("increaseHit", false);
+		
+		getRest.excute(model);		
+		return "";
+	}
+	*/
+	
+	@PostMapping("/resteditok")
+	public String resteditok( HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("resteditok() 실행됨");
+		
+		String ids = request.getParameter("id");
+		
+		Map<String, Object> params = new HashMap<>();
+		
+		return "partneredit2.tiles";
+		
 	}
 	
 	@PostMapping("/upload")
 	@ResponseBody
 	public ResponseEntity<?> handleImageUpload(
 			@RequestParam("file") MultipartFile uploadFile,
-			@RequestParam("imnum") String imnum){
+			@RequestParam("imnum") String imnum,
+			Model model){
 		System.out.println("upload() 실행됨");
 		if(!uploadFile.isEmpty()) {
 			try {

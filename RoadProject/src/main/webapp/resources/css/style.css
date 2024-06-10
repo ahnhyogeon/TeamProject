@@ -223,35 +223,35 @@ height: 38px;
 
 tbody th {
   text-align:center;
-  border-bottom: 1px solid #ddd; 일자 아래에 선을 추가합니다.
+  border-bottom: 1px solid #ddd; �씪�옄 �븘�옒�뿉 �꽑�쓣 異붽��빀�땲�떎.
 }
 
-표 내용 셀 스타일
+�몴 �궡�슜 �� �뒪���씪
 tbody td {
-  padding: 8px; 내용 셀의 패딩을 조정합니다.
+  padding: 8px; �궡�슜 ���쓽 �뙣�뵫�쓣 議곗젙�빀�땲�떎.
   text-align: center;
   border-bottom: 1px solid #ddd;
 }
 
-입력 필드 스타일
+�엯�젰 �븘�뱶 �뒪���씪
 input[type="time"] {
-  width: 70%; 입력 필드 너비를 70%로 설정합니다.
-  padding: 6px; 패딩 크기를 조정할 수 있습니다.
+  width: 70%; �엯�젰 �븘�뱶 �꼫鍮꾨�� 70%濡� �꽕�젙�빀�땲�떎.
+  padding: 6px; �뙣�뵫 �겕湲곕�� 議곗젙�븷 �닔 �엳�뒿�땲�떎.
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-입력 필드에 포커스를 받을 때 테두리 스타일 변경
+�엯�젰 �븘�뱶�뿉 �룷而ㅼ뒪瑜� 諛쏆쓣 �븣 �뀒�몢由� �뒪���씪 蹂�寃�
 input[type="time"]:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-각 요소의 내부 여백 설정
+媛� �슂�냼�쓽 �궡遺� �뿬諛� �꽕�젙
 div, th, td {
-  padding: 8px; 내부 요소의 패딩을 조정합니다.
+  padding: 8px; �궡遺� �슂�냼�쓽 �뙣�뵫�쓣 議곗젙�빀�땲�떎.
 }
 
  #map {
@@ -259,7 +259,7 @@ div, th, td {
             height: 400px;
 }
 
-.map_wrap, .map_wrap * {margin:0; padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap, .map_wrap * {margin:0; padding:0;font-family:'Malgun Gothic',dotum,'�룍��',sans-serif;font-size:12px;}
 .map_wrap {position:relative;width:100%;height:350px;}
 #category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
 #category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
@@ -286,7 +286,7 @@ div, th, td {
 .placeinfo .tel {color:#0f7833;}
 .placeinfo .jibun {color:#999;font-size:11px;margin-top:0;}
 */
-/* 페이징 */
+/* �럹�씠吏� */
 .paging{
    list-style-type:none;
    display:flex;
@@ -308,7 +308,7 @@ div, th, td {
     color:#fff;
     text-decoration:none;
 }
-검색
+寃��깋
 .searchform{
     width:40%;
     margin-left:auto;
@@ -322,4 +322,40 @@ div, th, td {
 }
 .input-group-prepend{
     position: relative;
+}
+
+/* 이미지 업로드 */
+.file-input-container {
+    position: relative;
+    width: 200px; /* 파일 선택(input 요소)의 너비 조정 */
+    height: 40px; /* 파일 선택(input 요소)의 높이 조정 */
+    border: 1px solid #ccc; /* 보더 추가 */
+    border-radius: 10px;
+    display: inline-block; /* 인라인 요소로 표시 */
+    line-height:-15px;
+    padding:0;
+}
+.file-input-container input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.image-container div {
+
+    max-width: 100px; /* 이미지의 최대 너비 */
+    max-height: 100px; /* 이미지의 최대 높이 */
+    overflow: hidden; /* 넘치는 이미지를 숨김 */
+}
+#imagePreview img {
+    width: 100%; /* 이미지가 부모 요소에 맞게 너비 조정 */
+    height: 100%; /* 이미지가 부모 요소에 맞게 높이 조정 */
+    object-fit: cover;
+
 }

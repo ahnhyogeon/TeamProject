@@ -4,12 +4,17 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping; 
@@ -21,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
 import com.pk.service.FollowService;
+import com.pk.service.GetRestService;
 import com.pk.service.MemberService;
 
 /**
@@ -36,6 +42,12 @@ public class HomeController {
 	
 	MemberDto memberDto = new MemberDto();
 	
+	@Autowired
+	ServletContext servletContext;
+	
+	@Autowired
+	GetRestService getRest;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -44,6 +56,33 @@ public class HomeController {
 		
 		return "index.tiles";
 	}
+
+	//확인용 home.jsp 나중에 삭제할것임.
+	@RequestMapping(value = "home", method = RequestMethod.GET)
+	public String hometest(Locale locale, Model model) {
+	
+		return "home";
+	}
+	
+	
+	 @RequestMapping(value = "/content1", method = RequestMethod.GET)
+	  public String list(Locale locale, Model model) throws Exception {
+		 System.out.println("content1 접속");
+		 logger.info("home");
+		 
+		 MemberDto search = new MemberDto();
+		    search.setName("학생1");
+			
+		    List<MemberDto> memberList = service.selectMember();
+			search = service.searchName(search);
+			
+			model.addAttribute("memberList", memberList);
+			model.addAttribute("search", search);
+			model.addAttribute("url", "content1" );
+		  
+			return "list.tiles";
+	  }	
+
 
 	  @RequestMapping(value = "/detail", method = RequestMethod.GET)
 	  public String detail(Locale locale, Model model) {
@@ -358,10 +397,30 @@ public class HomeController {
 	        return "partneredit.tiles";
 	    }
 	  
+	  /* 원래 쓰던거
 	  @RequestMapping(value = "/partneredit2", method = {RequestMethod.GET, RequestMethod.POST})
-	    public String partneredit2(Locale locale, Model model) {
+	    public String partneredit2(Locale locale, Model model, HttpSession session) {
+		
 	        logger.info("partneredit2 접속");
-	        
+	        String upDir = servletContext.getRealPath("/resources/");
+			System.out.println(upDir);
+			String imnum = UUID.randomUUID().toString();
+			session.getAttribute("buisness");
+			model.addAttribute("imnum", imnum);
+	        return "partneredit2.tiles";
+	    }
+	  */
+	  @RequestMapping(value = "/partneredit2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partneredit2(Locale locale, Model model, HttpSession session) {
+		
+	        logger.info("partneredit2 접속");
+	        String upDir = servletContext.getRealPath("/resources/");
+			System.out.println(upDir);
+			String imnum = UUID.randomUUID().toString();
+			int rbusiness = Integer.parseInt((String) session.getAttribute("buisness"));
+			model.addAttribute("imnum", imnum);
+			model.addAttribute("buisness", rbusiness);
+			getRest.excute(model);	
 	        return "partneredit2.tiles";
 	    }
 	  

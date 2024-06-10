@@ -18,16 +18,15 @@
                 </div>
                 <table class="table table-hover">
                     <colgroup>
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
-                       <col width="10%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
+                       <col width="11%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -40,23 +39,21 @@
                             <th>가게번호</th>
                             <th>가게도메인</th>
                             <th>소개글</th>
-                            <th>공지사항</th>
                         </tr>
                     </thead>
                     <tbody>
-                       <c:forEach var="r_list" items="${r_list }">
+                       <c:forEach var="rdto" items="${rdto }">
                                                                                      
                        <tr>
-                           <td class="text-center">${r_list.id }</td>
-                           <td class="text-center">${r_list.business }</td>                           
-                           <td class="text-center"><a href="menu?business=${r_list.business }&cpg=1">${r_list.r_name }</a></td>
-                           <td class="text-center">${r_list.r_code }</td>
-                           <td class="text-center">${r_list.r_addr1 }</td>
-                           <td class="text-center">${r_list.r_addr2 }</td>  
-                           <td class="text-center">${r_list.r_tel }</td>
-                           <td class="text-center">${r_list.r_url }</td>
-                           <td class="text-center">${r_list.r_intro }</td>
-                           <td class="text-center">${r_list.notice }</td>                       
+                           <td class="text-center">${rdto.id }</td>
+                           <td class="text-center">${rdto.business }</td>                           
+                           <td class="text-center"><a href="menu?business=${rdto.business }&cpg=1">${rdto.r_name }</a></td>
+                           <td class="text-center">${rdto.r_code }</td>
+                           <td class="text-center">${rdto.r_addr1 }</td>
+                           <td class="text-center">${rdto.r_addr2 }</td>  
+                           <td class="text-center">${rdto.r_tel }</td>
+                           <td class="text-center">${rdto.r_url }</td>
+                           <td class="text-center">${rdto.r_intro }</td>                      
                        </tr>
                        </c:forEach> 
                        <!-- /loop -->
@@ -66,6 +63,7 @@
                     <div>
                     </div>
                     
+                    <!-- 
                     <ul class="paging">
                         <li>
                             <a href="?cpg=1"><i class="ri-arrow-left-double-line"></i></a>
@@ -87,10 +85,10 @@
                             <a href="?cpg=${pg.totalPages }"><i class="ri-arrow-right-double-line"></i></a>
                         </li>
                     </ul>
-                    
-               
-               </div>
             
+               -->
+               </div>
+            <!-- 
                <form name="searchform" id="searchform" class="searchform" method="get">
                    <div class="input-group my-3">
                         <div class="input-group-prepend">
@@ -113,6 +111,6 @@
                        </div>
                    </div>
                </form>
-             
+              -->
             </div>
             <!-- /listbox-->

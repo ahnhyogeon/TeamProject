@@ -42,7 +42,7 @@
     </div>
     <div class="joinedit_mainbox2">
         <div class="joinedit_edit">
-            <form action="partnerPage.html">
+            <form method="post">
                 <div class="edit_id edit_div">
                     <label class="edit_id_title">아이디</label>
                     <input type="text" class="edit_id_input" value="<%=session.getAttribute("userid") %>" disabled>
@@ -70,10 +70,11 @@
                     <input type="text" class="edit_addr2_input" value="{주소2}">
                 </div>
                 <div class="edit_addr2 edit_div">
-                    <label class="edit_addr_title">전화번호<span>*</span></label>
+                    <label class="edit_addr_title">전화번호<span></span></label>
                     <input type="text" class="edit_addr2_input" value="<%=session.getAttribute("tel") %>">
                 </div>
-                <button id="edit_save_btn" class="edit_save">저장하기</button>
+                <button type="submit" id="edit_save_btn" class="edit_save">저장하기</button>
+                 <input type="hidden" name="business" id="business" value="<%=session.getAttribute("buisness") %>" />
             </form>
         </div>
         <div class="edit_out">

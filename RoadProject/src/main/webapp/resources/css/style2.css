@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.min.css');
 @import url('bootstrap.min.css');
+@import url('summernote-bs4.css');
 *{
     margin:0;
     padding:0;
@@ -258,4 +259,40 @@ div, th, td {
 .placeinfo .jibun {color:#999;font-size:11px;margin-top:0;}
 
 
- 
+ /*페이징*/
+ .paging{
+   list-style-type:none;
+   display:flex;
+   justify-content: center;    
+}
+.paging li{
+    font-size:16px;
+    margin-left:5px;
+    margin-right:5px;
+}
+.paging li a{
+    color:#434c53;
+    padding:3px 10px;
+}
+.paging li a:hover,
+.paging li a.active{
+    background:#434c53;
+    border-radius:5px;
+    color:#fff;
+    text-decoration:none;
+}
+/*검색 창*/
+.searchform{
+    width:40%;
+    margin-left:auto;
+    margin-right:auto;
+}
+.dropdown-menu{
+    min-width:95%;
+}
+.dropdown-item{
+   padding: 0.25rem 1.1rem;
+}
+.input-group-prepend{
+    position: relative;
+}

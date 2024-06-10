@@ -1,5 +1,7 @@
 package com.pk.dto;
 
+import java.sql.Timestamp;
+
 import org.springframework.stereotype.Repository;
 
 import lombok.Data;
@@ -15,6 +17,7 @@ public class MenuDto {
 	private String m_intro;
 	private String m_code;
 	private String imnum;
+	private Timestamp wdate;
 	
 	public MenuDto() {
 		
