@@ -3,7 +3,7 @@ function followUser() {
     if (userId !== null && userId.trim() !== "") {
       $.ajax({
         type: "POST",
-        url: "follow",
+        url: "follows",
         data: userId,
         dataType: "json", // 반환되는 데이터 타입을 명시적으로 JSON으로 지정
         success: function(response) {

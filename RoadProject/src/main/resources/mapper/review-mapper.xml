@@ -3,6 +3,7 @@
 
 <mapper namespace="reviewMapper"> 
 		
+	
 	<select id="reviewSelectList" resultType="reviewDto">
 		SELECT * FROM review
 	</select>
@@ -11,12 +12,30 @@
 		SELECT * FROM review WHERE title LIKE #{search}
 	</select>
 	
+	<select id="reviewResultScore" parameterType="int" resultType="double">
+		SELECT AVG(score) AS average_score FROM review WHERE restaurant_id = #{restaurant_id}
+	</select>	
+	
+	<select id="reviewOneScore" parameterType="reviewDto" resultType="int">
+		SELECT COUNT(*) FROM review WHERE restaurant_id = #{restaurant_id} and score = #{score}
+	</select>
+	
+	<!-- 전체 리뷰의 수 -->
+	<select id="reviewCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM review WHERE restaurant_id = #{restaurant_id}
+	</select>
+	
+	<!-- 제목으로 검색한 리뷰의 수 -->
+	<select id="reviewSearchCount" parameterType="reviewDto" resultType="int">
+		SELECT COUNT(*) FROM review WHERE restaurant_id = #{restaurant_id} and title LIKE #{search}
+	</select>
+	
 	<select id="reviewDetail" resultType="reviewDto">
 		SELECT * FROM review where id = #{id}
 	</select>
 	
 	<insert id="insertReview" parameterType="reviewDto">
-		INSERT INTO review(userid, nickname, title, detail, hashtag) VALUES(#{userid}, #{nickname}, #{title}, #{detail}, #{hashtag})
+		INSERT INTO review(userid, nickname, title, detail, score, restaurant_id, imnum) VALUES(#{userid}, #{nickname}, #{title}, #{detail}, #{score}, #{restaurant_id}, #{imnum})
 	</insert>
 	
 	<update id="ratingReview" parameterType="reviewDto">

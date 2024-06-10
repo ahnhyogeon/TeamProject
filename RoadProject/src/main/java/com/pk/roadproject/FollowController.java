@@ -1,5 +1,6 @@
 package com.pk.roadproject;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.ReviewDto;
+import com.pk.dto.ReviewImgDto;
 import com.pk.service.FollowService;
 import com.pk.service.MemberService;
 import com.pk.service.ReviewService;
@@ -62,7 +65,37 @@ public class FollowController {
 			  review.setResult(result);
 			  }
 		  }
+		  
+		  reviewDto.setRestaurant_id(61); //리뷰 가게 아이디 임시로 받음. 추후 변경
+		  
+		  int restaurant_id = reviewDto.getRestaurant_id();
+		  int reviewCount = serviceR.reviewCount(restaurant_id); // 리뷰를 작성한 고객의 수
+		  double reviewScoreResult = serviceR.reviewResultScore(restaurant_id); // 리뷰의 평균점
+		  
+		  // 1~5점 점수 출력
+		  reviewDto.setScore(1);
+		  int reviewOneScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(2);
+		  int reviewTwoScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(3);
+		  int reviewThreeScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(4);
+		  int reviewFourScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(5);
+		  int reviewFiveScore = serviceR.reviewOneScore(reviewDto);
+		  
+		  System.out.println(reviewCount);
+		  System.out.println(reviewScoreResult);
+		  
 		  model.addAttribute("reviews", reviews);
+		  model.addAttribute("reviewCount", reviewCount);
+		  model.addAttribute("reviewScoreResult", reviewScoreResult);
+		  model.addAttribute("reviewOneScore", reviewOneScore);
+		  model.addAttribute("reviewTwoScore", reviewTwoScore);
+		  model.addAttribute("reviewThreeScore", reviewThreeScore);
+		  model.addAttribute("reviewFourScore", reviewFourScore);
+		  model.addAttribute("reviewFiveScore", reviewFiveScore);
+		  
 		  return "review.tiles";
 	  }
 	  
@@ -83,8 +116,37 @@ public class FollowController {
 			  review.setResult(result);
 			  }
 		  }
-		  System.out.println("reviewSelectSearchList 실행 완료");
+		  
+		  reviewDto.setRestaurant_id(61); //리뷰 가게 아이디 임시로 받음. 추후 변경
+		  
+		  int restaurant_id = reviewDto.getRestaurant_id();
+		  int reviewSearchCount = serviceR.reviewSearchCount(reviewDto); // 검색에 해당되는 리뷰를 작성한 고객의 수
+		  double reviewScoreResult = serviceR.reviewResultScore(restaurant_id); // 리뷰의 평균점
+		  
+		  // 1~5점 점수 출력
+		  reviewDto.setScore(1);
+		  int reviewOneScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(2);
+		  int reviewTwoScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(3);
+		  int reviewThreeScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(4);
+		  int reviewFourScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(5);
+		  int reviewFiveScore = serviceR.reviewOneScore(reviewDto);
+		  
+		  System.out.println(reviewSearchCount);
+		  System.out.println(reviewScoreResult);
+		  
 		  model.addAttribute("reviews", reviews);
+		  model.addAttribute("reviewSearchCount", reviewSearchCount);
+		  model.addAttribute("reviewScoreResult", reviewScoreResult);
+		  model.addAttribute("reviewOneScore", reviewOneScore);
+		  model.addAttribute("reviewTwoScore", reviewTwoScore);
+		  model.addAttribute("reviewThreeScore", reviewThreeScore);
+		  model.addAttribute("reviewFourScore", reviewFourScore);
+		  model.addAttribute("reviewFiveScore", reviewFiveScore);
+		  
 		  return "reviewSearch.tiles";
 	  }
 	  
@@ -130,19 +192,39 @@ public class FollowController {
 	  }
 	  
 	  @PostMapping("reviewEditok")
-	  public String reviewEditok(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	  public String reviewEditok(@RequestParam("imnum") MultipartFile[] files,
+			  					 Locale locale, HttpServletRequest request, 
+			  					 HttpServletResponse response, Model model) throws Exception {
 		  
 		  System.out.println("reviewEditok 접속");
 		  
-		  reviewDto.setUserid((request.getParameter("userid")));
-		  reviewDto.setNickname(request.getParameter("nickname"));
+		  reviewDto.setUserid(request.getParameter("userid"));
+		  reviewDto.setScore(Integer.parseInt(request.getParameter("score")));
 		  reviewDto.setTitle(request.getParameter("title"));
+		  reviewDto.setNickname(request.getParameter("nickname"));
 		  reviewDto.setDetail(request.getParameter("detail"));
-		  reviewDto.setHashtag(request.getParameter("hashtag"));
+		  reviewDto.setRestaurant_id(Integer.parseInt(request.getParameter("restaurant_id")));
 		  reviewDto.setHits(1);
 		  System.out.println(reviewDto.getNickname() + " set 완료");
 		  
+		  ReviewImgDto fileDto = new ReviewImgDto();
+		  
+		  for (MultipartFile file : files) {
+			    String fileName = file.getOriginalFilename();
+			    String filePath = "/path/to/upload/directory/" + fileName; // 저장할 경로
+			    File dest = new File(filePath);
+			    file.transferTo(dest);
+
+			    // 파일 정보를 데이터베이스에 저장
+			    fileDto.setFilename(fileName);
+			    fileDto.setFilepath(filePath);
+			    // 리뷰와 파일 관계 설정 또는 파일에 대한 부가 정보 설정
+			}
+		  
+		  System.out.println(fileDto.getFilename() + " / " + fileDto.getFilepath());
+		  
 		  serviceR.insertReview(reviewDto);
+		  
 		  model.addAttribute("reviews", reviewDto);
 		  
 		  return "redirect:review";
@@ -158,8 +240,6 @@ public class FollowController {
 		  System.out.println("set : " + reviewId);
 		  
 		  List<ReviewDto> reviews = serviceR.reviewDetail(reviewDto);
-		  
-		  
 		  	  
 		  for(ReviewDto review : reviews) {
 			  if(review.getRating() == 0 || review.getHits() == 0) {
@@ -174,17 +254,15 @@ public class FollowController {
 		  return "reviewDetail.tiles";
 	  }
 	  
-	  @PostMapping("/follow")
+	  @PostMapping("/follows")
 	  public ResponseEntity<String> insertFollow(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 	        System.out.println("review 접속");
 
 	        System.out.println("follow() set 시작");
 	        
-	        System.out.println(request.getAttribute("userId"));
-	        
 	        followDto.setA_uname("테스트1");
 	        followDto.setP_uname("테스트2");
-	        followDto.setA_uid(2);
+	        followDto.setA_uid(2);	
 	        followDto.setP_uid(3);
 
 	        System.out.println("follow() set 완료");

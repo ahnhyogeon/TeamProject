@@ -1,9 +1,9 @@
 package com.pk.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.pk.dto.ReviewDto;
+import com.pk.dto.ReviewImgDto;
 
 public interface ReviewDao {
 	
@@ -28,7 +28,17 @@ public interface ReviewDao {
 	//리뷰 조회수 증가
 	public void reviewHitUp(int id) throws Exception;
 	
-
+	//리뷰 작성 인원수 확인
+	public int reviewCount(int restaurant_id) throws Exception;
+	
+	//리뷰 검색 시 해당하는 인원수 확인
+	public int reviewSearchCount(ReviewDto reviews) throws Exception;
+	
+	//리뷰 가게 점수 확인
+	public double reviewResultScore(int restaurant_id) throws Exception;
+	
+	//리뷰 가게 개별(1~5) 점수 확인
+	public int reviewOneScore(ReviewDto reviews) throws Exception;
 
 }
 	

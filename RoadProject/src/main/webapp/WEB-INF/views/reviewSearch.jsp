@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="resources/js/jquery-ui-1.13.2/jquery-ui.css">
 <link rel="stylesheet" href="resources/css/review.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="resources/js/popper.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
@@ -21,10 +22,40 @@
   </c:if>
 
 <section id="section" class="bg-white pb-3">
-  <div class="reviewbox">
+  <div class="reviewbox container">
   
     <p class="mb-3">팔로우 기능 (임시 test1 -> test2): <button type="button" onclick="followUser()">팔로우</button></p>
     <p class="mb-3">팔로우 취소 기능 (임시 test1 -> test2를 삭제): <button type="button" onclick="unfollowUser()">팔로우 취소</button></p>  
+    
+    <div class="reviewSummary row">
+    	<div class="col-9">
+    		<h3>리뷰 요약</h3>
+    	</div>
+    	<div class="col-3">
+    		<a href="reviewEdit?userid=4" class="col-9 btn btn-primary">리뷰 등록</a> <!-- userid값 4로 고정 -->
+    	</div>
+    	<div class="col-4 d-flex justify-content-center align-items-center">
+    		<span class="text-center">${reviewCount}명의 사용자들은 평균적으로
+    		5점 만점에 ${reviewScoreResult}점
+    		이라고 평가합니다.</span>
+    	</div>
+    	<div class="col-8 d-flex justify-content-center align-items-center">
+    		<div>
+    			<p class="text-center">5점 : ${reviewFiveScore}명</p>
+    			<p class="text-center">4점 : ${reviewFourScore}명</p>
+    			<p class="text-center">3점 : ${reviewThreeScore}명</p>
+    			<p class="text-center">2점 : ${reviewTwoScore}명</p>
+    			<p class="text-center">1점 : ${reviewOneScore}명</p>
+    		</div>
+    	</div>
+    </div>
+    
+	<div class="d-flex justify-content-between align-items-center">
+	    <p>총 ${reviewSearchCount}개</p>
+	    <p><a href="#">등록순</a> | <a href="#">조회순</a></p>
+	</div>
+    
+    
     
     <nav class="navbar navbar-light bg-light">
   		<div class="container-fluid">
@@ -41,39 +72,33 @@
 	           <col width="35%">
 	        </colgroup>
 	     	<!-- 루프 -->
-	        <c:forEach var="reviews" items="${reviews}">
+	        <c:forEach var="review" items="${reviews}">
 	        <tbody>	
 	            <tr>
-	            	<td class="mt-3"><a href="reviewDetail?id=${reviews.id }">${reviews.title}</a></td>
-	            	<td class="mt-3">${reviews.nickname}</td>	
+	            	<td class="mt-3"><a href="reviewDetail?id=${review.id }">${review.title}</a></td>
+	            	<td class="mt-3">${review.nickname}</td>
 	            </tr>
 	            <tr>
 	                <td>방문기록?</td>
-	                <td>조회수 : ${reviews.hits}</td>
+	                <td>조회수 : ${review.hits}</td>
 	            </tr>
 	            <tr>
 	                <td colspan="2">
                     	<c:choose>
-                        	<c:when test="${fn:length(reviews.detail) > 120}">
-                            	${fn:substring(reviews.detail, 0, 120)}...
+                        	<c:when test="${fn:length(review.detail) > 30}">
+                            	${fn:substring(review.detail, 0, 30)}...
                             </c:when>
                         	<c:otherwise>
-                        		${reviews.detail}
+                        		${review.detail}
                        		</c:otherwise>
                     	</c:choose>
                 	</td>
 	            </tr>
 	            <tr>
-	                <td colspan="2">${reviews.hashtag}</td>
-	            </tr>
-	            <tr>
-	                <td colspan="2">루트보기?</td>
-	            </tr>	
-	            <tr>
-	                <td>추천율 : <fmt:formatNumber value="${reviews.result}" type="number" maxFractionDigits="1"/>%</td>
+	                <td>추천율 : <fmt:formatNumber value="${review.result}" type="number" maxFractionDigits="1"/>%</td>
 	                <td>
 	                	<form action="rating" method="get">
-	                		<input type="hidden" name="id" id="id" value="${reviews.id}">
+	                		<input type="hidden" name="id" id="id" value="${review.id}">
 	                		<button type="submit">좋아요</button>
 	                	</form>
 	                </td>

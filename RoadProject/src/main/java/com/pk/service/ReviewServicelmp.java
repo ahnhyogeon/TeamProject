@@ -52,5 +52,28 @@ public class ReviewServicelmp implements ReviewService {
 	public void reviewHitUp(int id) throws Exception {
 		dao.reviewHitUp(id);
 	}
+	
+	//리뷰 작성 인원수 확인
+	@Override
+	public int reviewCount(int restaurant_id) throws Exception {
+		return dao.reviewCount(restaurant_id);
+	}
+	
+	//리뷰 검색 시 해당하는 인원수 확인
+	@Override
+	public int reviewSearchCount(ReviewDto reviews) throws Exception {
+		return dao.reviewSearchCount(reviews);
+	}
+	
+	//리뷰 가게 점수 확인
+	@Override
+	public double reviewResultScore(int restaurant_id) throws Exception {
+		return dao.reviewResultScore(restaurant_id);
+	}
 
+	//리뷰 가게 개별(1~5) 점수 확인
+	@Override
+	public int reviewOneScore(ReviewDto reviews) throws Exception {
+		return dao.reviewOneScore(reviews);
+	}
 }
