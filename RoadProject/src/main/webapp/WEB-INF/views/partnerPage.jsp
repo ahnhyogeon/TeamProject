@@ -81,7 +81,7 @@
 			<div>
 					<div class="partner_infoBox_info_title">
 						<img src="" alt="">
-						위치
+						위치 
 					</div>
 					서울시 **구 **
 					<img src="" alt="">
