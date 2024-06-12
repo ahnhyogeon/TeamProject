@@ -14,14 +14,17 @@
             </div>
             <div class="aside_content">
                 <div class="aside_top">
-         
+         				<div id="map_aside_top_selectBox">
+         					<div id="map_aside_select1">추천 테마</div>
+         					<div id="map_aside_select2" class="map_aside_select_active">마이 테마</div>
+         				</div>
                         <div class="row_main1_sub_inputBox">
                             <input type="text" placeholder="원하는 스페이스를 검색해보세요"> 
                         </div>
 
                     <div class="mythema_menu">
                         <div class="ossume">
-                            <div class="search_thema">
+                            <div id="search_theme" class="search_thema">
                                 마이 테마
                                 <img src="../resources/images/Expand_down_light.png" class="Expand_down_light" alt="Expand_down_light">
                             </div>
@@ -125,4 +128,9 @@
             </div>
             
         </div>
+               <div id="map_con" style="width: 1332px;height: 1080px;">
+    	
     </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfGdSpW5kn_kMbCCsaJNyBiJLOnvEMkTU&callback=myMap"></script>

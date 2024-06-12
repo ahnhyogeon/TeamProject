@@ -137,12 +137,96 @@ $(function(){
     if(map_test){
         map_test.addEventListener('click', function(){
 
-        window.location.href = "../partnerPage";
+        window.location.href = "../partnerPage_detail";
         });
     }
+    
+    const partner_detail_tabMenu_home = document.getElementById('partner_detail_tabMenu_home');
+    if(partner_detail_tabMenu_home){
+        partner_detail_tabMenu_home.addEventListener('click', function(){
+
+        window.location.href = "partnerPage_detail";
+        });
+    }
+    
+    const partner_detail_tabMenu_menu = document.getElementById('partner_detail_tabMenu_menu');
+    if(partner_detail_tabMenu_menu){
+        partner_detail_tabMenu_menu.addEventListener('click', function(){
+
+        window.location.href = "partnerPage_detail_menu";
+        });
+    }
+    
+    const partner_detail_tabMenu_review = document.getElementById('partner_detail_tabMenu_review');
+    if(partner_detail_tabMenu_review){
+        partner_detail_tabMenu_review.addEventListener('click', function(){
+
+        window.location.href = "partnerPage_detail_review";
+        });
+    }
+    
+    const partner_detail_review_btn = document.getElementById('partner_detail_review_btn');
+    if(partner_detail_review_btn){
+        partner_detail_review_btn.addEventListener('click', function(){
+
+        window.location.href = "partnerPage_review_registration";
+        });
+    }
+    
+    const review_registration_review_rotice = document.getElementById('review_registration_review_rotice');
+    if(review_registration_review_rotice){
+        review_registration_review_rotice.addEventListener('click', function(){
+
+        window.location.href = "#";
+        });
+    }
+    
+    const map_aside_select1 = document.getElementById('map_aside_select1');
+    if(map_aside_select1){
+        map_aside_select1.addEventListener('click', function(){
+
+        window.location.href = "map_book";
+        });
+    }
+    
+    const map_aside_select2 = document.getElementById('map_aside_select2');
+    if(map_aside_select2){
+        map_aside_select2.addEventListener('click', function(){
+
+        window.location.href = "map_theme";
+        });
+    }
+    
+	const cards = document.querySelectorAll('.partner_detail_review_list_card');
+
+
+	cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+        console.log("으악");
+        const overlay = document.getElementById('overlay');
+        const popup = document.getElementById('partner_detail_review_detailpop1');
+
+        overlay.style.display = 'block';
+        popup.style.display = 'block';
+    	});
+	});
+   
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+const popup = document.getElementById("partner_detail_review_detailpop1");
+    const popupClose = document.getElementById("Xbox");
+    const overlay = document.getElementById("overlay");
 
+    if (popupClose) {
+        popupClose.addEventListener('click', function() {
+			console.log(popup);
+			console.log(overlay);
+            popup.style.display = "none";
+            overlay.style.display="none";
+        });
+    } 
+});
 
 $(function(){
 
@@ -554,7 +638,7 @@ $(document).ready(function() {
     });
     
     /*자동 하이픈 기능*/
-document.getElementById('tel').addEventListener('input', function() {
+	document.getElementById('tel').addEventListener('input', function() {
 
     let value = this.value;
     
@@ -569,6 +653,19 @@ document.getElementById('tel').addEventListener('input', function() {
     }
 
     this.value = formattedValue;
+	});
+	
 });
-});
+
+ document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.registration_select_group_token').forEach(div => {
+                div.addEventListener('click', function() {
+                    console.log("꺅");
+                    const radioId = this.getAttribute('data-radio');
+                    document.getElementById(radioId).checked = true;
+                });
+            });
+        });
+
+
 

@@ -20,7 +20,7 @@
             </div>
             <div class="partnerInner_profile">
                 <div class="profile_picture">
-                    <img src="resources/images/icons _ emoji/Winking Face.png" alt="winking">  
+                     
                 </div>
                 <div class="partnerInner_info">
                     <div class="partnerInner_info_title">
@@ -46,9 +46,9 @@
             </div>
         </div>
         <div class="myTabMenu">
-            <div id="partner_tabMenu_home" class="subTabMenu active">홈</div>
-            <div id="partner_tabMenu_review" class="subTabMenu">메뉴</div>
-            <div id="partner_tabMenu_res" class="subTabMenu">리뷰 0</div>
+            <div id="partner_detail_tabMenu_home" class="subTabMenu active">홈</div>
+            <div id="partner_detail_tabMenu_menu" class="subTabMenu">메뉴</div>
+            <div id="partner_detail_tabMenu_review" class="subTabMenu">리뷰 <span>12</span></div>
         </div>
     </div>
     <div class="myPage_mainbox2">

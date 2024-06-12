@@ -1,3 +1,33 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const map_aside_top_selectBox = document.getElementById("map_aside_top_selectBox");
+    const map_aside_top_selectBox2 = document.getElementById("map_aside_top_selectBox2");
+    const search_theme = document.getElementById("search_theme");
+
+    if (search_theme) {
+        search_theme.addEventListener('click', function() {
+            if (map_aside_top_selectBox) {
+                console.log("1");
+                const currentDisplay = getComputedStyle(map_aside_top_selectBox).display;
+
+                if (currentDisplay === "none") {
+                    map_aside_top_selectBox.style.display = "flex";
+                } else {
+                    map_aside_top_selectBox.style.display = "none";
+                }
+            } else if (map_aside_top_selectBox2) {
+                console.log("2");
+                const currentDisplay = getComputedStyle(map_aside_top_selectBox2).display;
+
+                if (currentDisplay === "none") {
+                    map_aside_top_selectBox2.style.display = "flex";
+                } else {
+                    map_aside_top_selectBox2.style.display = "none";
+                }
+            }
+        });
+    }
+});
+
 let map;
 
 function myMap() {
@@ -46,7 +76,6 @@ function showPosition(position) {
 
     const confirmation = window.confirm("원활한 서비스를 위해 위치 공유에 동의하시겠습니까?");
     if (confirmation) {
-        // 동의한 경우, 추가 동작 수행
         document.querySelector('.info').innerHTML = '<div class="frame29554">현재 위치를 찾았습니다!</div>';
         const pos = {
             lat: position.coords.latitude,
@@ -58,7 +87,6 @@ function showPosition(position) {
             map: map
         });
     } else {
-        // 동의하지 않은 경우, 추가 동작 수행
         document.querySelector('.info').innerHTML = '<div class="frame29554">위치 공유에 동의하지 않았습니다!</div><a href="#" class="agree">위치 정보 제공 동의하기</a>';
     }
 }
@@ -83,12 +111,11 @@ function showError(error) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 'agree' 클래스를 가진 요소에 이벤트 리스너 추가
     const agreeButton = document.querySelector('.agree');
     if (agreeButton) {
         agreeButton.addEventListener('click', function(event) {
             event.preventDefault();
-            getLocation(); // "동의하기"를 클릭하면 위치 정보를 가져옴
+            getLocation(); 
         });
     }
 });
@@ -104,15 +131,15 @@ function handleRefresh() {
 }
 
 document.addEventListener('keydown', function(event) {
-    // 사용자가 F5 키를 누른 경우 또는 Ctrl+R (Windows) / Command+R (Mac)를 누른 경우
     if ((event.ctrlKey || event.metaKey) && event.keyCode === 82) {
         handleRefresh();
     }
 });
 
 document.addEventListener('keyup', function(event) {
-    // 사용자가 새로 고침 버튼을 클릭한 경우
     if (event.key === 'F5') {
         handleRefresh();
     }
 });
+
+
