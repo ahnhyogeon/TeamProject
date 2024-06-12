@@ -21,6 +21,8 @@ public class RestaurantDto {
 	private String r_intro;
  	private String notice;
 	private String r_time;
+ 	private String r_category;
+	
  	
     public RestaurantDto() {
     	

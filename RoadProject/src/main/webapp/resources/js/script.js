@@ -104,14 +104,129 @@ $(function(){
             window.location.href = "following.html";
         });
     }
+    
+    const make_theme = document.getElementById('make_theme');
+    if(make_theme){
+        make_theme.addEventListener('click', function(){
+            if (sessionStorage.getItem('mapCenter')) {
+            sessionStorage.removeItem('mapCenter');
+        }
+        if (sessionStorage.getItem('mapZoom')) {
+            sessionStorage.removeItem('mapZoom');
+        }
+
+        window.location.href = "map/map";
+        });
+    }
+    
+    const save_theme = document.getElementById('save_theme');
+    if(save_theme){
+        save_theme.addEventListener('click', function(){
+            if (sessionStorage.getItem('mapCenter')) {
+            sessionStorage.removeItem('mapCenter');
+        }
+        if (sessionStorage.getItem('mapZoom')) {
+            sessionStorage.removeItem('mapZoom');
+        }
+
+        window.location.href = "map/map";
+        });
+    }
+    
+    const map_test = document.getElementById('map_test');
+    if(map_test){
+        map_test.addEventListener('click', function(){
+
+        window.location.href = "../partnerPage_detail";
+        });
+    }
+    
+    const partner_detail_tabMenu_home = document.getElementById('partner_detail_tabMenu_home');
+    if(partner_detail_tabMenu_home){
+        partner_detail_tabMenu_home.addEventListener('click', function(){
+
+        window.location.href = "partnerPage_detail";
+        });
+    }
+    
+    const partner_detail_tabMenu_menu = document.getElementById('partner_detail_tabMenu_menu');
+    if(partner_detail_tabMenu_menu){
+        partner_detail_tabMenu_menu.addEventListener('click', function(){
+
+        window.location.href = "partnerPage_detail_menu";
+        });
+    }
+    
+    const partner_detail_tabMenu_review = document.getElementById('partner_detail_tabMenu_review');
+    if(partner_detail_tabMenu_review){
+        partner_detail_tabMenu_review.addEventListener('click', function(){
+
+        window.location.href = "partnerPage_detail_review";
+        });
+    }
+    
+    const partner_detail_review_btn = document.getElementById('partner_detail_review_btn');
+    if(partner_detail_review_btn){
+        partner_detail_review_btn.addEventListener('click', function(){
+
+        window.location.href = "partnerPage_review_registration";
+        });
+    }
+    
+    const review_registration_review_rotice = document.getElementById('review_registration_review_rotice');
+    if(review_registration_review_rotice){
+        review_registration_review_rotice.addEventListener('click', function(){
+
+        window.location.href = "#";
+        });
+    }
+    
+    const map_aside_select1 = document.getElementById('map_aside_select1');
+    if(map_aside_select1){
+        map_aside_select1.addEventListener('click', function(){
+
+        window.location.href = "map_book";
+        });
+    }
+    
+    const map_aside_select2 = document.getElementById('map_aside_select2');
+    if(map_aside_select2){
+        map_aside_select2.addEventListener('click', function(){
+
+        window.location.href = "map_theme";
+        });
+    }
+    
+	const cards = document.querySelectorAll('.partner_detail_review_list_card');
+
+
+	cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+        console.log("으악");
+        const overlay = document.getElementById('overlay');
+        const popup = document.getElementById('partner_detail_review_detailpop1');
+
+        overlay.style.display = 'block';
+        popup.style.display = 'block';
+    	});
+	});
+   
 });
 
-/*자동 하이픈 기능*/
-const autoHyphen = (target) => {
-    target.value = target.value
-     .replace(/[^0-9]/g, '')
-     .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
-}
+document.addEventListener('DOMContentLoaded', function () {
+const popup = document.getElementById("partner_detail_review_detailpop1");
+    const popupClose = document.getElementById("Xbox");
+    const overlay = document.getElementById("overlay");
+
+    if (popupClose) {
+        popupClose.addEventListener('click', function() {
+			console.log(popup);
+			console.log(overlay);
+            popup.style.display = "none";
+            overlay.style.display="none";
+        });
+    } 
+});
 
 $(function(){
 
@@ -213,11 +328,17 @@ $(function(){
       $('#searchname').val($val);
    });   
           
-      
+
+   });
+   
+/*  
+function dPostcode(event) {
+    event.preventDefault();     
 });
- 
+ */
  
 function dPostcode() {
+
     new daum.Postcode({
         oncomplete: function(data) {
             var addr = ''; // 주소 변수
@@ -515,5 +636,36 @@ $(document).ready(function() {
     $('#partner_tab_2').click(function(){
     	window.location.href = "partneredit2";
     });
+    
+    /*자동 하이픈 기능*/
+	document.getElementById('tel').addEventListener('input', function() {
+
+    let value = this.value;
+    
+    value = value.replace(/[^0-9]/g, '');
+    
+    let formattedValue = '';
+    for (let i = 0; i < value.length; i++) {
+        if (i === 3 || i === 7) {
+            formattedValue += '-';
+        }
+        formattedValue += value[i];
+    }
+
+    this.value = formattedValue;
+	});
+	
 });
+
+ document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.registration_select_group_token').forEach(div => {
+                div.addEventListener('click', function() {
+                    console.log("꺅");
+                    const radioId = this.getAttribute('data-radio');
+                    document.getElementById(radioId).checked = true;
+                });
+            });
+        });
+
+
 

@@ -55,48 +55,6 @@ public class HomeController {
 		
 		return "index.tiles";
 	}
-
-	//확인용 home.jsp 나중에 삭제할것임.
-	@RequestMapping(value = "home", method = RequestMethod.GET)
-	public String hometest(Locale locale, Model model) {
-	
-		return "home";
-	}
-	
-	
-	 @RequestMapping(value = "/content1", method = RequestMethod.GET)
-	  public String list(Locale locale, Model model) throws Exception {
-		 System.out.println("content1 접속");
-		 logger.info("home");
-		 
-		 MemberDto search = new MemberDto();
-		    search.setName("학생1");
-			
-		    List<MemberDto> memberList = service.selectMember();
-			search = service.searchName(search);
-			
-			model.addAttribute("memberList", memberList);
-			model.addAttribute("search", search);
-			model.addAttribute("url", "content1" );
-		  
-			return "list.tiles";
-	  }	
-
-
-	  @RequestMapping(value = "/detail", method = RequestMethod.GET)
-	  public String detail(Locale locale, Model model) {
-		  System.out.println("content2 접속");
-		  model.addAttribute("url", "content2" );
-		  return "detail.tiles";
-	  }
-	  
-	  //회원유형선택
-	  @RequestMapping(value = "/SelectJoin", method = RequestMethod.GET)
-	  public String SelectJoin(Locale locale, Model model) {
-		  System.out.println("content4 접속");
-		  model.addAttribute("url", "content4" );
-		  return "SelectJoin.tiles";
-	  }
 	  
 	  //회원가입
 	  @RequestMapping(value = "/join", method = {RequestMethod.GET, RequestMethod.POST})
@@ -356,12 +314,55 @@ public class HomeController {
 	        return "myPage3.tiles";
 	    }
 	  
-	  @RequestMapping(value = "/map", method = RequestMethod.GET)
+	  @RequestMapping(value = "map/map", method = RequestMethod.GET)
 	  public String map(Locale locale, Model model) {
 		  System.out.println("map 접속");
 		  
-		  return "map.tiles";
+		  return "map/map.tiles";
 	  }
+	  
+	  @RequestMapping(value = "map/map_book", method = RequestMethod.GET)
+	  public String map_book(Locale locale, Model model) {
+		  System.out.println("map_book 접속");
+		  
+		  return "map/map_book.tiles";
+	  }
+	  
+	  @RequestMapping(value = "map/map_theme", method = RequestMethod.GET)
+	  public String map_thema(Locale locale, Model model) {
+		  System.out.println("map_thema 접속");
+		  
+		  return "map/map_theme.tiles";
+	  }
+	  
+	  @RequestMapping(value = "/partnerPage_detail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage_detail(Locale locale, Model model) {
+	        logger.info("partnerPage_detail 접속");
+	        
+	        return "partnerPage_detail.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partnerPage_detail_menu", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage_detail_menu(Locale locale, Model model) {
+	        logger.info("partnerPage_detail_menu 접속");
+	        
+	        return "partnerPage_detail_menu.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partnerPage_detail_review", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage_detail_review(Locale locale, Model model) {
+	        logger.info("partnerPage_detail_review 접속");
+	        
+	        return "partnerPage_detail_review.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partnerPage_review_registration", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage_review_registration(Locale locale, Model model) {
+	        logger.info("partnerPage_review_registration 접속");
+	        
+	        return "partnerPage_review_registration.tiles";
+	    }
+	  
 	  
 	  @RequestMapping(value = "/partnerPage", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String partnerPage(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response,
@@ -411,6 +412,7 @@ public class HomeController {
 	        return "partneredit.tiles";
 	    }
 	  
+	  
 	  /* 원래 쓰던거
 	  @RequestMapping(value = "/partneredit2", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String partneredit2(Locale locale, Model model, HttpSession session) {
@@ -440,67 +442,6 @@ public class HomeController {
 	        return "partneredit2.tiles";
 	    }
 	  
-	  //회원가입
-	  @RequestMapping(value = "/addMember", method = RequestMethod.POST)
-	    public ModelAndView addMember(
-	            @RequestParam String name,
-	            @RequestParam String nickname,
-	            @RequestParam String userid,
-	            @RequestParam String password,
-	            @RequestParam String tel,
-	            @RequestParam int zipcode,
-	            @RequestParam String addr1,
-	            @RequestParam String addr2,
-	            @RequestParam String birth,
-	            @RequestParam String email,
-	            @RequestParam(required = false) String role,
-	            @RequestParam(required = false) String buisness) throws Exception {
-		  
-		  int role2 = 0;
-		  System.out.println(role);
-		  if(role == null) {
-			  role2 = 1;
-		  }
-		  else {
-			  role2 = Integer.parseInt(role);
-		  }
-	        
-		  if(role2 == 1) {
-	        memberDto.setName(name);
-	        memberDto.setNickname(nickname);
-	        memberDto.setUserid(userid);
-	        memberDto.setPassword(password);
-	        memberDto.setTel(tel);
-	        memberDto.setZipcode(zipcode);
-	        memberDto.setAddr1(addr1);
-	        memberDto.setAddr2(addr2);
-	        memberDto.setBirth(birth);
-	        memberDto.setRole(role2);
-	        memberDto.setEmail(email);
-
-	        service.insertDB(memberDto);
-		  }
-		  else if(role2 == 2) {
-		      memberDto.setName(name);
-		      memberDto.setNickname(nickname);
-		      memberDto.setUserid(userid);
-		      memberDto.setPassword(password);
-		      memberDto.setTel(tel);
-		      memberDto.setZipcode(zipcode);
-		      memberDto.setAddr1(addr1);
-		      memberDto.setAddr2(addr2);
-		      memberDto.setBirth(birth);
-		      memberDto.setEmail(email);
-		      memberDto.setRole(role2);
-		      memberDto.setBuisness(buisness);
-
-		      service.insertDB(memberDto);
-		  }
-
-	        ModelAndView modelAndView = new ModelAndView("redirect:/content1");
-	        
-	        return modelAndView;
-	    }
 	  
 	  //로그인
 	  @RequestMapping(value = "/searchMember", method = RequestMethod.POST)
@@ -510,7 +451,6 @@ public class HomeController {
 			    HttpSession session) throws Exception {
 		  
 		  
-			      
 		  		System.out.println(userid);
 			    memberDto.setUserid(userid);
 			    memberDto.setPassword(password);

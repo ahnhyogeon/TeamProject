@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/myPage.css">
@@ -22,7 +20,7 @@
             </div>
             <div class="partnerInner_profile">
                 <div class="profile_picture">
-                    <img src="resources/images/icons _ emoji/Winking Face.png" alt="winking">  
+                     
                 </div>
                 <div class="partnerInner_info">
                     <div class="partnerInner_info_title">
@@ -48,9 +46,9 @@
             </div>
         </div>
         <div class="myTabMenu">
-            <div id="partner_tabMenu_home" class="subTabMenu active">홈</div>
-            <div id="partner_tabMenu_review" class="subTabMenu">메뉴</div>
-            <div id="partner_tabMenu_res" class="subTabMenu">리뷰 0</div>
+            <div id="partner_detail_tabMenu_home" class="subTabMenu active">홈</div>
+            <div id="partner_detail_tabMenu_menu" class="subTabMenu">메뉴</div>
+            <div id="partner_detail_tabMenu_review" class="subTabMenu">리뷰 <span>12</span></div>
         </div>
     </div>
     <div class="myPage_mainbox2">
@@ -70,30 +68,30 @@
 						<img src="resources/images/icons _ emoji/Camping.png" alt="camping">
 						소개
 					</div>
-					${rdto.r_intro }
+					저희는 이런 가계 입니다 :)
 				</div>
 			<div>
 					<div class="partner_infoBox_info_title">
 						<img src="resources/images/Telephone Receiver.png" alt="tel">
 						전화번호
 					</div>
-					${rdto.r_tel }
+					02-1234-1234
 				</div>
 			<div>
 					<div class="partner_infoBox_info_title">
 						<img src="resources/images/icons _ emoji/Person Tipping Hand.png" alt="person">
 						위치 
 					</div>
-					${rdto.r_addr1 }
+					서울시 **구 **
 					<img src="resources/images/Ellipse 67.png" alt="ellipse">
-					${rdto.r_addr2 }
+					**로 1번길
 				</div>
 			<div>
 					<div class="partner_infoBox_info_title">
 						<img src="resources/images/Alarm Clock.png" alt="clock">
 						운영시간
 					</div>
-					${rdto.r_time }
+					매일 10:00 ~ 24:00
 				</div>
 			<div>
 					<div class="partner_infoBox_info_title">
@@ -102,12 +100,13 @@
 					</div>
 					<div class="partner_infoBox_menu">
 						<div>
-						 <c:forEach var="m_list" items="${m_list }" begin="0" end="1">
 							<div class="partner_menu_list">
-								<div>${m_list.m_name }</div> ${m_list.m_cost }
+								<div>에피타이저</div> 9000원
 							</div>
-							</c:forEach>
-												
+							<div class="partner_menu_list">
+								<div>메뉴1</div> 9000원
+							</div>
+							
 						</div>
 						<span>메뉴더보기</span>
 					</div>
@@ -117,14 +116,14 @@
 						<img src="resources/images/Globe With Meridians.png" alt="meridians">
 						사이트
 					</div>
-					<a href="#">${rdto.r_url }</a>
+					<a href="#">www.naver.com</a>
 				</div>
 				</div>
 				<div id="partner_infoBox_rotice">
 						<div>
 							공지사항
 						</div>
-						당일 예약 가능합니다 :)  <!-- ${rdto.notice } -->
+						당일 예약 가능합니다 :)
 					</div>
 				</div>
         <div class="myPage_content">

@@ -58,7 +58,7 @@
                         <label>주소<span>*</span></label>
                         <div>
                         <input type="text" name="addr1" id="addr1" value="${addr1}" placeholder="주소 입력">
-                        <button class="btn btn-danger">주소 검색</button>
+                        <button onclick="dPostcode(event)" class="btn btn-danger">주소 검색</button>
                         </div>
                         <div>
                         <input type="text" name="addr2" id="addr2" value="${addr2}" placeholder="상세 주소 입력">
@@ -69,7 +69,7 @@
                         <div>
                         <input type="text" name="tel" id="tel" value="${tel}" placeholder="(-) 제외 번호 입력">
                         </div>
-                    </div>
+                    </div> 
 
         <div id="secondaryBox">
             <button type="submit" id="join2_nextbtn" class="btn btn-secondary">다음으로</button>
