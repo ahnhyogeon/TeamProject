@@ -1,7 +1,5 @@
 package com.pk.roadproject;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -17,17 +15,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
-import com.pk.service.FollowService;
 import com.pk.service.GetRestService;
 import com.pk.service.MemberService;
+import com.pk.service.MenuGetListService;
 
 /**
  * Handles requests for the application home page.
@@ -47,6 +43,9 @@ public class HomeController {
 	
 	@Autowired
 	GetRestService getRest;
+	
+	@Autowired
+	MenuGetListService getMenuList;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -365,8 +364,23 @@ public class HomeController {
 	  }
 	  
 	  @RequestMapping(value = "/partnerPage", method = {RequestMethod.GET, RequestMethod.POST})
-	    public String partnerPage(Locale locale, Model model) {
+	    public String partnerPage(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response,
+						    		@RequestParam(value="cpg", defaultValue="1") int cpg, 
+									@RequestParam(value="searchname", defaultValue="") String searchname,
+									@RequestParam(value="searchvalue", defaultValue="") String searchvalue) {
 	        logger.info("partnerPage 접속");
+	        
+	        model.addAttribute("req", request);
+			/*
+			 * int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
+			 * model.addAttribute("business", rbusiness);
+			 */
+	        model.addAttribute("cpg" , cpg);
+	        model.addAttribute("searchname", searchname);
+	        model.addAttribute("searchvalue", searchvalue);
+	        getRest.excute(model);
+	        getMenuList.excute(model);
+	       
 	        
 	        return "partnerPage.tiles";
 	    }
