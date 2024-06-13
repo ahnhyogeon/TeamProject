@@ -93,7 +93,7 @@
                     <div class="menu-title">
                         <label class="menu_nick_title">메뉴<span class="span-color">*</span></label>
                         <div class="menu_add_btn_box">
-                        <button class="menu_add"><span class="menu_add_btn">메뉴추가</span></button>
+                        <div id="menu_add_btn" class="menu_add"><span class="menu_add_btn">메뉴추가</span></div>
                         </div>
                     </div> 
                    
@@ -147,10 +147,10 @@
                                 </td>
                                 <td>
                                     <div class="row_btn_box">
-                                    <div class="row_edit_box">
+                                    <div id="menu_edit_btn" class="row_edit_box">
                                         <img src="resources/images/Edit.png" alt="edit">
                                     </div>
-                                    <div class="row_delete_box">
+                                    <div id="menu_del_btn" class="row_delete_box">
                                         <img src="resources/images/Delete.png" alt="delete">
                                     </div>
                                     </div>
@@ -310,3 +310,84 @@
        
              /listbox-->
           
+
+<!-- 메뉴페이지 팝업 -->
+<div id="overlay"></div>
+<div id="menu_add">
+	메뉴 추가
+	<div class="menu_add_formbox">
+		<form class="menu_add_form" action="#" method="post">
+			<div class="menu_add_form_top">
+				<div class="menu_add_menu_name">
+					<label>메뉴명<span>*</span></label>
+					<input type="text" name="menu_add_name" placeholder="메뉴명 입력"/>
+				</div>
+				<div class="menu_add_menu_price">
+					<label>가격(원)<span>*</span></label>
+					<input type="text" name="menu_add_price" placeholder="가격 입력"/>
+				</div>
+			</div>
+			<div class="menu_add_form_mid">
+				<label>메뉴 설명</label>
+				<textarea placeholder="사용자들의 이해를 돕기 위한 메뉴 설명을 입력해주세요"></textarea>
+			</div>
+			<div class="menu_add_bot">
+				<label>썸네일</label>
+				<div class="menu_add_uploadbtn">
+					파일 선택
+					<img src="resources\images\Upload_light.png" alt="upload">
+				</div>
+				<div class="menu_add_upload_info">
+					<span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png 포멧만 지원합니다.
+				</div>
+				<div class="menu_add_upload_imgbox"></div>
+			</div>
+			<div class="btn_center">
+				<button type="submit" class="menu_add_submit">추가하기</button>
+			</div>
+		</form>
+	</div>
+				<div id="Xbox">
+			<img src="resources\images\Close_square_light.png" alt="X">
+		</div>
+</div>
+
+<div id=menu_edit>
+	메뉴 수정
+	<div class="menu_add_formbox">
+		<form class="menu_add_form" action="#" method="post">
+			<div class="menu_add_form_top">
+				<div class="menu_add_menu_name">
+					<label>메뉴명<span>*</span></label>
+					<input type="text" name="menu_add_name" value="{메뉴명}"/>
+				</div>
+				<div class="menu_add_menu_price">
+					<label>가격(원)<span>*</span></label>
+					<input type="text" name="menu_add_price" value="10000"/>
+				</div>
+			</div>
+			<div class="menu_add_form_mid">
+				<label>메뉴 설명</label>
+				<textarea>메뉴 설명 입력</textarea>
+			</div>
+			<div class="menu_add_bot">
+				<label>썸네일</label>
+				<div class="menu_add_uploadbtn2">
+					파일 선택
+				</div>
+				<div class="menu_add_upload_info">
+					<span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png 포멧만 지원합니다.
+				</div>
+				<div class="menu_add_upload_imgbox">
+					<img src="resources\images\test.jpg" alt="test">
+				</div>
+			</div>
+			<div class="btn_center">
+				<button type="submit" class="menu_add_submit">수정하기</button>
+			</div>
+		</form>
+	</div>
+		<div id="Xbox2">
+			<img src="resources\images\Close_square_light.png" alt="X">
+		</div>
+</div>

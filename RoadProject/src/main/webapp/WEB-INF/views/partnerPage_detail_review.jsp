@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/myPage.css">
-    <link rel="stylesheet" href="resources/css/partnerPage.css">
+    <link rel="stylesheet" href="resources/css/partnerPage_detail.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -42,28 +42,28 @@ $(function(){
         });
     }
     
-    const partner_homeTab = document.getElementById('partner_tabMenu_home');
+    const partner_homeTab = document.getElementById('partner_tabMenu_myhome');
     if(partner_homeTab){
         partner_homeTab.addEventListener('click', function(){
             window.location.href = 'partnerPage.html';
         });
     }
 
-    const partner_reviewTab = document.getElementById('partner_tabMenu_review');
+    const partner_reviewTab = document.getElementById('partner_tabMenu_myreview');
     if(partner_reviewTab){
         partner_reviewTab.addEventListener('click', function(){
             window.location.href = 'partnerPage2.html';
         });
     }
 
-    const partner_themeTab = document.getElementById('partner_tabMenu_res');
+    const partner_themeTab = document.getElementById('partner_tabMenu_myres');
     if(partner_themeTab){
         partner_themeTab.addEventListener('click', function(){
             window.location.href = 'partnerPage3.html';
         });
     }
     
-    const partner_avgTab = document.getElementById('partner_tabMenu_avg');
+    const partner_avgTab = document.getElementById('partner_tabMenu_myavg');
     if(partner_avgTab){
         partner_avgTab.addEventListener('click', function(){
             window.location.href = 'partnerPage4.html';
@@ -197,6 +197,14 @@ $(function(){
         });
     }
     
+    const partner_myavg_detail = document.getElementById('partner_myavg_detail');
+    if(partner_myavg_detail){
+        partner_myavg_detail.addEventListener('click', function(){
+
+        window.location.href = "partner_avg_detail";
+        });
+    }
+    
 	const cards = document.querySelectorAll('.partner_detail_review_list_card');
 
 
@@ -211,6 +219,25 @@ $(function(){
     	});
 	});
    
+   const buttons = document.querySelectorAll('.partner_myreview_list_user_btn1');
+
+	buttons.forEach(function(button) {
+   		button.addEventListener('click', function() {
+        	console.log("btn1");
+        	window.location.href = "partnerPage_myreview";
+    	});
+	});
+    
+    
+    const buttons2 = document.querySelectorAll('.partner_myreview_list_user_btn2');
+
+	buttons2.forEach(function(button2) {
+   		button2.addEventListener('click', function() {
+        	console.log("btn2");
+        	window.location.href = "partnerPage_myreview2";
+    	});
+	});
+	
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -227,6 +254,8 @@ const popup = document.getElementById("partner_detail_review_detailpop1");
         });
     } 
 });
+
+
 
 $(function(){
 
@@ -668,4 +697,106 @@ $(document).ready(function() {
         });
 
 
+document.addEventListener('DOMContentLoaded', function () {
+const popup = document.getElementById("myPartner_rotice");
+	const popupOpen =document.getElementById("partner_myrotice_open")
+    const popupClose = document.getElementById("myPartner_rotice_close");
+    const overlay = document.getElementById("overlay");
+
+	if (popupOpen) {
+        popupOpen.addEventListener('click', function() {
+			console.log(popup);
+			console.log(overlay);
+            popup.style.display = "flex";
+            overlay.style.display="block";
+        });
+    
+    }
+    if (popupClose) {
+        popupClose.addEventListener('click', function() {
+			console.log(popup);
+			console.log(overlay);
+            popup.style.display = "none";
+            overlay.style.display="none";
+        });
+    } 
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+const popup = document.getElementById("respon_box");
+	const popupOpen =document.getElementById("res_btn")
+
+	if (popupOpen) {
+        popupOpen.addEventListener('click', function() {
+			console.log(popup);
+            popup.style.display = "flex";
+            popupOpen.style.display="none";
+        });
+    
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+const popup = document.getElementById("respon_box");
+	const popupOpen =document.getElementById("edit_btn")
+
+	if (popupOpen) {
+        popupOpen.addEventListener('click', function() {
+			console.log(popup);
+            popup.style.display = "flex";
+            popupOpen.style.display="none";
+        });
+    
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+const popup = document.getElementById("menu_edit");
+	const popupOpen =document.getElementById("menu_edit_btn")
+    const popupClose = document.getElementById("Xbox2");
+    const overlay = document.getElementById("overlay");
+
+	if (popupOpen) {
+        popupOpen.addEventListener('click', function() {
+			console.log(popup);
+			console.log(overlay);
+            popup.style.display = "flex";
+            overlay.style.display="block";
+        });
+    
+    }
+    if (popupClose) {
+        popupClose.addEventListener('click', function() {
+			console.log(popup);
+			console.log(overlay);
+            popup.style.display = "none";
+            overlay.style.display="none";
+        });
+    } 
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+const popup = document.getElementById("menu_add");
+	const popupOpen =document.getElementById("menu_add_btn")
+    const popupClose = document.getElementById("Xbox");
+    const overlay = document.getElementById("overlay");
+
+	if (popupOpen) {
+        popupOpen.addEventListener('click', function() {
+			console.log(popup);
+			console.log(overlay);
+            popup.style.display = "flex";
+            overlay.style.display="block";
+        });
+    
+    }
+    if (popupClose) {
+        popupClose.addEventListener('click', function() {
+			console.log(popup);
+			console.log(overlay);
+            popup.style.display = "none";
+            overlay.style.display="none";
+        });
+    } 
+});
 

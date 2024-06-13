@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/myPage.css">
+    <link rel="stylesheet" href="resources/css/partnerPage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,93 +16,68 @@
     <div class="myPage_mainbox1">
         <div class="myInner">
             <div class="myInner_title">
-                마이 페이지
+                마이 스페이스
             </div>
-            <div class="myInner_profile">
+            <div class="partnerInner_profile">
                 <div class="profile_picture">
-                    <img src="resources/images/icons _ emoji/Winking Face.png" alt="winking">  
+                    <img src="resources/images/icons _ emoji/Camping.png" alt="Camping">  
                 </div>
-                <div class="profile_info">
-                    <div class="profile_title">
-                        상위 10% 리뷰어
+                <div class="partnerInner_info">
+                    <div class="partnerInner_info_title">
+                        <span>{카테고리}</span>
+                        {상호명}
+                        <img id="partner_edit_gear" src="resources\images\icons _ emoji\Gear.png" alt="gear">
                     </div>
-                    <div class="profile_name">
-                        <span><%=session.getAttribute("nickname") %></span><img id="partner_edit_gear" src="resources/images/icons _ emoji/Gear.png" alt="Gear">
-                    </div>
-                    <div class="profile_count">
-                        <div>
-                            <label>마이 리뷰</label>
-                            <span>0</span>
-                        </div>
-                        <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                        <div>
-                            <label>팔로워</label>
-                             <span>0</span>
-                        </div>
-                        <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                        <div>
-                            <label>팔로잉</label>
-                            <span>0</span>
-                        </div>
-                    </div>
+					<div class="partnerInner_info_num">
+						<div>
+							받은 리뷰
+							<span>12</span>	
+						</div>
+						<img src="resources\images\Ellipse 67.png" alt="ellipse">
+						<div>
+							남긴 답변
+							<span>11</span>
+						</div>
+					</div>
                 </div>
+                
             </div>
         </div>
         <div class="myTabMenu">
-            <div id="partner_tabMenu_home" class="subTabMenu">홈</div>
-            <div id="partner_tabMenu_review" class="subTabMenu">마이 리뷰</div>
-            <div id="partner_tabMenu_res" class="subTabMenu">예약 관리</div>
-            <div id="partner_tabMenu_avg" class="subTabMenu active">통계 현황</div>
+            <div id="partner_tabMenu_myhome" class="subTabMenu">홈</div>
+            <div id="partner_tabMenu_myreview" class="subTabMenu">마이 리뷰</div>
+            <div id="partner_tabMenu_myres" class="subTabMenu">예약 관리</div>
+            <div id="partner_tabMenu_myavg" class="subTabMenu active">통계 현황</div>
         </div>
     </div>
     <div class="myPage_mainbox4">
-        <div class="reviewInner">
-            <div class="review_title">
-                <div class="review_title_count">
-                    총<span>0</span>개
+        <div class="myPage_content  partner_avg_margin">
+            <div class="partner_title">
+                <div>
+                    <img id="partner_myrotice_open" src="resources/images/Bar Chart.png" alt="chart">
                 </div>
-                <div class="review_title_filter">
-                    <a href="#">등록순</a>
-                    <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                    <a href="#">이름순</a>
+                <div class="partner_title_text">
+                	예약 통계 요약
+                </div>
+                <div class="partner_title_date">
+                	2024.01.01 ~ 2024.01.07
                 </div>
             </div>
-            <div class="review_tab">
-                <button class="review_tab_btn">
-                    전체<span>0</span>
-                </button>
-                <button class="review_tab_btn">
-                    공개<span>0</span>
-                </button>
-                <button class="review_tab_btn">
-                    비공개<span>0</span>
-                </button>
-            </div>
-            <div class="theme_contents">
-                <div class="theme_img">
-                    <img src="resources/images/profile img.png" alt="profile">
+            <div class="partner_chart">
+            		<div>
+            			시간별
+            			<div class="partner_chart_time"></div>
+            		</div>
+            		<div>
+            			예약별
+            			<div class="partner_chart_res"></div>
+            		</div>
+                	
                 </div>
-                <div class="theme_info">
-                    맛집 기행
-                    <div>
-                        <div>
-                            <img src="resources/images/icons _ emoji/Winking Face.png" alt="winking">
-                            {닉네임}
-                        </div>
-                        <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                        <div>
-                            <img src="resources/images/icons _ emoji/Pushpin.png" alt="Pushpin">
-                            23
-                        </div>
-                        <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                        <span>2024.01.01</span>
-                    </div>
-                </div>
-                <img src="resources/images/Meatballs_menu.png" alt="Meatballs_menu">
-            </div>
-            <button class="theme_content_btn btn-danger btn">
-                테마 만들기
-            </button>
-    </div>
-    
+        </div>
+        <div id="partner_myavg_detail">통계현황 상세보기</div>
+    <div class="bannerBox">
+            Banner
+        </div>
+</div>
 </div>

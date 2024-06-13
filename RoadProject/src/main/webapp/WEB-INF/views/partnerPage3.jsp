@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/myPage.css">
+    <link rel="stylesheet" href="resources/css/partnerPage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,43 +16,38 @@
     <div class="myPage_mainbox1">
         <div class="myInner">
             <div class="myInner_title">
-                마이 페이지
+                마이 스페이스
             </div>
-            <div class="myInner_profile">
+            <div class="partnerInner_profile">
                 <div class="profile_picture">
-                    <img src="resources/images/icons _ emoji/Winking Face.png" alt="winking">  
+                    <img src="resources/images/icons _ emoji/Camping.png" alt="Camping">  
                 </div>
-                <div class="profile_info">
-                    <div class="profile_title">
-                        상위 10% 리뷰어
+                <div class="partnerInner_info">
+                    <div class="partnerInner_info_title">
+                        <span>{카테고리}</span>
+                        {상호명}
+                        <img id="partner_edit_gear" src="resources\images\icons _ emoji\Gear.png" alt="gear">
                     </div>
-                    <div class="profile_name">
-                        <span><%=session.getAttribute("nickname") %></span><img id="partner_edit_gear" src="resources/images/icons _ emoji/Gear.png" alt="Gear">
-                    </div>
-                    <div class="profile_count">
-                        <div>
-                            <label>마이 리뷰</label>
-                            <span>0</span>
-                        </div>
-                        <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                        <div>
-                            <label>팔로워</label>
-                             <span>0</span>
-                        </div>
-                        <img src="resources/images/Ellipse 68.png" alt="ellipse">
-                        <div>
-                            <label>팔로잉</label>
-                            <span>0</span>
-                        </div>
-                    </div>
+					<div class="partnerInner_info_num">
+						<div>
+							받은 리뷰
+							<span>12</span>	
+						</div>
+						<img src="resources\images\Ellipse 67.png" alt="ellipse">
+						<div>
+							남긴 답변
+							<span>11</span>
+						</div>
+					</div>
                 </div>
+                
             </div>
         </div>
         <div class="myTabMenu">
-            <div id="partner_tabMenu_home" class="subTabMenu">홈</div>
-            <div id="partner_tabMenu_review" class="subTabMenu">마이 리뷰</div>
-            <div id="partner_tabMenu_res" class="subTabMenu active">예약 관리</div>
-            <div id="partner_tabMenu_avg" class="subTabMenu">통계 현황</div>
+            <div id="partner_tabMenu_myhome" class="subTabMenu">홈</div>
+            <div id="partner_tabMenu_myreview" class="subTabMenu">마이 리뷰</div>
+            <div id="partner_tabMenu_myres" class="subTabMenu active">예약 관리</div>
+            <div id="partner_tabMenu_myavg" class="subTabMenu">통계 현황</div>
         </div>
     </div>
     <div class="myPage_mainbox4">
@@ -103,5 +99,5 @@
                 테마 만들기
             </button>
     </div>
-    
+    </div>
 </div>

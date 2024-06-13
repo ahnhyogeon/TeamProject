@@ -392,6 +392,21 @@ public class HomeController {
 	        return "partnerPage2.tiles";
 	    }
 	  
+	  @RequestMapping(value = "/partnerPage_myreview", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage_myreview(Locale locale, Model model) {
+	        logger.info("partnerPage_myreview 접속");
+	        
+	        return "partnerPage_myreview.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partnerPage_myreview2", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage_myreview2(Locale locale, Model model) {
+	        logger.info("partnerPage_myreview2 접속");
+	        
+	        return "partnerPage_myreview2.tiles";
+	    }
+	  
+	  
 	  @RequestMapping(value = "/partnerPage3", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String partnerPage3(Locale locale, Model model) {
 	        logger.info("partnerPage3 접속");
@@ -403,6 +418,13 @@ public class HomeController {
 	        logger.info("partnerPage4 접속");
 	        
 	        return "partnerPage4.tiles";
+	    }
+	  
+	  @RequestMapping(value = "/partner_avg_detail", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partner_avg_detail(Locale locale, Model model) {
+	        logger.info("partner_avg_detail 접속");
+	        
+	        return "partner_avg_detail.tiles";
 	    }
 	  
 	  @RequestMapping(value = "/partneredit", method = {RequestMethod.GET, RequestMethod.POST})
