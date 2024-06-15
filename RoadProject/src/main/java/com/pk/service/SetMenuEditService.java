@@ -37,7 +37,8 @@ public class SetMenuEditService implements MenuService {
 		mdto.setM_intro(req.getParameter("m_intro"));
 		mdto.setImnum(req.getParameter("imnum"));
 		mdto.setId(Integer.parseInt(req.getParameter("id")));
-			
+		mdto.setThumbnail(req.getParameter("Thumbnauil"));
+		
 		mdao.menuUpdate(mdto);
 		
 		Map<String, Object> paramsFile = new HashMap<>();

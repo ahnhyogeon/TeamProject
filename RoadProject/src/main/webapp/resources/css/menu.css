@@ -96,16 +96,38 @@ gap: 8px;
 align-self: stretch;
 }
 .menu_div>label{
-    display: flex;
-align-items: flex-start;
-gap: 2px;
+
 color: var(--mono-color-111, #111);
 font-size: 16px;
 font-style: normal;
 font-weight: 500;
 line-height: 22px; /* 137.5% */
 letter-spacing: -0.064px;
+    display: flex;
+    padding: 15px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    flex: 1 0 0;
 }
+.menu_div2>label{
+width: 568px;
+color: var(--mono-color-111, #FF4147);
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+letter-spacing: -0.064px;
+    display: flex;
+    padding: 15px 0;
+    align-items: center;
+    gap: 4px;
+    flex: 1 0 0;
+}
+.menu_div>label:nth-child(2){
+	color:#FF4147;
+}
+
 .menu_div>label>span,
 .menu_title>label>span{
     color: var(--main-color-100, #FF4147);
@@ -312,7 +334,7 @@ align-items: center;
 gap: 4px;
 flex: 1 0 0;
 border-radius: 8px;
-border: 1px solid var(--mono-color-333, #333);
+border: 1px solid var(--mono-color-333, #FF4147);
 background: var(--mono-color-fff, #FFF);
 color: var(--mono-color-333, #333);
 text-align: center;
@@ -361,7 +383,9 @@ letter-spacing: -0.048px;
 align-items: flex-start;
 gap: 10px;
 }
-
+.t_color{
+	color:#FF4147;
+}
 .bannerBox{
     margin-bottom: 48px;
 }
@@ -386,6 +410,13 @@ align-self: stretch;
 align-items: flex-start;
 gap: 2px;
 margin-top:8px;
+}
+.menu_nick_title2{
+	display: flex;
+align-items: flex-start;
+gap: 2px;
+margin-top:8px;
+color:#111 !important;
 }
 .menu_add_btn_box{
 	display: flex;
@@ -480,6 +511,7 @@ align-items: center;
     justify-content: center;
     align-items: center;
     align-self: stretch;
+    margin-top:10px;
 }
 .row_main2_pagingbox>span{
     display: flex;

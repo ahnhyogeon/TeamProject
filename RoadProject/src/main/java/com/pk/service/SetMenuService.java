@@ -28,7 +28,7 @@ public class SetMenuService implements MenuService {
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("request");
-		
+		System.out.println(req.getParameter("thumbnail"));
 		MenuDto mdto = new MenuDto();
 		
 		mdto.setM_name(req.getParameter("m_name"));
@@ -37,13 +37,14 @@ public class SetMenuService implements MenuService {
 		mdto.setM_code(req.getParameter("m_code"));
 		mdto.setM_intro(req.getParameter("m_intro"));
 		mdto.setImnum(req.getParameter("imnum"));
-		
+		mdto.setThumbnail(req.getParameter("thumbnail"));
 			
 		mdao.menuInsert(mdto);
 		
 		Map<String, Object> paramsFile = new HashMap(); //map put 으로 business와 imnum을 넘겨줘서 menu_img와 menu의 db가 이어지게 함.
 		paramsFile.put("business", mdto.getBusiness());
 		paramsFile.put("imnum", mdto.getImnum());
+		paramsFile.put("thumbnail", mdto.getThumbnail());
 		
 		mudao.mUpdateFile(paramsFile);
 

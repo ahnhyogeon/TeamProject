@@ -9,9 +9,12 @@ import com.pk.dto.MenuDto;
 
 @Mapper
 public interface MenuMapper {
-	   //insert
+	   		//insert
 			public int menuInsert(MenuDto dto);
-		    
+			
+			//썸네일 추가
+			public int thumbnailUpdate(MenuDto dto);
+			
 			//update
 			public int menuUpdate(MenuDto dto);
 			
@@ -36,4 +39,4 @@ public interface MenuMapper {
 			//사업자번호 검증
 			public int mValidateBusiness(Map<String, Object> params);
 			
-}
+  }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-<% %>
+
     <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="resources/css/joinedit.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,39 +17,42 @@
 
 
    <script>
-   $(function(){
-	    $("#fileInput").change(function(){
-	        const files = $(this)[0].files;
+   document.addEventListener("DOMContentLoaded", function() {
+	
+	    document.getElementById("fileInput").addEventListener("change", function(event) {
+	        const files = event.target.files;
 	        if (files.length > 0) {
 	            sendData(files[0]);
 	        }
 	    });
-	   
-	    function sendData(file) {
-	        const imnum = $("#imnum").val();
-	        const data = new FormData();
-	        data.append("file", file);
-	        data.append("imnum", imnum);
-	        $.ajax({
-	            url: "upload",
-	            type: "post",
-	            data: data,
-	            contentType: false,
-	            processData: false,
-	            success: function(data) {
-	                // 서버에서 받은 JSON 데이터를 파싱합니다.
-	                const dt = JSON.parse(data);
-	                // 이미지의 URL을 사용하여 이미지를 표시합니다.
-	                const imageUrl =  dt.url;
-	                const imageDiv = $('<div><img src="' + imageUrl + '"></div>');
-	                $("#imagePreview").append(imageDiv);
-	            },
-	            error: function(jqXHR, textStatus, errorThrown){
-	                console.error(textStatus + ", " + errorThrown);
-	            }
-	        });
-	    }
 	});
+
+	function sendData(file) {
+	  
+	    const imnum = document.getElementById("imnum").value;
+	    const data = new FormData();
+	    data.append("file", file);
+	    data.append("imnum", imnum);
+	    
+	    const xhr = new XMLHttpRequest();
+	    xhr.open("POST", "upload", true);
+	    xhr.onload = function() {
+	        if (xhr.status === 200) {
+	            const dt = JSON.parse(xhr.responseText);
+	            const imageUrl = dt.url;
+	            const imageDiv = document.createElement("div");
+	            imageDiv.innerHTML = '<img src="' + imageUrl + '">';
+	            document.getElementById("imagePreview").appendChild(imageDiv);
+	        } else {
+	      
+	            console.error(xhr.statusText);
+	        }
+	    };
+	    xhr.onerror = function() {
+	
+	    };
+	    xhr.send(data);
+	}
    </script> 
 
 <div id="containerM">
@@ -168,6 +171,8 @@
                 </form>
             </c:otherwise>
         </c:choose>
+        
+        
     </div>
     <div class="edit_out">
         <a href="joinDelete.html">회원탈퇴</a>

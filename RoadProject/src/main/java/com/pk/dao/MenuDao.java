@@ -21,7 +21,12 @@ public class MenuDao implements MenuMapper {
 		// TODO Auto-generated method stub
 		return session.insert("menuInsert", dto);
 	}
-
+	
+	@Override
+	public int thumbnailUpdate(MenuDto dto) {
+		return session.update("thumbnailUpdate", dto);
+	}
+	
 	@Override
 	public int menuUpdate(MenuDto dto) {
 		// TODO Auto-generated method stub

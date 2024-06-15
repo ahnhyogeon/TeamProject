@@ -344,8 +344,29 @@ $(function(){
          	}     
           })
         });
+	
+	
+	  $('.edit-menu-btn').click(function(event) {
+        event.preventDefault(); // 기본 동작(링크 이동)을 막음
 
+        var menuId = $(this).data('id'); // data-id 속성에서 'id' 값을 추출
 
+        // AJAX 요청을 통해 'id' 값을 서버로 전송
+        $.ajax({
+        url: 'menuedit', // 서버가 처리할 URL
+        type: 'POST',
+        data: { id: menuId }, // 전송할 데이터
+        dataType: 'text',
+            success: function(response) {
+                console.log('Edit menu id ' + menuId + ' success!');
+                // 성공적으로 처리된 경우 추가 로직 구현
+            },
+            error: function(xhr, status, error) {
+                console.error('Edit menu id ' + menuId + ' failed: ' + error);
+                // 오류 발생 시 처리할 추가 로직
+            }
+        });
+    });
      
     //검색
    $('.dropdown-menu>a.dropdown-item').click(function(e){

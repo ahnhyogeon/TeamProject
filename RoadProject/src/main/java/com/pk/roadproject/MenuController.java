@@ -75,6 +75,8 @@ public class MenuController {
 			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,
 			Model model) {
 		System.out.println("menu() 실행됨");
+		String imnum = UUID.randomUUID().toString();		
+		model.addAttribute("imnum", imnum);
 		int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
 		System.out.println(rbusiness);
 		//int mbusiness = Integer.parseInt(business);
@@ -121,55 +123,60 @@ public class MenuController {
 	}
 	
 	@PostMapping("/mRegister")
-	public String mRegisterOk(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String mRegisterOk(HttpServletRequest request, HttpServletResponse response, Model model,
+								@RequestParam String thumbnail) {
 		
 		System.out.println("mRegisterok() 실행됨");
+		
 		model.addAttribute("request", request);
+		model.addAttribute("thumbnail", thumbnail);
 		setMenu.excute(model);
 		
-		 if (request.getHeader("Referer") != null) {
-			 System.out.println(request.getHeader(("Referer")));
-			    return "redirect:/";
-			  } else {
-			    return "redirect:/";
-			  }
+		 return "redirect:menu";
 		
 	}
 	
-	@RequestMapping("/menuedit")
-	public String edit(HttpServletRequest request, HttpServletResponse response,Model model) {
+	@PostMapping("/menuedit")
+	public String edit(HttpServletRequest request, HttpServletResponse response,Model model,
+						@RequestParam("id") int id) {
 		System.out.println("menuedit() 실행됨");
-		model.addAttribute("req", request);
-		//model.addAttribute("increaseHit", false);
 		
+		//model.addAttribute("increaseHit", false);
+		try {
+		Map<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		model.addAttribute("req", request);
 		getMenu.excute(model);		
-		return "edit";
+		
+		
+		}
+	    catch(Exception e) {
+		 e.printStackTrace();
+		
+		 }
+		return "menu";	
 	}
 	
 	@PostMapping("/menueditok")
 	public String editok( HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("menueditok() 실행됨");
+		
 		String ids = request.getParameter("id");
+		System.out.println(ids);
 		
 		Map<String, Object> params = new HashMap<>();
 		try {
 			params.put("id", Integer.parseInt(ids));
-			params.put("pass", request.getParameter("pass"));
+		
 			
 		}catch(NumberFormatException e) {
 			model.addAttribute("error", "에러가 발생했습니다.");
-			return "redirect:edit?id="+ids;
+			return "redirect:partneredit2";
 		}
-		int result = mdao.mValidateBusiness(params);
-		if(result > 0) {
-			model.addAttribute("request", request);
-			setMenuEdit.excute(model);
-			return "redirect:contents?id="+ids;
-		}else {
-			//경고 보내기
-			model.addAttribute("error", "비밀번호가 틀렸습니다.");
-			return "redirect:edit?id="+ids;
-		}
+		model.addAttribute("request", request);
+		setMenuEdit.excute(model);
+		
+		return "redirect:menu";
 	}
 	
 	
@@ -204,19 +211,24 @@ public class MenuController {
 				//업로드
 				File serverFile = new File(uploadDir + nFilename);
 				uploadFile.transferTo(serverFile);
-				
+			    	
+				String json = "{\"url\":\"" + "/roadproject/resources/menu/" + nFilename + "\"}";
+				String imageUrl = "/roadproject/resources/menu/" + nFilename;
 				//데이터베이스 저장
 				mUploadFileDto.setExt(ext);
 				mUploadFileDto.setFilesize(filesize);
 				mUploadFileDto.setImnum(imnum);
 				mUploadFileDto.setNfilename(nFilename);
 				mUploadFileDto.setOfilename(oFilename);
+				mUploadFileDto.setThumbnail(imageUrl);
 				
 				System.out.println(mUploadFileDto);
 				
 				mUploadDao.mInsertFile(mUploadFileDto);
+			    
+			
 				
-				String json = "{\"url\":\"" + "/roadproject/resources/menu/" + nFilename + "\"}";
+				
 				return ResponseEntity.ok().body(json);
 				
 			}catch(Exception e) {

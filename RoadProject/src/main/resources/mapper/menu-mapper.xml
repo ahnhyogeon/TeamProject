@@ -11,7 +11,8 @@
      m_intro,
      m_code,
      imnum,
-     visible
+     visible,
+     thumbnail
   </sql>
 
   
@@ -22,13 +23,18 @@
        #{m_name},
        #{m_cost},
        #{m_intro},
-       #{m_code},
+       001,
        #{imnum},
-       0
+       0,
+       #{thumbnail}
    
      )
   </insert>
-
+  
+  <update id="thumbnailUpdate" parameterType="menuDto">
+     UPDATE menu SET thumbnail = #{thumbnail} WHERE id=#{id}
+  </update> 
+   
   <update id="updateRefId" parameterType="int">
      UPDATE menu SET refid = #{id} WHERE id=#{id}
   </update>
@@ -40,11 +46,12 @@
   <update id="menuUpdate" parameterType="menuDto">
      UPDATE menu 
      SET
-        business = #{business},
+        <!-- business = #{business},-->
         m_name = #{m_name},
         m_cost = #{m_cost},
         m_intro = #{m_intro},
-        visible = #{visible}
+        thumbnail = #{thumbnail}
+        <!-- visible = #{visible} -->
      WHERE
         id=#{id}   
   </update>

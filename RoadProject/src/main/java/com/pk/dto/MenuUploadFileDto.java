@@ -15,4 +15,5 @@ public class MenuUploadFileDto {
 	private String ext;
 	private long filesize;
 	private String imnum;
+	private String thumbnail;
 }

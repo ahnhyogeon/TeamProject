@@ -33,6 +33,7 @@ public class GetMenuService implements MenuService {
 		  }
 		  */
 		  MenuDto mdto = mdao.mSelectDetail(selectId);
+		  System.out.println(mdto);
 		  model.addAttribute("mdto", mdto);
 		}
 

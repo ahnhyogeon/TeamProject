@@ -6,9 +6,9 @@
 
      <insert id="mInsertFile" parameterType="muploadDto">
         INSERT INTO menu_img
-           (business, ofilename, nfilename, ext, filesize, imnum)
+           (business, ofilename, nfilename, ext, filesize, imnum, thumbnail)
         VALUES
-           (#{business}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum})
+           (#{business}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum}, #{thumbnail})
      </insert>
      
      <delete id="mDeleteFileById" parameterType="int">
