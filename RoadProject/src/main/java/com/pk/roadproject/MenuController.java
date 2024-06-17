@@ -23,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pk.dao.MenuDao;
 import com.pk.dao.MenuUploadDao;
+import com.pk.dao.MenupanUploadDao;
 import com.pk.dto.MenuDto;
 import com.pk.dto.MenuUploadFileDto;
+import com.pk.dto.MenupanFileDto;
 import com.pk.service.GetMenuService;
 import com.pk.service.MenuGetListService;
 import com.pk.service.MenuTrashFileDel;
@@ -48,6 +50,12 @@ public class MenuController {
 	
 	@Autowired
 	MenuDto mdto;
+	
+	@Autowired
+	MenupanFileDto mpUploadFileDto;
+	
+	@Autowired
+	MenupanUploadDao mpUploadDao;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -87,6 +95,7 @@ public class MenuController {
         getList.excute(model);
         MenuTrashFileDel.menuDelCom();
         
+             
 		return "menu.tiles";
 	}
 	
@@ -135,8 +144,8 @@ public class MenuController {
 		 return "redirect:menu";
 		
 	}
-	
-	@PostMapping("/menuedit")
+	 
+	@RequestMapping("/menuedit")  //responsebody 쓰면 json타입으로 반환해야함
 	public String edit(HttpServletRequest request, HttpServletResponse response,Model model,
 						@RequestParam("id") int id) {
 		System.out.println("menuedit() 실행됨");
@@ -152,9 +161,11 @@ public class MenuController {
 		}
 	    catch(Exception e) {
 		 e.printStackTrace();
-		
+		 System.out.println("오류발생");
 		 }
-		return "menu";	
+		System.out.println("성공적으로 보내짐");
+		
+		return "menu.tiles";
 	}
 	
 	@PostMapping("/menueditok")
@@ -180,7 +191,7 @@ public class MenuController {
 	}
 	
 	
-	@PostMapping("/mupload")
+	@PostMapping("/mupload")  //메뉴(썸네일)에 대한 업로드
 	@ResponseBody
 	public ResponseEntity<?> handleImageUpload(
 			@RequestParam("file") MultipartFile uploadFile,
@@ -241,5 +252,66 @@ public class MenuController {
 		}   
 	}
 	
+	
+	@PostMapping("/mpupload")  //메뉴판에 대한 업로드
+	@ResponseBody
+	public ResponseEntity<?> handleImageUpload2(
+			@RequestParam("file") MultipartFile uploadFile,
+			@RequestParam("imnum") String imnum){
+		System.out.println("mpupload() 실행됨");
+		if(!uploadFile.isEmpty()) {
+			try {
+				//파일정보 추출
+				String oFilename = uploadFile.getOriginalFilename();
+				
+				//확장자 추출
+				String ext = oFilename.substring(oFilename.lastIndexOf(".") + 1).toLowerCase();
+				
+				//새파일 
+				String nFilename = Long.toString(System.currentTimeMillis() / 1000L) + "." + ext;
+				
+				//파일크기
+				long filesize = uploadFile.getSize();
+				
+				/*
+				//추후 로그인 연동되면 회원아이디로 등록예정
+				String userid = "guest";
+				*/
+			
+				//경로설정
+				String uploadDir = servletContext.getRealPath("/resources/menupan/");
+				System.out.println(uploadDir);
+				//업로드
+				File serverFile = new File(uploadDir + nFilename);
+				uploadFile.transferTo(serverFile);
+			    	
+				String json = "{\"url\":\"" + "/roadproject/resources/menupan/" + nFilename + "\"}";
+				String imageUrl = "/roadproject/resources/menupan/" + nFilename;
+				//데이터베이스 저장
+				mpUploadFileDto.setExt(ext);
+				mpUploadFileDto.setFilesize(filesize);
+				mpUploadFileDto.setImnum(imnum);
+				mpUploadFileDto.setNfilename(nFilename);
+				mpUploadFileDto.setOfilename(oFilename);
+				
+				System.out.println(mpUploadFileDto);
+				
+				mpUploadDao.mpInsertFile(mpUploadFileDto);
+			    
+			
+				
+				
+				return ResponseEntity.ok().body(json);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				return ResponseEntity.badRequest().body("upload Error");
+			}
+			
+		}else {
+		   return ResponseEntity.badRequest().body("noFile");
+		}   
+	}
+
 	
 }

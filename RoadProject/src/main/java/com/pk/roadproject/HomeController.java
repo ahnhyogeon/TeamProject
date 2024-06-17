@@ -24,6 +24,7 @@ import com.pk.dto.MemberDto;
 import com.pk.service.GetRestService;
 import com.pk.service.MemberService;
 import com.pk.service.MenuGetListService;
+import com.pk.service.RestTrashFileDel;
 
 /**
  * Handles requests for the application home page.
@@ -46,6 +47,9 @@ public class HomeController {
 	
 	@Autowired
 	MenuGetListService getMenuList;
+	
+	@Autowired
+	RestTrashFileDel RestTrashFileDel;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -430,7 +434,7 @@ public class HomeController {
 	  @RequestMapping(value = "/partneredit", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String partneredit(Locale locale, Model model) {
 	        logger.info("partneredit 접속");
-	        
+	        RestTrashFileDel.restDelCom();  //rest_id가 0인 이미지,파일 값들 삭제로직.
 	        return "partneredit.tiles";
 	    }
 	  
