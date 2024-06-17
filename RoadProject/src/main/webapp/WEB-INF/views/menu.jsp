@@ -396,7 +396,7 @@
 
 <c:choose>
   <c:when test="${not empty mdto.id}">  
-<div id=menu_edit>
+<div id="menu_edit">
 	메뉴 수정  
 	<div class="menu_add_formbox">
 		<form class="menu_add_form" action="#" method="post">
@@ -437,18 +437,18 @@
 </div>
  </c:when>
  <c:otherwise>
-    <div id=menu_edit>
+    <div id="menu_edit">
 	메뉴 수정  	
 	<div class="menu_add_formbox">
 		<form class="menu_add_form" action="#" method="post">
 			<div class="menu_add_form_top">
 				<div class="menu_add_menu_name">
 					<label>메뉴명<span>*</span></label>
-					<input type="text" name="menu_add_name" value="메뉴명"/>
+					<input type="text" name="menu_add_name" th:value="${mdto.m_name}"/>
 				</div>
 				<div class="menu_add_menu_price">
 					<label>가격(원)<span>*</span></label>
-					<input type="text" name="menu_add_price" value="10000"/>
+					<input type="text" name="menu_add_price" th:value="${mdto.m_cost}"/>
 				</div>
 			</div>
 			<div class="menu_add_form_mid">
@@ -478,3 +478,11 @@
 </div>
 </c:otherwise>
 </c:choose>
+<c:if test="${not empty test}">
+    <div>
+        <p>Menu Name: ${mdto.m_name}</p>
+        <p>Menu Cost: ${mdto.m_cost}</p>
+        <!-- 필요한 데이터 출력 -->
+        <p>Test : ${test}</p>
+    </div>
+</c:if>

@@ -32,6 +32,8 @@ public class GetMenuService implements MenuService {
 		     dao.increaseHit(selectId);
 		  }
 		  */
+		  
+			
 		  MenuDto mdto = mdao.mSelectDetail(selectId);
 		  System.out.println(mdto);
 		  model.addAttribute("mdto", mdto);

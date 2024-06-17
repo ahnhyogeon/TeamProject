@@ -356,7 +356,7 @@ $(function(){
         url: 'menuedit', // 서버가 처리할 URL
         type: 'POST',
         data: { id: menuId }, // 전송할 데이터
-        dataType: 'text',
+        dataType: 'text', 
             success: function(response) {
                 console.log('Edit menu id ' + menuId + ' success!');
                 // 성공적으로 처리된 경우 추가 로직 구현
@@ -687,6 +687,11 @@ $(document).ready(function() {
     	window.location.href = "partneredit2";
     });
     
+    /*
+    $('#menu_edit_btn').click(function(){
+    	window.location.href = "menuedit";
+    });
+    */
     /*자동 하이픈 기능*/
 	document.getElementById('tel').addEventListener('input', function() {
 
@@ -718,6 +723,7 @@ $(document).ready(function() {
         });
 
 
+/*
 document.addEventListener('DOMContentLoaded', function () {
 const popup = document.getElementById("myPartner_rotice");
 	const popupOpen =document.getElementById("partner_myrotice_open")
@@ -742,20 +748,32 @@ const popup = document.getElementById("myPartner_rotice");
         });
     } 
 });
+*/
 
 document.addEventListener('DOMContentLoaded', function () {
-const popup = document.getElementById("respon_box");
-	const popupOpen =document.getElementById("res_btn")
-
-	if (popupOpen) {
-        popupOpen.addEventListener('click', function() {
-			console.log(popup);
+    const overlay = document.getElementById("overlay");
+ const popup = document.getElementById("menu_edit");
+    const editButtons = document.querySelectorAll(".edit-menu-btn");
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+			
             popup.style.display = "flex";
-            popupOpen.style.display="none";
+            overlay.style.display = "block";
+            
         });
-    
+    });
+
+    const popupClose = document.getElementById("Xbox2");
+    if (popupClose) {
+        popupClose.addEventListener('click', function() {
+            popup.style.display = "none";
+            overlay.style.display = "none";
+        });
     }
 });
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
 const popup = document.getElementById("respon_box");
@@ -771,30 +789,9 @@ const popup = document.getElementById("respon_box");
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-const popup = document.getElementById("menu_edit");
-	const popupOpen =document.getElementById("menu_edit_btn")
-    const popupClose = document.getElementById("Xbox2");
-    const overlay = document.getElementById("overlay");
 
-	if (popupOpen) {
-        popupOpen.addEventListener('click', function() {
-			console.log(popup);
-			console.log(overlay);
-            popup.style.display = "flex";
-            overlay.style.display="block";
-        });
-    
-    }
-    if (popupClose) {
-        popupClose.addEventListener('click', function() {
-			console.log(popup);
-			console.log(overlay);
-            popup.style.display = "none";
-            overlay.style.display="none";
-        });
-    } 
-});
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
 const popup = document.getElementById("menu_add");

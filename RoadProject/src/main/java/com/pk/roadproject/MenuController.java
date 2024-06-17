@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,11 +16,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pk.dao.MenuDao;
 import com.pk.dao.MenuUploadDao;
@@ -68,13 +74,26 @@ public class MenuController {
 	@Autowired
 	MenuTrashFileDel MenuTrashFileDel;
 	
-	@RequestMapping("/menu")
+	@RequestMapping(value = "/menu", method = {RequestMethod.GET, RequestMethod.POST})
 	public String list(
 			@RequestParam(value="cpg", defaultValue="1") int cpg, 
 			@RequestParam(value="searchname", defaultValue="") String searchname,
 			@RequestParam(value="searchvalue", defaultValue="") String searchvalue,
 			Model model) {
 		System.out.println("menu() 실행됨");
+		
+		MenuDto mdto = (MenuDto) session.getAttribute("mdto");
+		
+        if (mdto != null) {
+        	System.out.println("mdto!");
+            model.addAttribute("mdto", mdto);
+            System.out.println("!!"+mdto);
+            
+        }
+        else {
+        	System.out.println("mdto null!");
+        }
+		
 		String imnum = UUID.randomUUID().toString();		
 		model.addAttribute("imnum", imnum);
 		int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
@@ -85,7 +104,10 @@ public class MenuController {
         model.addAttribute("searchname", searchname);
         model.addAttribute("searchvalue", searchvalue);
         getList.excute(model);
+        
         MenuTrashFileDel.menuDelCom();
+        
+        
         
 		return "menu.tiles";
 	}
@@ -137,24 +159,42 @@ public class MenuController {
 	}
 	
 	@PostMapping("/menuedit")
-	public String edit(HttpServletRequest request, HttpServletResponse response,Model model,
+	public String edit(@ModelAttribute("mdto") MenuDto mdto, HttpServletRequest request, HttpServletResponse response,Model model,
 						@RequestParam("id") int id) {
 		System.out.println("menuedit() 실행됨");
+		
+		/*
+		if(session.getAttribute("mdto") != null) {
+			session.removeAttribute("mdto");
+		}
+		*/
 		
 		//model.addAttribute("increaseHit", false);
 		try {
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", id);
+		System.out.println(id);
 		model.addAttribute("req", request);
-		getMenu.excute(model);		
+		getMenu.excute(model);
+		mdto = (MenuDto) model.getAttribute("mdto");
+        System.out.println("MenuDto: " + mdto);
+		model.addAttribute("test", "test");
 		
+		System.out.println("Model: " + model);
+		System.out.println("mdto: " + model.getAttribute("mdto"));
+		System.out.println("test: " + model.getAttribute("test"));
+		
+		
+		
+		session.setAttribute("mdto", mdto);
 		
 		}
 	    catch(Exception e) {
 		 e.printStackTrace();
 		
 		 }
-		return "menu";	
+		
+	    return "redirect:/menu";	
 	}
 	
 	@PostMapping("/menueditok")
