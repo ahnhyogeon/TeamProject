@@ -393,7 +393,7 @@
 				<img src="resources\images\Close_square_light.png" alt="X">
 			</div>
 	</div>
-	
+
 	<c:choose>
 	  <c:when test="${not empty mdto}">  
 	<div id=menu_edit>
@@ -403,16 +403,16 @@
 				<div class="menu_add_form_top">
 					<div class="menu_add_menu_name">
 						<label>메뉴명<span>*</span></label>
-						<input type="text" name="menu_add_name" value="${mdto.m_name }"/>
+						<input type="text" id="update_m_name" name="update_m_name" value="${mdto.m_name }"/>
 					</div>
 					<div class="menu_add_menu_price">
 						<label>가격(원)<span>*</span></label>
-						<input type="text" name="menu_add_price" value="${mdto.m_cost }"/>
+						<input type="text" id="update_m_cost" name="update_m_cost" value="${mdto.m_cost }"/>
 					</div>
 				</div>
 				<div class="menu_add_form_mid">
 					<label>메뉴 설명</label>
-					<textarea>${mdto.m_intro }</textarea>
+					<textarea id="update_m_intro" name="update_m_intro">${mdto.m_intro }</textarea>
 				</div>
 				<div class="menu_add_bot">
 					<label>썸네일</label>

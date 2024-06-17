@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -145,8 +146,8 @@ public class MenuController {
 		
 	}
 	 
-	@RequestMapping("/menuedit")  //responsebody 쓰면 json타입으로 반환해야함
-	public String edit(HttpServletRequest request, HttpServletResponse response,Model model,
+	@RequestMapping(value = "menuedit", method = {RequestMethod.GET, RequestMethod.POST})  //responsebody 쓰면 json타입으로 반환해야함
+	public String medit(HttpServletRequest request, HttpServletResponse response,Model model,
 						@RequestParam("id") int id) {
 		System.out.println("menuedit() 실행됨");
 		
@@ -155,6 +156,7 @@ public class MenuController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", id);
 		model.addAttribute("req", request);
+		
 		getMenu.excute(model);		
 		
 		
@@ -165,7 +167,7 @@ public class MenuController {
 		 }
 		System.out.println("성공적으로 보내짐");
 		
-		return "menu.tiles";
+		return "menu";
 	}
 	
 	@PostMapping("/menueditok")

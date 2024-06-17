@@ -385,19 +385,19 @@ $(function(){
 $(document).ready(function() {  //강제로 클릭이벤트를 1번이상 실행되지 않게 하는 코드 (계속 메소드가 2번씩 실행돼서 사용 위에 원래코드가 있음)
     // .edit-menu-btn 클래스에 대한 클릭 이벤트 핸들러 등록
     $('#edit-menu-btn').off('click').on('click', function(event) {
-        event.preventDefault(); // 기본 동작(링크 이동)을 막음
+       // event.preventDefault(); // 기본 동작(링크 이동)을 막음
         
         var menuId = $(this).data('id'); // data-id 속성에서 'id' 값을 추출
-        
+        console.log(menuId);
         // AJAX 요청을 통해 'id' 값을 서버로 전송
         $.ajax({
             url: 'menuedit', // 서버가 처리할 URL
             type: 'POST',
             data: { id: menuId }, // 전송할 데이터
-            dataType: 'text',  //json타입으로 해도 mdto 나옴.
+            dataType: 'json',  //json타입으로 해도 mdto 나옴.
             success: function(response) {
                 console.log('Edit menu id ' + menuId + ' success!');
-                // 성공적으로 처리된 경우 추가 로직 구현
+                // 성공적으로 처리된 경우 추가 로직 구현                
             },
             error: function(xhr, status, error) {
                 console.error('Edit menu id ' + menuId + ' failed: ' + error);
