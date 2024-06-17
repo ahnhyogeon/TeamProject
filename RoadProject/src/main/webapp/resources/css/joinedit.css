@@ -110,6 +110,11 @@ font-weight: 500;
 line-height: 22px; /* 137.5% */
 letter-spacing: -0.064px;
 }
+
+.edit_div>label:nth-child(2){
+	color: #ff4147;
+}
+
 .edit_div>label>span{
     color: var(--main-color-100, #FF4147);
 font-size: 14px;
@@ -327,9 +332,9 @@ align-items: center;
 gap: 4px;
 flex: 1 0 0;
 border-radius: 8px;
-border: 1px solid var(--mono-color-333, #333);
+border: 1px solid var(--mono-color-333, #FF4147);
 background: var(--mono-color-fff, #FFF);
-color: var(--mono-color-333, #333);
+color: var(--mono-color-333, #FF4147);
 text-align: center;
 font-size: 16px;
 font-style: normal;

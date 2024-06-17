@@ -50,7 +50,7 @@
                            <td class="text-center">${m_list.m_cost }</td>
                            <td class="text-center">${m_list.m_intro }</td>
                            <td class="text-center">${m_list.m_code }</td>  
-                             <td class="text-center"><a href="#" data-id="${m_list.id }" data-business="${m_list.business}" id="mDelete" class="btn btn-danger">삭제</a></td>                          
+                            <td class="text-center"><a href="#" data-id="${m_list.id }" data-business="${m_list.business}" id="mDelete" class="btn btn-danger">삭제</a></td>                          
                        </tr>
                        </c:forEach> 
                        <!-- /loop -->

@@ -309,8 +309,8 @@ $(function(){
         }
     });
           
-         
-         
+           
+   /*       
     //메뉴 삭제
    $("#mDelete").click(function(e){
       e.preventDefault();
@@ -330,7 +330,7 @@ $(function(){
                 const rs = Number(res);
                 if(rs){
                 	alert("삭제 성공");
-                	location.href="AllMenu";
+                	location.href="menu";
                 }
                 else{
                 	alert("비밀번호가 틀렸습니다.");
@@ -344,19 +344,23 @@ $(function(){
          	}     
           })
         });
-	
-	
-	  $('.edit-menu-btn').click(function(event) {
+      */	
+     /*	  
+	  $('#edit-menu-btn').click(function(event) { //원래 코드
         event.preventDefault(); // 기본 동작(링크 이동)을 막음
 
         var menuId = $(this).data('id'); // data-id 속성에서 'id' 값을 추출
 
         // AJAX 요청을 통해 'id' 값을 서버로 전송
         $.ajax({
-        url: 'menuedit', // 서버가 처리할 URL
+        url: 'menu', // 서버가 처리할 URL
         type: 'POST',
         data: { id: menuId }, // 전송할 데이터
+<<<<<<< HEAD
         dataType: 'text', 
+=======
+        dataType: 'text',  //json타입으로 해도 mdto 나옴.
+>>>>>>> branch 'main' of https://github.com/ahnhyogeon/TeamProject.git
             success: function(response) {
                 console.log('Edit menu id ' + menuId + ' success!');
                 // 성공적으로 처리된 경우 추가 로직 구현
@@ -367,7 +371,7 @@ $(function(){
             }
         });
     });
-     
+     */
     //검색
    $('.dropdown-menu>a.dropdown-item').click(function(e){
       e.preventDefault();
@@ -379,7 +383,70 @@ $(function(){
    });   
           
 
-   });
+});
+
+
+$(document).ready(function() {  //강제로 클릭이벤트를 1번이상 실행되지 않게 하는 코드 (계속 메소드가 2번씩 실행돼서 사용 위에 원래코드가 있음)
+    // .edit-menu-btn 클래스에 대한 클릭 이벤트 핸들러 등록
+    $('#edit-menu-btn').off('click').on('click', function(event) {
+        event.preventDefault(); // 기본 동작(링크 이동)을 막음
+        
+        var menuId = $(this).data('id'); // data-id 속성에서 'id' 값을 추출
+        
+        // AJAX 요청을 통해 'id' 값을 서버로 전송
+        $.ajax({
+            url: 'menuedit', // 서버가 처리할 URL
+            type: 'POST',
+            data: { id: menuId }, // 전송할 데이터
+            dataType: 'text',  //json타입으로 해도 mdto 나옴.
+            success: function(response) {
+                console.log('Edit menu id ' + menuId + ' success!');
+                // 성공적으로 처리된 경우 추가 로직 구현
+            },
+            error: function(xhr, status, error) {
+                console.error('Edit menu id ' + menuId + ' failed: ' + error);
+                // 오류 발생 시 처리할 추가 로직
+            }
+        });
+    });
+});
+	
+
+ //메뉴 삭제
+$(document).ready(function() {  //강제로 클릭이벤트를 1번이상 실행되지 않게 하는 코드 (계속 메소드가 2번씩 실행돼서 사용 위에 원래코드가 있음) 
+    $('#mDelete').off('click').on('click', function(e) {
+      e.preventDefault();
+      var id = $(this).data("id");
+      var result = "";
+      const business = prompt("삭제를 위한 번호를 입력하세요.");
+
+          $.ajax({
+             url: 'mDel',
+             type: 'post',
+             data: { id: id, business: business },
+             dataType: 'json',
+             async: false,   //비동기 처리
+             success: function(res){
+                console.log(res);
+                result = res;
+                const rs = Number(res);
+                if(rs){
+                	alert("삭제 성공");
+                	location.href="menu";
+                }
+                else{
+                	alert("비밀번호가 틀렸습니다.");
+                }
+             },
+                error: function (request, status, error) {
+		        console.log("code: " + request.status)
+		        console.log("message: " + request.responseText)
+		        console.log("error: " + error);
+		        return result;
+         	}     
+          });
+        });
+});
    
 /*  
 function dPostcode(event) {

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pk.dao.MenuDao;
 import com.pk.dao.MenuUploadDao;
+import com.pk.dao.MenupanUploadDao;
 import com.pk.dao.RestUploadDao;
 import com.pk.dao.RestaurantDao;
 import com.pk.dto.MenuUploadFileDto;
+import com.pk.dto.MenupanFileDto;
 import com.pk.dto.RestUploadFileDto;
 
 @RestController
@@ -28,6 +30,9 @@ public class DeleteController {
 	
 	@Autowired
 	RestaurantDao rdao;
+	
+	@Autowired
+	MenupanUploadDao mpuDao;
 	
 	@Autowired
 	MenuUploadDao muDao;
@@ -107,10 +112,10 @@ public class DeleteController {
 				System.out.println(path);
 				//파일 db읽어서
 				System.out.println(id); 
-				List<MenuUploadFileDto> mfDtos = muDao.mSelectFileByBusiness(business);
-				System.out.println(mfDtos);
-				for(MenuUploadFileDto mDto : mfDtos) { //가게업로드파일dto의 fDto를 rfDtos로 받아서 for문을 돌린다.
-					String delFileName = mDto.getNfilename();
+				MenuUploadFileDto mfDto = muDao.mSelectFileById(id); //menu썸네일은 1대1임으로 그냥 id값을 받아서 하면된다.
+				System.out.println(mfDto);
+				if(mfDto != null) { //가게업로드파일dto의 fDto를 rfDtos로 받아서 for문을 돌린다.
+					String delFileName = mfDto.getNfilename();
 					File file = new File(path + delFileName);
 					//파일을 삭제
 					if(file.exists()) {
@@ -120,9 +125,9 @@ public class DeleteController {
 						System.out.println("파일이 없습니다.");
 					}
 					//파일 레코드 삭제
-					muDao.mDeleteFile(mDto.getId()); //여기 아이디는 restId가 아닌 img 1개에 대한 id (rest id로 삭제하면 여러개가 삭제되니까!)
+					muDao.mDeleteFile(mfDto.getId()); //여기 아이디는 restId가 아닌 img 1개에 대한 id (rest id로 삭제하면 여러개가 삭제되니까!)
 				}
-				//가게 레코드 삭제
+				//메뉴 레코드 삭제
 				mdao.menuDelete(id);
 				return "1";	
 			}
@@ -139,5 +144,55 @@ public class DeleteController {
 			
 	}
 	
+	
+	@PostMapping("/mpdel") //메뉴판 삭제로직
+	@ResponseBody   //xml, json타입을 받을 때는 reponsebody
+	public String mpdelok(@RequestParam("id") int id, @RequestParam("business") int business) { //여기 id는 r_list id
+	
+		 	System.out.println("mpdel() 삭제로직 수행");
+		 	
+			try {
+			Map<String, Object> params = new HashMap<>();
+			params.put("id", id);
+			params.put("business", business);
+					
+			int result = rdao.validateBusiness(params);
+			System.out.println(result);
+			if(result > 0) { //result가 1이면 true --> 파일db를 읽어서 파일삭제, 파일레코드 삭제, 게시판 레코드 삭제
+				String path = servletContext.getRealPath("/resources/menupan/");
+				System.out.println(path);
+				//파일 db읽어서
+				System.out.println(id); 
+				List<MenupanFileDto> mpfDtos = mpuDao.mpSelectFileByRestId(id);
+				System.out.println(mpfDtos);
+				for(MenupanFileDto mpDto : mpfDtos) { //가게업로드파일dto의 fDto를 rfDtos로 받아서 for문을 돌린다.
+					String delFileName = mpDto.getNfilename();
+					File file = new File(path + delFileName);
+					//파일을 삭제
+					if(file.exists()) {
+						file.delete();
+					}
+					else {
+						System.out.println("파일이 없습니다.");
+					}
+					//파일 레코드 삭제
+					mpuDao.mpDeleteFile(mpDto.getId()); //여기 아이디는 restId가 아닌 img 1개에 대한 id (rest id로 삭제하면 여러개가 삭제되니까!)
+				}
+				//가게 레코드 삭제
+				rdao.restDelete(id);
+				return "1";	
+			}
+			else {
+				return "0";
+			} 
+			
+		 }
+			catch(Exception e) {
+				e.printStackTrace();
+				return "0";
+			}
+			
+			
+	}
 	
 }

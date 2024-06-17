@@ -95,6 +95,7 @@
                         <label class="file-input-container partner_menu_btn text-center">
                             <input type="file" id="fileInput" multiple>
                             파일 선택 <!-- 파일 선택 옆에 표시할 텍스트 -->
+                             <img src="resources\images\Upload_light.png" alt="upload">
                         </label>
                         <label><span>*</span> 최대 5개 업로드 가능합니다. 파일 용량은 ~ jpg,png,mp4 포멧만 지원합니다.</label>
                         <div class="image-container" id="imagePreview"></div>
