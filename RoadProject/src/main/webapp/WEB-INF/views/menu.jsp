@@ -1,6 +1,6 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
 	    pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 	
 	<link rel="stylesheet" href="resources/css/style2.css">
@@ -188,10 +188,10 @@
 	                                <td>
 	                                    <div class="row_btn_box">
 	                                    <div id="menu_edit_btn" class="row_edit_box">
-	                                         <a href="#" id="edit-menu-btn" data-id="${m_list.id}"><img src="resources/images/Edit.png" alt="edit"></a>
+	                                         <a href="#" class="edit-menu-btn" data-id="${m_list.id}"><img src="resources/images/Edit.png" alt="edit"></a>
 	                                    </div>
 	                                    <div id="menu_del_btn" class="row_delete_box">
-	                                        <a href="#" data-id="${m_list.id }" data-business="${m_list.business}" id="mDelete"><img src="resources/images/Delete.png" alt="delete"></a>
+	                                        <a href="#" data-id="${m_list.id }" data-business="${m_list.business}" class="mDelete"><img src="resources/images/Delete.png" alt="delete"></a>
 	                                    </div>
 	                                    </div>
 	                                </td>
@@ -352,129 +352,129 @@
 	          
 	
 	<!-- 메뉴페이지 팝업 -->
-	<div id="overlay"></div>
-	<div id="menu_add">
-		메뉴 추가
-		<div class="menu_add_formbox">
-			<form class="menu_add_form" action="mRegister" method="post">
-				<div class="menu_add_form_top">
-					<div class="menu_add_menu_name">
-						<label>메뉴명<span>*</span></label>
-						<input type="text" name="m_name" id="m_name" placeholder="메뉴명 입력"/>
-					</div>
-					<div class="menu_add_menu_price">
-						<label>가격(원)<span>*</span></label>
-						<input type="text" name="m_cost" id="m_cost" placeholder="가격 입력"/>
-					</div>
+<div id="overlay"></div>
+<div id="menu_add">
+	메뉴 추가
+	<div class="menu_add_formbox">
+		<form class="menu_add_form" action="mRegister" method="post">
+			<div class="menu_add_form_top">
+				<div class="menu_add_menu_name">
+					<label>메뉴명<span>*</span></label>
+					<input type="text" name="m_name" id="m_name" placeholder="메뉴명 입력"/>
 				</div>
-				<div class="menu_add_form_mid">
-					<label>메뉴 설명</label>
-					<textarea name="m_intro" placeholder="사용자들의 이해를 돕기 위한 메뉴 설명을 입력해주세요"></textarea>
+				<div class="menu_add_menu_price">
+					<label>가격(원)<span>*</span></label>
+					<input type="text" name="m_cost" id="m_cost" placeholder="가격 입력"/>
 				</div>
-				<div id="menu_file_up" class="menu_id menu_div2">
-	                        <label class="menu_nick_title2">썸네일</label>
-	                        <label class="file-input-container2 menu_menu_btn text-center">
-	                            <input type="file" id="fileInput" multiple>
-	                            파일 선택 <!-- 파일 선택 옆에 표시할 텍스트 -->
-	                            <img src="resources\images\Upload_light.png" alt="upload">
-	                        </label>
-	                        <label><span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png,mp4 포멧만 지원합니다.</label>
-	                        <div class="image-container2" id="imagePreview"></div>
-	                    </div>
-				<div class="btn_center">
-					<button type="submit" class="menu_add_submit">추가하기</button>
-				</div>
-				<input type="hidden" name="imnum" id="imnum" value="${imnum}" />
-				 <input type="hidden" name="business" id="business" value="<%=session.getAttribute("buisness") %>" />
-				 <input type="hidden" name="thumbnail" id="thumbnail" value="${imageUrl }"/>
-			</form>
-		</div>
-					<div id="Xbox">
-				<img src="resources\images\Close_square_light.png" alt="X">
 			</div>
+			<div class="menu_add_form_mid">
+				<label>메뉴 설명</label>
+				<textarea name="m_intro" placeholder="사용자들의 이해를 돕기 위한 메뉴 설명을 입력해주세요"></textarea>
+			</div>
+			<div id="menu_file_up" class="menu_id menu_div2">
+                        <label class="menu_nick_title2">썸네일</label>
+                        <label class="file-input-container2 menu_menu_btn text-center">
+                            <input type="file" id="fileInput" multiple>
+                            파일 선택 <!-- 파일 선택 옆에 표시할 텍스트 -->
+                            <img src="resources\images\Upload_light.png" alt="upload">
+                        </label>
+                        <label><span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png,mp4 포멧만 지원합니다.</label>
+                        <div class="image-container2" id="imagePreview"></div>
+                    </div>
+			<div class="btn_center">
+				<button type="submit" class="menu_add_submit">추가하기</button>
+			</div>
+			<input type="hidden" name="imnum" id="imnum" value="${imnum}" />
+			 <input type="hidden" name="business" id="business" value="<%=session.getAttribute("buisness") %>" />
+			 <input type="hidden" name="thumbnail" id="thumbnail" value="${imageUrl }"/>
+		</form>
 	</div>
+				<div id="Xbox">
+			<img src="resources\images\Close_square_light.png" alt="X">
+		</div>
+</div>
 
-	<c:choose>
-	  <c:when test="${not empty mdto}">  
-	<div id=menu_edit>
-		메뉴 수정  
-		<div class="menu_add_formbox">
-			<form class="menu_add_form" action="#" method="post">
-				<div class="menu_add_form_top">
-					<div class="menu_add_menu_name">
-						<label>메뉴명<span>*</span></label>
-						<input type="text" id="update_m_name" name="update_m_name" value="${mdto.m_name }"/>
-					</div>
-					<div class="menu_add_menu_price">
-						<label>가격(원)<span>*</span></label>
-						<input type="text" id="update_m_cost" name="update_m_cost" value="${mdto.m_cost }"/>
-					</div>
+<c:choose>
+  <c:when test="${not empty mdto.id}">  
+<div id="menu_edit">
+	메뉴 수정  
+	<div class="menu_add_formbox">
+		<form class="menu_add_form" action="#" method="post">
+			<div class="menu_add_form_top">
+				<div class="menu_add_menu_name">
+					<label>메뉴명<span>*</span></label>
+					<input type="text" id="update_m_name" name="update_m_name" value="${mdto.m_name }"/>
 				</div>
-				<div class="menu_add_form_mid">
-					<label>메뉴 설명</label>
-					<textarea id="update_m_intro" name="update_m_intro">${mdto.m_intro }</textarea>
+				<div class="menu_add_menu_price">
+					<label>가격(원)<span>*</span></label>
+					<input type="text" id="update_m_cost" name="update_m_cost" value="${mdto.m_cost }"/>
 				</div>
-				<div class="menu_add_bot">
-					<label>썸네일</label>
-					<div class="menu_add_uploadbtn2">
-						파일 선택
-					</div>
-					<div class="menu_add_upload_info">
-						<span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png 포멧만 지원합니다.
-					</div>
-					<div class="menu_add_upload_imgbox">
-						<img src="resources\images\test.jpg" alt="test">
-					</div>a
-				</div>
-				<div class="btn_center">
-					<button type="submit" class="menu_add_submit">수정하기</button>
-				</div>
-			</form>
-		</div>
-			<div id="Xbox2">
-				<img src="resources\images\Close_square_light.png" alt="X">
 			</div>
-	</div>
-	 </c:when>
-	 <c:otherwise>
-	    <div id=menu_edit>
-		메뉴 수정  	
-		<div class="menu_add_formbox">
-			<form class="menu_add_form" action="#" method="post">
-				<div class="menu_add_form_top">
-					<div class="menu_add_menu_name">
-						<label>메뉴명<span>*</span></label>
-						<input type="text" name="menu_add_name" value="메뉴명"/>
-					</div>
-					<div class="menu_add_menu_price">
-						<label>가격(원)<span>*</span></label>
-						<input type="text" name="menu_add_price" value="10000"/>
-					</div>
-				</div>
-				<div class="menu_add_form_mid">
-					<label>메뉴 설명</label>
-					<textarea>메뉴 설명</textarea>
-				</div>
-				<div class="menu_add_bot">
-					<label>썸네일</label>
-					<div class="menu_add_uploadbtn2">
-						파일 선택
-					</div>
-					<div class="menu_add_upload_info">
-						<span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png 포멧만 지원합니다.
-					</div>
-					<div class="menu_add_upload_imgbox">
-						<img src="resources\images\test.jpg" alt="test">
-					</div>
-				</div>
-				<div class="btn_center">
-					<button type="submit" class="menu_add_submit">수정하기</button>
-				</div>
-			</form>
-		</div>
-			<div id="Xbox2">
-				<img src="resources\images\Close_square_light.png" alt="X">
+			<div class="menu_add_form_mid">
+				<label>메뉴 설명</label>
+				<textarea id="update_m_intro" name="update_m_intro">${mdto.m_intro }</textarea>
 			</div>
+			<div class="menu_add_bot">
+				<label>썸네일</label>
+				<div class="menu_add_uploadbtn2">
+					파일 선택
+				</div>
+				<div class="menu_add_upload_info">
+					<span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png 포멧만 지원합니다.
+				</div>
+				<div class="menu_add_upload_imgbox">
+					<img src="resources\images\test.jpg" alt="test">
+				</div>
+			</div>
+			<div class="btn_center">
+				<button type="submit" class="menu_add_submit">수정하기</button>
+			</div>
+		</form>
 	</div>
-	</c:otherwise>
-	</c:choose>
+		<div id="Xbox2">
+			<img src="resources\images\Close_square_light.png" alt="X">
+		</div>
+</div>
+ </c:when>
+ <c:otherwise>
+    <div id="menu_edit">
+	메뉴 수정  	
+	<div class="menu_add_formbox">
+		<form class="menu_add_form" action="#" method="post">
+			<div class="menu_add_form_top">
+				<div class="menu_add_menu_name">
+					<label>메뉴명<span>*</span></label>
+					<input type="text" name="menu_add_name" th:value="${mdto.m_name}"/>
+				</div>
+				<div class="menu_add_menu_price">
+					<label>가격(원)<span>*</span></label>
+					<input type="text" name="menu_add_price" th:value="${mdto.m_cost}"/>
+				</div>
+			</div>
+			<div class="menu_add_form_mid">
+				<label>메뉴 설명</label>
+				<textarea>메뉴 설명</textarea>
+			</div>
+			<div class="menu_add_bot">
+				<label>썸네일</label>
+				<div class="menu_add_uploadbtn2">
+					파일 선택
+				</div>
+				<div class="menu_add_upload_info">
+					<span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png 포멧만 지원합니다.
+				</div>
+				<div class="menu_add_upload_imgbox">
+					<img src="resources\images\test.jpg" alt="test">
+				</div>
+			</div>
+			<div class="btn_center">
+				<button type="submit" class="menu_add_submit">수정하기</button>
+			</div>
+		</form>
+	</div>
+		<div id="Xbox2">
+			<img src="resources\images\Close_square_light.png" alt="X">
+		</div>
+</div>
+</c:otherwise>
+</c:choose>

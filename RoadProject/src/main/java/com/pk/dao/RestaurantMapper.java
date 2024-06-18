@@ -16,6 +16,9 @@ public interface RestaurantMapper {
 		//update
 		public int restUpdate(RestaurantDto dto);
 		
+		//공지사항 업데이트
+		public int noticeUpdate(RestaurantDto dto);
+		
 		//delete
 		public int restDelete(int selectId);
 		
@@ -33,6 +36,7 @@ public interface RestaurantMapper {
 		
 		//사업자번호 검증
 		public int validateBusiness(Map<String, Object> params);
+		
 		
 		//detail
 		//public RestaurantDto rSelectDetail(int selectId);

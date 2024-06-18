@@ -3,7 +3,6 @@ package com.pk.roadproject;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +26,7 @@ import com.pk.dto.RestaurantDto;
 import com.pk.service.GetRestService;
 import com.pk.service.RestGetListService;
 import com.pk.service.RestTrashFileDel;
+import com.pk.service.SetNoticeEdit;
 import com.pk.service.SetRestEditService;
 import com.pk.service.SetRestService;
 
@@ -38,6 +37,9 @@ public class RestaurantController {
 
 		@Autowired
 		RestGetListService getList;
+		
+		@Autowired
+		SetNoticeEdit noticeEdit;
 		
 		@Autowired
 		GetRestService getRest;
@@ -189,6 +191,23 @@ public class RestaurantController {
 		return "redirect:partnerPage";
 
 		
+	}
+    
+	//공지사항 수정
+	@RequestMapping("/updateNotice")
+	public String noticeedit(
+							HttpServletRequest request, HttpServletResponse response, 
+							Model model) {
+		System.out.println("updateNotice() 실행됨");
+		String ids = request.getParameter("id");
+		System.out.println(ids);
+		Map<String, Object> params = new HashMap<>();
+		model.addAttribute("request", request);
+		noticeEdit.excute(model);
+		
+		
+				
+		return "redirect:partnerPage";
 	}
 	
 	@PostMapping("/upload")

@@ -77,6 +77,10 @@
         id=#{id}   
   </update>
   
+  <update id="noticeUpdate" parameterType="restDto">
+     UPDATE restaurant SET notice = #{notice} WHERE id=#{id}
+  </update>
+  
   <delete id="restDelete" parameterType="int">
      DELETE FROM restaurant
      WHERE

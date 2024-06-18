@@ -26,7 +26,12 @@ public class RestaurantDao implements RestaurantMapper {
 		
 		return session.update("restUpdate", dto);
 	}
-
+    
+	@Override
+	public int noticeUpdate(RestaurantDto dto) {
+		return session.update("noticeUpdate", dto);
+	}
+	
 	@Override
 	public int restDelete(int selectId) {
 		

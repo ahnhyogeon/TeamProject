@@ -141,14 +141,27 @@
 					<a class="partner_mysite" href="#">${rdto.r_url }</a>
 				</div>
 				</div>
+				<c:choose>
+  				<c:when test="${not empty rdto.notice}">  
 				<div id="partner_infoBox_rotice">
 						<div>
 							공지사항
 							<img id="partner_myrotice_open"  src="resources\images\Edit_pen_light.png" alt="pen">
 						</div>
-						당일 예약 가능합니다 :)  <!-- ${rdto.notice } -->
+						${rdto.notice }
 					</div>
-				</div>
+				</c:when>
+			 <c:otherwise>
+			 	<div id="partner_infoBox_rotice">
+						<div>
+							공지사항
+							<img id="partner_myrotice_open"  src="resources\images\Edit_pen_light.png" alt="pen">
+						</div>
+						당일 예약 가능합니다 :) 
+					</div>
+				</c:otherwise>
+			</c:choose>
+			</div>
         <div class="myPage_content">
             <div class="partner_title">
                 <div>
@@ -179,9 +192,11 @@
     </div>
     
 </div>
+
+
 <div id="overlay"></div>
 <div id="myPartner_rotice">
-	<form class="myPartner_rotice_form" action="#" method="post">
+	<form class="myPartner_rotice_form" action="updateNotice" method="post">
 		공지사항 등록
 		<div class="myPartner_rotice_info">
 			<img src="resources\images\Info_alt_red.png" alt="info_red">
@@ -189,11 +204,12 @@
 		</div>
 		<div class="myPartner_rotice_text">
 			공지사항
-			<textarea placeholder="공지사항을 입력해주세요"></textarea>
+			<textarea id="notice" name="notice" placeholder="공지사항을 입력해주세요"></textarea>
 		</div>
 		<div class="myPartner_rotice_btnBox">
 			<button id="myPartner_rotice_close" class="myPartner_rotice_cancel">취소</button>
 			<button type="submit" class="myPartner_rotice_submit">등록하기</button>
 		</div>
+		<input type="hidden" name="id" id="id" value="${rdto.id }" />
 	</form>
 </div>

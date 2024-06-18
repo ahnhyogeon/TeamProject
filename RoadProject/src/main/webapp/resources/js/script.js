@@ -309,10 +309,10 @@ $(function(){
         }
     });
           
-           
-   /*       
+         
+         
     //메뉴 삭제
-   $("#mDelete").click(function(e){
+   $(".mDelete").off().on('click', function(e){
       e.preventDefault();
       var id = $(this).data("id");
       var result = "";
@@ -343,23 +343,23 @@ $(function(){
 		        return result;
          	}     
           })
-        });
-      */	
-     /*	  
-	  $('#edit-menu-btn').click(function(event) { //원래 코드
+    });
+	
+	    
+	  $('.edit-menu-btn').off().on('click', function(event) {
         event.preventDefault(); // 기본 동작(링크 이동)을 막음
-
         var menuId = $(this).data('id'); // data-id 속성에서 'id' 값을 추출
 
         // AJAX 요청을 통해 'id' 값을 서버로 전송
         $.ajax({
-        url: 'menu', // 서버가 처리할 URL
+        url: 'menuedit', // 서버가 처리할 URL
         type: 'POST',
         data: { id: menuId }, // 전송할 데이터
-        dataType: 'text',  //json타입으로 해도 mdto 나옴.
+        dataType: 'text',
             success: function(response) {
                 console.log('Edit menu id ' + menuId + ' success!');
                 // 성공적으로 처리된 경우 추가 로직 구현
+                
             },
             error: function(xhr, status, error) {
                 console.error('Edit menu id ' + menuId + ' failed: ' + error);
@@ -367,7 +367,7 @@ $(function(){
             }
         });
     });
-     */
+     
     //검색
    $('.dropdown-menu>a.dropdown-item').click(function(e){
       e.preventDefault();
@@ -379,69 +379,6 @@ $(function(){
    });   
           
 
-});
-
-
-$(document).ready(function() {  //강제로 클릭이벤트를 1번이상 실행되지 않게 하는 코드 (계속 메소드가 2번씩 실행돼서 사용 위에 원래코드가 있음)
-    // .edit-menu-btn 클래스에 대한 클릭 이벤트 핸들러 등록
-    $('#edit-menu-btn').off('click').on('click', function(event) {
-       // event.preventDefault(); // 기본 동작(링크 이동)을 막음
-        
-        var menuId = $(this).data('id'); // data-id 속성에서 'id' 값을 추출
-        console.log(menuId);
-        // AJAX 요청을 통해 'id' 값을 서버로 전송
-        $.ajax({
-            url: 'menuedit', // 서버가 처리할 URL
-            type: 'POST',
-            data: { id: menuId }, // 전송할 데이터
-            dataType: 'json',  //json타입으로 해도 mdto 나옴.
-            success: function(response) {
-                console.log('Edit menu id ' + menuId + ' success!');
-                // 성공적으로 처리된 경우 추가 로직 구현                
-            },
-            error: function(xhr, status, error) {
-                console.error('Edit menu id ' + menuId + ' failed: ' + error);
-                // 오류 발생 시 처리할 추가 로직
-            }
-        });
-    });
-});
-	
-
- //메뉴 삭제
-$(document).ready(function() {  //강제로 클릭이벤트를 1번이상 실행되지 않게 하는 코드 (계속 메소드가 2번씩 실행돼서 사용 위에 원래코드가 있음) 
-    $('#mDelete').off('click').on('click', function(e) {
-      e.preventDefault();
-      var id = $(this).data("id");
-      var result = "";
-      const business = prompt("삭제를 위한 번호를 입력하세요.");
-
-          $.ajax({
-             url: 'mDel',
-             type: 'post',
-             data: { id: id, business: business },
-             dataType: 'json',
-             async: false,   //비동기 처리
-             success: function(res){
-                console.log(res);
-                result = res;
-                const rs = Number(res);
-                if(rs){
-                	alert("삭제 성공");
-                	location.href="menu";
-                }
-                else{
-                	alert("비밀번호가 틀렸습니다.");
-                }
-             },
-                error: function (request, status, error) {
-		        console.log("code: " + request.status)
-		        console.log("message: " + request.responseText)
-		        console.log("error: " + error);
-		        return result;
-         	}     
-          });
-        });
 });
    
 /*  
@@ -750,6 +687,11 @@ $(document).ready(function() {
     	window.location.href = "partneredit2";
     });
     
+    /*
+    $('#menu_edit_btn').click(function(){
+    	window.location.href = "menuedit";
+    });
+    */
     /*자동 하이픈 기능*/
 	document.getElementById('tel').addEventListener('input', function() {
 
@@ -781,6 +723,7 @@ $(document).ready(function() {
         });
 
 
+
 document.addEventListener('DOMContentLoaded', function () {
 const popup = document.getElementById("myPartner_rotice");
 	const popupOpen =document.getElementById("partner_myrotice_open")
@@ -788,7 +731,7 @@ const popup = document.getElementById("myPartner_rotice");
     const overlay = document.getElementById("overlay");
 
 	if (popupOpen) {
-        popupOpen.addEventListener('click', function() {
+       $(popupOpen).off('click').on('click', function() {
 			console.log(popup);
 			console.log(overlay);
             popup.style.display = "flex";
@@ -807,18 +750,29 @@ const popup = document.getElementById("myPartner_rotice");
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-const popup = document.getElementById("respon_box");
-	const popupOpen =document.getElementById("res_btn")
+    const overlay = document.getElementById("overlay");
+ const popup = document.getElementById("menu_edit");
+    const editButtons = document.querySelectorAll(".edit-menu-btn");
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
 
-	if (popupOpen) {
-        popupOpen.addEventListener('click', function() {
-			console.log(popup);
             popup.style.display = "flex";
-            popupOpen.style.display="none";
+            overlay.style.display = "block";
+            
         });
-    
+    });
+
+    const popupClose = document.getElementById("Xbox2");
+    if (popupClose) {
+        popupClose.addEventListener('click', function() {
+            popup.style.display = "none";
+            overlay.style.display = "none";
+        });
     }
 });
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
 const popup = document.getElementById("respon_box");
@@ -834,30 +788,9 @@ const popup = document.getElementById("respon_box");
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-const popup = document.getElementById("menu_edit");
-	const popupOpen =document.getElementById("menu_edit_btn")
-    const popupClose = document.getElementById("Xbox2");
-    const overlay = document.getElementById("overlay");
 
-	if (popupOpen) {
-        popupOpen.addEventListener('click', function() {
-			console.log(popup);
-			console.log(overlay);
-            popup.style.display = "flex";
-            overlay.style.display="block";
-        });
-    
-    }
-    if (popupClose) {
-        popupClose.addEventListener('click', function() {
-			console.log(popup);
-			console.log(overlay);
-            popup.style.display = "none";
-            overlay.style.display="none";
-        });
-    } 
-});
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
 const popup = document.getElementById("menu_add");
@@ -883,4 +816,3 @@ const popup = document.getElementById("menu_add");
         });
     } 
 });
-
