@@ -1245,3 +1245,9 @@ line-height: 22px; /* 137.5% */
 letter-spacing: -0.064px;
 cursor:pointer;
 }
+.moreMenuBox{
+	display:none;
+}
+.deleteMenu{
+	display:none;
+}

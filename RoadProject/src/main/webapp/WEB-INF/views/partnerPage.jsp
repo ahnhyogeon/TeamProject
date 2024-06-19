@@ -14,6 +14,40 @@
 <script src="resources/js/jquery.min.js"></script>        
 <script src="resources/js/script.js"></script>
 
+<script>
+    // JavaScript로 메뉴 더보기 기능 구현
+    document.addEventListener('DOMContentLoaded', function() {
+        const moreMenuButton = document.querySelector('.moreMenu');
+        const deleteMenuButton = document.querySelector('.deleteMenu');
+        const moreMenuBox = document.querySelectorAll('.moreMenuBox');
+
+        // "메뉴 더보기" 버튼 클릭 시 처리
+        moreMenuButton.addEventListener('click', function() {
+            // 추가 메뉴 항목들의 display 속성을 block으로 변경
+            moreMenuBox.forEach(function(item) {
+                item.style.display = 'block';
+            });
+
+            // 더보기 버튼 숨김
+            moreMenuButton.style.display = 'none';
+            
+            // 메뉴 숨기기 버튼 출력 
+            deleteMenuButton.style.display ='block';
+        });
+        
+        deleteMenuButton.addEventListener('click', function() {
+        	 moreMenuBox.forEach(function(item) {
+                 item.style.display = 'none';
+             });
+        	 moreMenuButton.style.display = 'block';
+        	 
+        	 // 메뉴 숨기기 버튼 none 
+             deleteMenuButton.style.display ='none';
+        });
+       
+    });
+</script>
+
 <div id="containerM">
     <div class="myPage_mainbox1">
         <div class="myInner">
@@ -127,9 +161,17 @@
 							<div class="partner_myinfoBox_menu_list">
 								<div>${m_list.m_name }</div> ${m_list.m_cost }
 							</div>
-							</c:forEach>
-												
+							</c:forEach>					
 						</div>
+						<div>
+						 <c:forEach var="m_list" items="${m_list }" begin="2" >
+							<div class="partner_myinfoBox_menu_list moreMenuBox">
+								<div>${m_list.m_name }</div> ${m_list.m_cost }
+							</div>
+							</c:forEach>					
+						</div>
+					    <span class="deleteMenu">메뉴 숨기기</span>	
+						<span class="moreMenu">메뉴 더보기</span>
 						<span>메뉴판 이미지</span>
 					</div>
 					</div>
