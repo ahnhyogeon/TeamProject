@@ -88,7 +88,7 @@
     <div class="joinedit_mainbox2">
     <div class="joinedit_edit">
         <c:choose>
-            <c:when test="${not empty rdto.r_url and not empty rdto.r_intro and not empty rdto.r_time and not empty rdto.imnum}">
+            <c:when test="${not empty rdto.r_url and not empty rdto.r_intro and not empty rdto.r_time}">
                 <form id="editForm" action="resteditok" method="post" >         
                     <div id="partner_file_up" class="edit_id edit_div">
                         <label class="edit_nick_title">가게 이미지/영상<span>*</span></label>
@@ -168,6 +168,7 @@
                             -->
                     </div>
                     <input type="hidden" name="imnum" id="imnum" value="${imnum}" />
+                       <input type="hidden" name="id" value="${rdto.id }">
                     <input type="hidden" name="business" id="business" value="<%=session.getAttribute("buisness") %>" />
                 </form>
             </c:otherwise>

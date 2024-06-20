@@ -6,9 +6,9 @@
 
      <insert id="mpInsertFile" parameterType="mpuploadDto">
         INSERT INTO menupan_img
-           (rest_id, ofilename, nfilename, ext, filesize, imnum)
+           (rest_id, ofilename, nfilename, ext, filesize, imnum, menupan_src)
         VALUES
-           (#{rest_id}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum})
+           (#{rest_id}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum}, #{menupan_src})
      </insert>
      
      <delete id="mpDeleteFileById" parameterType="int">

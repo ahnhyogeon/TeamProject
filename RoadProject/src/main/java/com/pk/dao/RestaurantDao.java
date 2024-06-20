@@ -33,6 +33,10 @@ public class RestaurantDao implements RestaurantMapper {
 	}
 	
 	@Override
+	public int otherRestUpdate(RestaurantDto dto) {
+		return session.update("otherRestUpdate", dto);
+	}
+	@Override
 	public int restDelete(int selectId) {
 		
 		return session.delete("restDelete", selectId);
@@ -48,7 +52,12 @@ public class RestaurantDao implements RestaurantMapper {
 	public RestaurantDto rSelectDetail(int business) {
 		return session.selectOne("rSelectDetail", business);
 	}
-
+    
+	@Override
+	public RestaurantDto rSelectDetailById(int id) {
+		return session.selectOne("rSelectDetailById", id);
+	}
+	
 	@Override
 	public List<RestaurantDto> restList(Map<String, Object> params) {
 		return session.selectList("restList", params);

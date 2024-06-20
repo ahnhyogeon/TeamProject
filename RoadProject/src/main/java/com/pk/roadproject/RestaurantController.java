@@ -167,6 +167,8 @@ public class RestaurantController {
 					
 		int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
 		String ids = request.getParameter("id");
+		session.setAttribute("rest_id", ids);
+		System.out.println("현재 저장된 가게 id값 : " + session.getAttribute("rest_id"));
 		System.out.println(ids);
 		System.out.println(rbusiness);
 		Map<String, Object> params = new HashMap<>();
@@ -206,7 +208,7 @@ public class RestaurantController {
 		noticeEdit.excute(model);
 		
 		
-				
+			
 		return "redirect:partnerPage";
 	}
 	

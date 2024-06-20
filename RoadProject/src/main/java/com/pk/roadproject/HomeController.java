@@ -1,6 +1,5 @@
 package com.pk.roadproject;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pk.dto.MemberDto;
+import com.pk.dto.RestaurantDto;
 import com.pk.service.GetRestService;
 import com.pk.service.MemberService;
 import com.pk.service.MenuGetListService;
@@ -50,6 +50,9 @@ public class HomeController {
 	
 	@Autowired
 	RestTrashFileDel RestTrashFileDel;
+	
+	@Autowired
+	HttpSession session;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -374,8 +377,12 @@ public class HomeController {
 									@RequestParam(value="searchname", defaultValue="") String searchname,
 									@RequestParam(value="searchvalue", defaultValue="") String searchvalue) {
 	        logger.info("partnerPage 접속");
-	        
+	      
+	        System.out.println("현재 저장된 business값 : " + session.getAttribute("buisness"));
+	        String business = (String) session.getAttribute("buisness");
+	        model.addAttribute("business", business );
 	        model.addAttribute("req", request);
+	        
 			/*
 			 * int rbusiness = Integer.parseInt( (String) session.getAttribute("buisness"));
 			 * model.addAttribute("business", rbusiness);

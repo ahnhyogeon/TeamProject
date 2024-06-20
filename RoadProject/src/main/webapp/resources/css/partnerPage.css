@@ -1251,3 +1251,6 @@ cursor:pointer;
 .deleteMenu{
 	display:none;
 }
+.menupanBox>img{
+	display:none;
+}

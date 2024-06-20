@@ -22,6 +22,8 @@ public class RestaurantDto {
  	private String notice;
 	private String r_time;
  	private String r_category;
+ 	private String menupan_src;
+ 	private String info;
 	
  	
     public RestaurantDto() {

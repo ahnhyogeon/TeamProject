@@ -81,6 +81,15 @@
      UPDATE restaurant SET notice = #{notice} WHERE id=#{id}
   </update>
   
+  <update id="otherRestUpdate" parameterType="restDto">
+  	UPDATE restaurant 
+  	SET 
+  		info = #{info},
+  		menupan_src = #{menupan_src}
+  	WHERE
+  		id = #{id}
+  </update>
+  
   <delete id="restDelete" parameterType="int">
      DELETE FROM restaurant
      WHERE
@@ -141,6 +150,11 @@
   <select id="rSelectDetail" resultType="restDto" parameterType="int">
      SELECT * FROM restaurant WHERE business= #{business}
   </select>
+  
+  <select id="rSelectDetailById" resultType="restDto" parameterType="int">
+     SELECT * FROM restaurant WHERE id = #{id}
+  </select>
+  
  
   <update id="increaseHit" parameterType="int">
      UPDATE restaurant SET hit = hit + 1 WHERE id=#{selectId}

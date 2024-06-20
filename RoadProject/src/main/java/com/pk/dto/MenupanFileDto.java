@@ -15,6 +15,7 @@ public class MenupanFileDto {
 	private String ext;
 	private long filesize;
 	private String imnum;
+	private String menupan_src;
 	
 	public MenupanFileDto() {
     }

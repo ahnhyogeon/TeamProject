@@ -75,6 +75,7 @@
 				                const imageDiv = document.createElement("div");
 				                imageDiv.innerHTML = '<img src="' + imageUrl + '">';
 				                document.getElementById("mimagePreview").appendChild(imageDiv);
+				                document.getElementById("menupan_src").value = imageUrl;
 				            } else {
 				                console.error("데이터 전송 중 오류가 발생하였습니다.");
 				                console.error(xhr.statusText);
@@ -119,7 +120,7 @@
 	</div>
 	  	
 	    <div class="menu_edit">       
-	                <form id="menuForm" method="post">
+	                <form id="menuForm" action="menueditok" method="post">
 	                    <div id="menu_file_up" class="menu_id menu_div">
 	                        <label class="menu_nick_title">메뉴판이미지<span>*</span></label>
 	                        <label class="file-input-container menu_menu_btn text-center">
@@ -225,10 +226,20 @@
 	                  
 	                   </div>
 	                  </div>
+						<c:choose>
+  						<c:when test="${not empty rdto.info}"> 
 	                   <div class="menu_div">
 	                        <label class="menu_nick_title">원산지 정보 관리<span>*</span></label>
-	                            <textarea id="menu_textarea" name="r_time" placeholder="원산지 정보 입력"></textarea>
+	                            <textarea id="menu_textarea" name="info" id="info">${rdto.info }</textarea>
 	                        </div>
+	                      </c:when>
+ 							<c:otherwise>
+ 							  <div class="menu_div">
+	                        <label class="menu_nick_title">원산지 정보 관리<span>*</span></label>
+	                            <textarea id="menu_textarea" name="info" id="info" placeholder="원산지 정보 입력"></textarea>
+	                        </div>
+ 						</c:otherwise>
+						</c:choose>
 	                    <div class="row menu_btn_div">
 	                        <button type="submit" id="menu_save_btn" class="menu_save" >수정하기</button>
 	                        <!--  
@@ -237,6 +248,8 @@
 	                            -->
 	                    </div>
 	                    <input type="hidden" name="imnum" id="imnum" value="${imnum}" />
+	                    <input type="hidden" name="menupan_src" id="menupan_src" value="${imageUrl }"/>
+	                    <input type="hidden" name="imnum" id="imnum" value="<%=session.getAttribute("rest_id") %>" />
 	                    <input type="hidden" name="business" id="business" value="<%=session.getAttribute("buisness") %>" />
 	                </form>
 	        

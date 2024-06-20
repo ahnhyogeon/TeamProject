@@ -16,6 +16,9 @@ public interface RestaurantMapper {
 		//update
 		public int restUpdate(RestaurantDto dto);
 		
+		//원산지정보관리, 메뉴판업데이트
+		public int otherRestUpdate(RestaurantDto dto);
+		
 		//공지사항 업데이트
 		public int noticeUpdate(RestaurantDto dto);
 		
@@ -27,9 +30,12 @@ public interface RestaurantMapper {
 		
 		//내 가게보기
 		public RestaurantDto rSelectDetail(int business); 
-		
+	    
+		//가게정보보기 (info 나누기위함)
+		public RestaurantDto rSelectDetailById(int id);
+			
 		//목록보기
-		public List<RestaurantDto> restList(Map<String, Object> params);
+	 	public List<RestaurantDto> restList(Map<String, Object> params);
 		
 		//팔로우 증가
 		public void increaseHit(int selectId);

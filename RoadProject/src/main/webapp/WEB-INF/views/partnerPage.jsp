@@ -20,7 +20,7 @@
         const moreMenuButton = document.querySelector('.moreMenu');
         const deleteMenuButton = document.querySelector('.deleteMenu');
         const moreMenuBox = document.querySelectorAll('.moreMenuBox');
-
+        const menupanButton = document.querySelectorAll('.menupanImage');
         // "메뉴 더보기" 버튼 클릭 시 처리
         moreMenuButton.addEventListener('click', function() {
             // 추가 메뉴 항목들의 display 속성을 block으로 변경
@@ -44,7 +44,19 @@
         	 // 메뉴 숨기기 버튼 none 
              deleteMenuButton.style.display ='none';
         });
-       
+        menupanButton.forEach(function(button){
+            button.addEventListener('click', function() {
+                const menupanBox = button.nextElementSibling; // 다음 형제 요소인 menupanBox 가져오기
+                const menupanImg = menupanBox.querySelector('img'); // menupanBox 내의 img 요소 가져오기
+                
+                // img 요소의 display 속성을 toggle로 변경
+                if (menupanImg.style.display === 'block') {
+                    menupanImg.style.display = 'none';
+                } else {
+                    menupanImg.style.display = 'block';
+                }
+            });
+        });
     });
 </script>
 
@@ -172,7 +184,8 @@
 						</div>
 					    <span class="deleteMenu">메뉴 숨기기</span>	
 						<span class="moreMenu">메뉴 더보기</span>
-						<span>메뉴판 이미지</span>
+						<span class="menupanImage">메뉴판 이미지</span>
+						<div class="menupanBox"><img src="${rdto.menupan_src}" alt="menupan_src" style="width: 100px; height: 100px;"></div>
 					</div>
 					</div>
 			<div>

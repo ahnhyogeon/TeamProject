@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,16 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pk.dao.MenuDao;
 import com.pk.dao.MenuUploadDao;
@@ -34,10 +29,12 @@ import com.pk.dto.MenuDto;
 import com.pk.dto.MenuUploadFileDto;
 import com.pk.dto.MenupanFileDto;
 import com.pk.service.GetMenuService;
+import com.pk.service.GetRestService;
 import com.pk.service.MenuGetListService;
 import com.pk.service.MenuTrashFileDel;
 import com.pk.service.SetMenuEditService;
 import com.pk.service.SetMenuService;
+import com.pk.service.SetOtherRestEditService;
 
 @Controller
 public class MenuController {
@@ -49,7 +46,13 @@ public class MenuController {
 	GetMenuService getMenu;
 	
 	@Autowired
+	GetRestService getRest;
+	
+	@Autowired
 	SetMenuEditService setMenuEdit;
+	
+	@Autowired
+	SetOtherRestEditService setOtherRestEdit;
 	
 	@Autowired
 	MenuDao mdao;
@@ -112,7 +115,7 @@ public class MenuController {
         model.addAttribute("searchname", searchname);
         model.addAttribute("searchvalue", searchvalue);
         getList.excute(model);
-        
+        getRest.excute(model);
         MenuTrashFileDel.menuDelCom();
         
 		return "menu.tiles";
@@ -205,17 +208,17 @@ public class MenuController {
 
 	}
 	
-	@PostMapping("/menueditok")
+	@PostMapping("/menueditok")  //가게 info, 메뉴판 src 업데이트
 	public String editok( HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		System.out.println("menueditok() 실행됨");
-		
-		String ids = request.getParameter("id");
+		System.out.println("가게 id값 : " + session.getAttribute("rest_id"));
+		int ids =  Integer.parseInt((String) session.getAttribute("rest_id"));
 		System.out.println(ids);
 		
 		Map<String, Object> params = new HashMap<>();
 		try {
-			params.put("id", Integer.parseInt(ids));
+			params.put("id", ids);
 		
 			
 		}catch(NumberFormatException e) {
@@ -223,7 +226,7 @@ public class MenuController {
 			return "redirect:partneredit2";
 		}
 		model.addAttribute("request", request);
-		setMenuEdit.excute(model);
+		setOtherRestEdit.excute(model);
 		
 		return "redirect:menu";
 	}
@@ -331,6 +334,7 @@ public class MenuController {
 				mpUploadFileDto.setImnum(imnum);
 				mpUploadFileDto.setNfilename(nFilename);
 				mpUploadFileDto.setOfilename(oFilename);
+				mpUploadFileDto.setMenupan_src(imageUrl);
 				
 				System.out.println(mpUploadFileDto);
 				
