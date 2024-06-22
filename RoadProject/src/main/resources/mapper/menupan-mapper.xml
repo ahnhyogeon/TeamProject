@@ -35,4 +35,14 @@
         SELECT * FROM menupan_img WHERE rest_id=#{restId}
      </select>
      
+     <select id="menupanSrcList" resultType="mpuploadDto" parameterType="hashMap">
+    SELECT * 
+    FROM 
+       menupan_img
+    WHERE
+    rest_id = #{rest_id}
+    
+  </select>  
+     
+     
  </mapper> 

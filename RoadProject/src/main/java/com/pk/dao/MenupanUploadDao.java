@@ -50,7 +50,12 @@ public class MenupanUploadDao implements MenupanUploadMapper {
 		// TODO Auto-generated method stub
 		return session.selectList("mpSelectFileByRestId", restId);
 	}
-
+    
+	@Override
+	public List<MenupanFileDto> menupanSrcList(int restId){
+		return session.selectList("menupanSrcList", restId);
+	}
+	
 	@Override
 	public void mpUpdateFile(Map<String, Object> params) {
 		

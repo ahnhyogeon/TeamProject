@@ -33,7 +33,7 @@ public interface RestaurantMapper {
 	    
 		//가게정보보기 (info 나누기위함)
 		public RestaurantDto rSelectDetailById(int id);
-			
+		
 		//목록보기
 	 	public List<RestaurantDto> restList(Map<String, Object> params);
 		

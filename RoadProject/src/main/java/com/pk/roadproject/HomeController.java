@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pk.dao.RestaurantDao;
 import com.pk.dto.MemberDto;
 import com.pk.dto.RestaurantDto;
 import com.pk.service.GetRestService;
 import com.pk.service.MemberService;
 import com.pk.service.MenuGetListService;
+import com.pk.service.MenupanGetListService;
 import com.pk.service.RestTrashFileDel;
 
 /**
@@ -50,6 +52,12 @@ public class HomeController {
 	
 	@Autowired
 	RestTrashFileDel RestTrashFileDel;
+	
+	@Autowired
+	MenupanGetListService getmpList;
+	
+	@Autowired
+	RestaurantDao rdao;
 	
 	@Autowired
 	HttpSession session;
@@ -380,6 +388,8 @@ public class HomeController {
 	      
 	        System.out.println("현재 저장된 business값 : " + session.getAttribute("buisness"));
 	        String business = (String) session.getAttribute("buisness");
+	        int rest_id = (int) session.getAttribute("rest_id");
+	        System.out.println(rest_id);
 	        model.addAttribute("business", business );
 	        model.addAttribute("req", request);
 	        
@@ -390,9 +400,10 @@ public class HomeController {
 	        model.addAttribute("cpg" , cpg);
 	        model.addAttribute("searchname", searchname);
 	        model.addAttribute("searchvalue", searchvalue);
+	        model.addAttribute("rest_id", rest_id);
 	        getRest.excute(model);
 	        getMenuList.excute(model);
-	       
+	        getmpList.excute(model);	       
 	        
 	        return "partnerPage.tiles";
 	    }
@@ -491,10 +502,10 @@ public class HomeController {
 			    if (service.searchId(memberDto)) { // 로그인 확인
 			        System.out.println("로그인 되었습니다.");
 			        MemberDto search = new MemberDto();
-		    
-			
+		  
 			        search.setUserid(userid);
 			        search = service.searchNick(search);
+			        
 			        
 			        System.out.println(search); // 회원 정보 가져오기
 			        String nick = search.getNickname();
@@ -502,15 +513,22 @@ public class HomeController {
 			        String buisness = search.getBuisness();
 			        String tel = search.getTel();
 			        System.out.println(nick);
-			        
+			     
 			        if(role == 2) {
 			        	session.setAttribute("nickname", nick);
 			        	session.setAttribute("userid", userid);
 			        	session.setAttribute("role", role);
 			        	session.setAttribute("buisness", buisness);
-			        	session.setAttribute("tel", tel);
+			        	RestaurantDto rdto = new RestaurantDto();
+			        	rdto.setBusiness(Integer.parseInt(buisness));
+			           	int rbusiness = rdto.getBusiness();
+			            rdto = rdao.rSelectDetail(rbusiness);
+			            int rest_id = rdto.getId();
+			            System.out.println(rest_id);
+ 			        	session.setAttribute("tel", tel);
+			        	session.setAttribute("rest_id", rest_id);
 			        	
-			        	System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role")+", buisness : "+session.getAttribute("buisness"));
+			        	System.out.println("id : "+session.getAttribute("userid")+", nick : "+session.getAttribute("nickname")+", role : "+session.getAttribute("role")+", buisness : "+session.getAttribute("buisness")+", rest_id : "+session.getAttribute("rest_id"));
 			        }else {
 			        	session.setAttribute("nickname", nick);
 			        	session.setAttribute("userid", userid);

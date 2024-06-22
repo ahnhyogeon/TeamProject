@@ -22,6 +22,8 @@ public interface MenupanUploadMapper {
 	public MenupanFileDto mpSelectFileById(int uploadId);
 	
 	public List<MenupanFileDto> mpSelectFileByRestId(int restId);
+	
+	public List<MenupanFileDto> menupanSrcList(int restId);
 								   
 	public void mpUpdateFile(Map<String, Object> params);
 }
