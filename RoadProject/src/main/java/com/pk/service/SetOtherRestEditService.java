@@ -34,7 +34,7 @@ public class SetOtherRestEditService implements RestaurantService {
 		
 		RestaurantDto rdto = new RestaurantDto();
 		
-		rdto.setId(Integer.parseInt((String) session.getAttribute("rest_id")));
+		rdto.setId((int) session.getAttribute("rest_id"));
 		rdto.setMenupan_src(req.getParameter("menupan_src"));
 		rdto.setInfo(req.getParameter("info"));
 		rdto.setImnum(req.getParameter("imnum"));

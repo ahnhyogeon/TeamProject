@@ -34,6 +34,10 @@
   <update id="thumbnailUpdate" parameterType="menuDto">
      UPDATE menu SET thumbnail = #{thumbnail} WHERE id=#{id}
   </update> 
+  
+   <update id="updateVisibility">
+        UPDATE menu SET visible = #{visible} WHERE id = #{id}
+    </update>
    
   <update id="updateRefId" parameterType="int">
      UPDATE menu SET refid = #{id} WHERE id=#{id}

@@ -87,27 +87,7 @@
 				        xhr.send(data);
 				    } //메뉴판 이미지
 		    
-				    
-				    
-		    //토글버튼 db에 0,1 입력하기
-		    $('.toggle-input').change(function () {
-	            var visible = $(this).is(':checked') ? 1 : 0;
-	            var menuId = $(this).data('id');
-	
-	            $.ajax({
-	                url: 'updateVisibility',
-	                type: 'POST',
-	                contentType: 'application/json',
-	                data: JSON.stringify({ id: menuId, visible: visible }),
-	                success: function (data) {
-	                    console.log('Success:', data);
-	                },
-	                error: function (error) {
-	                    console.error('Error:', error);
-	                }
-	            });
-	        });
-		
+				   
 	   </script> 
 	 
 	  <div class="menu-container">

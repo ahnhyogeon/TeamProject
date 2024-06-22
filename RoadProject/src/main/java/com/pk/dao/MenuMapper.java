@@ -15,6 +15,9 @@ public interface MenuMapper {
 			//썸네일 추가
 			public int thumbnailUpdate(MenuDto dto);
 			
+			//노출여부 등록
+			public int updateVisibility(Map<String, Object> params);
+			
 			//update
 			public int menuUpdate(MenuDto dto);
 			

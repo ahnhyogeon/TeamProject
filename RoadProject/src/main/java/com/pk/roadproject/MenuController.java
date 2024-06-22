@@ -30,6 +30,7 @@ import com.pk.dto.MenuUploadFileDto;
 import com.pk.dto.MenupanFileDto;
 import com.pk.service.GetMenuService;
 import com.pk.service.GetRestService;
+import com.pk.service.GetVisibleService;
 import com.pk.service.MenuGetListService;
 import com.pk.service.MenuTrashFileDel;
 import com.pk.service.SetMenuEditService;
@@ -47,6 +48,9 @@ public class MenuController {
 	
 	@Autowired
 	GetRestService getRest;
+	
+	@Autowired
+	GetVisibleService getVisible;
 	
 	@Autowired
 	SetMenuEditService setMenuEdit;
@@ -213,7 +217,7 @@ public class MenuController {
 		
 		System.out.println("menueditok() 실행됨");
 		System.out.println("가게 id값 : " + session.getAttribute("rest_id"));
-		int ids =  Integer.parseInt((String) session.getAttribute("rest_id"));
+		int ids =  (int) session.getAttribute("rest_id");
 		System.out.println(ids);
 		
 		Map<String, Object> params = new HashMap<>();
@@ -230,6 +234,23 @@ public class MenuController {
 		
 		return "redirect:menu";
 	}
+	
+	
+	@PostMapping("/editvisible")
+	public String editvisible(HttpServletRequest request, HttpServletResponse response, Model model,
+						@RequestParam int id , @RequestParam int visible) {
+		System.out.println("editvisible() 실행됨");
+		model.addAttribute("req", request);
+		//model.addAttribute("increaseHit", false);
+		Map<String, Object> params = new HashMap<>();
+	    params.put("menuId", id);
+ 	    params.put("visible", visible);
+	       	
+ 	    getVisible.excute(model);  
+	     
+		return "menu.tiles";
+	}
+		
 	
 	
 	@PostMapping("/mupload")  //메뉴(썸네일)에 대한 업로드

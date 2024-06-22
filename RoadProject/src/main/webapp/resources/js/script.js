@@ -380,6 +380,39 @@ $(function(){
           
 
 });
+
+//visible 업데이트(노출여부)
+document.addEventListener("DOMContentLoaded", function() {
+    // 토글 버튼 변경 이벤트 리스너 등록
+    document.querySelectorAll('.toggle-input').forEach(function(toggleInput) {
+        toggleInput.addEventListener('change', function() {
+            var visible = this.checked ? 1 : 0;  // 체크 여부에 따라 1 또는 0 설정
+            var menuId = this.getAttribute('data-id');  // data-id 속성에서 메뉴 ID 가져오기
+
+            // FormData 객체 생성
+            var formData = new FormData();
+            formData.append('id', menuId);  // 메뉴 ID 추가
+            formData.append('visible', visible);  // visible 값 추가
+
+            // XMLHttpRequest 객체 생성
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'editvisible', true);  // POST 방식으로 'editvisible' 엔드포인트에 요청
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    console.log('Success:', xhr.responseText);
+                } else {
+                    console.error('Request failed. Status:', xhr.status);
+                }
+            };
+            xhr.onerror = function() {
+                console.error('Request error.');
+            };
+
+            // FormData 객체를 직접 전송
+            xhr.send(formData);
+        });
+    });
+});
    
 /*  
 function dPostcode(event) {

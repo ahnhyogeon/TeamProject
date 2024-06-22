@@ -28,6 +28,11 @@ public class MenuDao implements MenuMapper {
 	}
 	
 	@Override
+	public int updateVisibility(Map<String, Object> params) {
+		return session.update("updateVisibility", params);
+	}
+	
+	@Override
 	public int menuUpdate(MenuDto dto) {
 		// TODO Auto-generated method stub
 		return session.update("menuUpdate", dto);
