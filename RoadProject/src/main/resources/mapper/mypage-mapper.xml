@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mypageMapper"> 
+
+	<!-- userid로 리뷰 select - 시간 역순 -->
+	<select id="revList" resultType="reviewDto">
+	    SELECT * FROM review WHERE userid = #{userid} ORDER BY id DESC
+	</select>
+	
+	
+	<!-- userid로 리뷰 select - 좋아요 순 -->
+	<select id="revRatingList" resultType="reviewDto">
+	    SELECT * FROM review WHERE userid = #{userid} ORDER BY rating ASC
+	</select>
+	
+	
+	
+	<!-- userid로 리뷰 select - 조회수 순 -->
+	<select id="revScoreList" resultType="reviewDto">
+    	SELECT * FROM review WHERE userid = #{userid} ORDER BY score ASC
+	</select>
+
+</mapper>
