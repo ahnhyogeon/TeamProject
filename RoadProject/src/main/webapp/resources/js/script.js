@@ -355,11 +355,19 @@ $(function(){
         url: 'menuedit', // 서버가 처리할 URL
         type: 'POST',
         data: { id: menuId }, // 전송할 데이터
-        dataType: 'text',
+        dataType: 'json',
             success: function(response) {
                 console.log('Edit menu id ' + menuId + ' success!');
                 // 성공적으로 처리된 경우 추가 로직 구현
-                
+                  // UI 업데이트 로직
+            $('#update_m_name').val(response.m_name);
+            $('#update_m_cost').val(response.m_cost);
+            $('#update_m_intro').val(response.m_intro);
+            // 썸네일 이미지 업데이트
+            $('#menu_edit .menu_add_upload_imgbox img').attr('src', response.thumbnail);
+
+            // 성공적으로 처리된 경우 추가 로직 구현
+            $('#menu_edit').show(); // 메뉴 수정 폼 보여주기
             },
             error: function(xhr, status, error) {
                 console.error('Edit menu id ' + menuId + ' failed: ' + error);

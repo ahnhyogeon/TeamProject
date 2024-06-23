@@ -437,11 +437,11 @@
 			<div class="menu_add_form_top">
 				<div class="menu_add_menu_name">
 					<label>메뉴명<span>*</span></label>
-					<input type="text" name="menu_add_name" th:value="${mdto.m_name}"/>
+					<input type="text" name="menu_add_name" value="메뉴명"/>
 				</div>
 				<div class="menu_add_menu_price">
 					<label>가격(원)<span>*</span></label>
-					<input type="text" name="menu_add_price" th:value="${mdto.m_cost}"/>
+					<input type="text" name="menu_add_price" value="메뉴가격"/>
 				</div>
 			</div>
 			<div class="menu_add_form_mid">

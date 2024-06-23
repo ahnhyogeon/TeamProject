@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -172,7 +173,7 @@ public class MenuController {
 	}
 
 	
-	 
+    /*	 
 	@RequestMapping(value = "menuedit", method = {RequestMethod.GET, RequestMethod.POST})  //responsebody 쓰면 json타입으로 반환해야함
 	public String medit(HttpServletRequest request, HttpServletResponse response,Model model,
 						@RequestParam("id") int id) {
@@ -182,7 +183,7 @@ public class MenuController {
 		if(session.getAttribute("mdto") != null) {
 			session.removeAttribute("mdto");
 		}
-		*/
+		
 		
 		//model.addAttribute("increaseHit", false);
 		try {
@@ -210,6 +211,26 @@ public class MenuController {
 
 	    return "menu.tiles";	
 
+	} 
+    */
+     
+	@PostMapping("/menuedit")
+	@ResponseBody // JSON 응답을 위해 추가
+	public MenuDto medit(@RequestParam("id") int id) {
+	    System.out.println("menuedit() 실행됨");
+	    try {
+	        MenuDto mdto = mdao.mSelectDetail(id);
+	        if (mdto != null) {
+	            session.setAttribute("mdto", mdto);
+	            return mdto; // MenuDto 객체를 JSON으로 반환
+	        } else {
+	            // 데이터가 없을 때 null 반환
+	            return null;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null; // 오류 발생 시 null 반환
+	    }
 	}
 	
 	@PostMapping("/menueditok")  //가게 info, 메뉴판 src 업데이트
