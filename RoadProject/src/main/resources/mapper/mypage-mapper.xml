@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mypageMapper"> 
+
+
+	<!-- userid로 팔로워 select - 시간 역순 -->
+	<select id="followerList" resultType="reviewDto">
+	    SELECT * FROM follow WHERE p_uname = #{userid} ORDER BY id DESC
+	</select>
+	
+	
+	<!-- userid로 팔로잉 select - 시간 역순 -->
+	<select id="followingList" resultType="reviewDto">
+	    SELECT * FROM follow WHERE a_uname = #{userid} ORDER BY id DESC
+	</select>
+	
+
+	<!-- userid로 review select - 시간 역순 -->
+	<select id="revList" resultType="reviewDto">
+	    SELECT * FROM review WHERE userid = #{userid} ORDER BY id DESC
+	</select>
+	
+	
+	<!-- userid로 review select - 좋아요 순 -->
+	<select id="revRatingList" resultType="reviewDto">
+	    SELECT * FROM review WHERE userid = #{userid} ORDER BY rating ASC
+	</select>
+	
+	
+	
+	<!-- userid로 favorites select - 시간 역순 -->
+	<select id="favList" resultType="FavoritesDto">
+    	SELECT * FROM favorites WHERE userid = #{userid} ORDER BY id DESC
+	</select>
+	
+	
+	
+	
+
+</mapper>
