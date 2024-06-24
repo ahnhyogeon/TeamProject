@@ -24,4 +24,6 @@ public interface MenuUploadMapper {
 	public List<MenuUploadFileDto> mSelectFileByBusiness(int business);
 								   
 	public void mUpdateFile(Map<String, Object> params);
+	
+	public void mUpdateFileById(MenuUploadFileDto muDto);
 }
