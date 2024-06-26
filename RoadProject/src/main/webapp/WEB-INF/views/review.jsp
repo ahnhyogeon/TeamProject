@@ -36,7 +36,7 @@
     	</div>
     	<div class="col-4 d-flex justify-content-center align-items-center">
     		<span class="text-center">${reviewCount}명의 사용자들은 평균적으로
-    		5점 만점에 ${reviewScoreResult}점
+    		5점 만점에 <fmt:formatNumber value="${reviewScoreResult}" type="number" maxFractionDigits="1"/>점
     		이라고 평가합니다.</span>
     	</div>
     	<div class="col-8 d-flex justify-content-center align-items-center">
@@ -65,52 +65,52 @@
   		</div>
 	</nav>
     
-    <div class="row">
-	    <table class="table col-4">
-	        <colgroup>
-	           <col width="65%">
-	           <col width="35%">
-	        </colgroup>
-	     	<!-- 루프 -->
-	        <c:forEach var="review" items="${reviews}">
-	        <tbody>	
-	            <tr>
-	            	<td class="mt-3"><a href="reviewDetail?id=${review.id }">${review.title}</a></td>
-	            	<td class="mt-3">${review.nickname}</td>
-	            </tr>
-	            <tr>
-	                <td>방문기록?</td>
-	                <td>조회수 : ${review.hits}</td>
-	            </tr>
-	            <tr>
-	                <td colspan="2">
-                    	<c:choose>
-                        	<c:when test="${fn:length(review.detail) > 30}">
-                            	${fn:substring(review.detail, 0, 30)}...
-                            </c:when>
-                        	<c:otherwise>
-                        		${review.detail}
-                       		</c:otherwise>
-                    	</c:choose>
-                	</td>
-	            </tr>
-	            <tr>
-	                <td>추천율 : <fmt:formatNumber value="${review.result}" type="number" maxFractionDigits="1"/>%</td>
-	                <td>
-	                	<form action="rating" method="get">
-	                		<input type="hidden" name="id" id="id" value="${review.id}">
-	                		<button type="submit">좋아요</button>
-	                	</form>
-	                </td>
-	            </tr>
-	            <tr><td colspan="2" class="no-line">&nbsp;</td></tr>
-	        </tbody>
-	        </c:forEach>
-	            <!-- /루프 -->
-	    </table>
+    <div class="row d-flex justify-content-between align-items-center mt-3">
+   		<!-- 루프 -->
+	  	<c:forEach var="review" items="${reviews}">
+		    <table class="table col-3 m-2" style="width:250px; height:300px;">
+		        <colgroup>
+		           <col width="60%">
+		           <col width="40%">
+		        </colgroup>
+		        <tbody>	
+		            <tr>
+		            	<td class="mt-3"><a href="reviewDetail?id=${review.id }">${review.title}</a></td>
+		            	<td class="mt-3">${review.nickname}</td>
+		            </tr>
+		            <tr>
+		                <td>방문기록?</td>
+		                <td>조회수 : ${review.hits}</td>
+		            </tr>
+		            <tr>
+		                <td colspan="2">
+	                    	<c:choose>
+	                        	<c:when test="${fn:length(review.detail) > 30}">
+	                            	${fn:substring(review.detail, 0, 30)}...
+	                            </c:when>
+	                        	<c:otherwise>
+	                        		${review.detail}
+	                       		</c:otherwise>
+	                    	</c:choose>
+	                	</td>
+		            </tr>
+		            <tr>
+		                <td>추천율 : <fmt:formatNumber value="${review.result}" type="number" maxFractionDigits="1"/>%</td>
+		                <td>
+		                	<form action="rating" method="get">
+		                		<input type="hidden" name="id" id="id" value="${review.id}">
+		                		<button type="submit">좋아요</button>
+		                	</form>
+		                </td>
+		            </tr>
+		            <tr><td colspan="2" class="no-line">&nbsp;</td></tr>
+		        </tbody>
+	    	</table>
+	    </c:forEach>
+	    <!-- /루프 -->
     </div>
 
-	<a href="reviewEdit?userid=4">리뷰 작성 페이지</a>
+	<a href="reviewEdit?userId=4">리뷰 작성 페이지</a>
 	
   </div>
 </section>

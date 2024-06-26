@@ -7,13 +7,18 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.pk.dao.ReviewDao;
+import com.pk.dao.ReviewUploadDao;
 import com.pk.dto.ReviewDto;
+import com.pk.dto.ReviewUploadFileDto;
 
 @Service
 public class ReviewServicelmp implements ReviewService {
 	
 	@Inject
 	private ReviewDao dao;
+	
+	@Inject
+	private ReviewUploadDao udao;
 
 	@Override
 	public List<ReviewDto> reviewSelectList(ReviewDto reviews) throws Exception {
@@ -33,7 +38,7 @@ public class ReviewServicelmp implements ReviewService {
 
 	@Override
 	public void unReview(ReviewDto reviews) throws Exception {
-		// TODO Auto-generated method stub
+		dao.unReview(reviews);
 
 	}
 	
@@ -75,5 +80,40 @@ public class ReviewServicelmp implements ReviewService {
 	@Override
 	public int reviewOneScore(ReviewDto reviews) throws Exception {
 		return dao.reviewOneScore(reviews);
+	}
+	
+	@Override
+	public int rDeleteFile(int uploadId) throws Exception {
+		return udao.rDeleteFile(uploadId);
+	}
+
+	@Override
+	public int rDeleteFileByReviewId(int reviewId) throws Exception {
+		return udao.rDeleteFileByReviewId(reviewId);
+	}
+
+	@Override
+	public int rDeleteTrashFile() throws Exception {
+		return udao.rDeleteTrashFile();
+	}
+
+	@Override
+	public ReviewUploadFileDto rSelectFileById(int uploadId) throws Exception {
+		return udao.rSelectFileById(uploadId);
+	}
+
+	@Override
+	public List<ReviewUploadFileDto> rSelectFileByReviewId(int reviewId) throws Exception {
+		return udao.rSelectFileByReviewId(reviewId);
+	}
+
+	@Override
+	public int rInsertFile(ReviewUploadFileDto ReviewUploadFileDto) throws Exception {
+		return udao.rInsertFile(ReviewUploadFileDto);
+	}
+	
+	@Override
+	public int rUpdateId(ReviewUploadFileDto ReviewUploadFileDto) throws Exception {
+		return udao.rUpdateId(ReviewUploadFileDto);
 	}
 }

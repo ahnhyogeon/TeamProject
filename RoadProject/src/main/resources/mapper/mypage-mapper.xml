@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mypageMapper"> 
 
 
-	<!-- userid로 팔로워 select - 시간 역순 -->
-	<select id="followerList" resultType="reviewDto">
-	    SELECT * FROM follow WHERE p_uname = #{userid} ORDER BY id DESC
+	<!-- 팔로워 수 -->
+	<select id="getFollowerCount" resultType="int">
+	    SELECT COUNT(*) FROM follow WHERE p_uid = #{userId}
 	</select>
-	
-	
-	<!-- userid로 팔로잉 select - 시간 역순 -->
-	<select id="followingList" resultType="reviewDto">
-	    SELECT * FROM follow WHERE a_uname = #{userid} ORDER BY id DESC
-	</select>
-	
 
-	<!-- userid로 review select - 시간 역순 -->
-	<select id="revList" resultType="reviewDto">
-	    SELECT * FROM review WHERE userid = #{userid} ORDER BY id DESC
-	</select>
-	
-	
-	<!-- userid로 review select - 좋아요 순 -->
-	<select id="revRatingList" resultType="reviewDto">
-	    SELECT * FROM review WHERE userid = #{userid} ORDER BY rating ASC
+	<!-- 팔로잉 수 -->
+	<select id="getFollowingCount" resultType="int">
+	    SELECT COUNT(*) FROM follow WHERE a_uid = #{userId}
 	</select>
 	
 	
 	
-	<!-- userid로 favorites select - 시간 역순 -->
-	<select id="favList" resultType="FavoritesDto">
-    	SELECT * FROM favorites WHERE userid = #{userid} ORDER BY id DESC
+	
+	<!-- 마이리뷰 수 -->
+	<select id="getReviewCount" resultType="int">
+	    SELECT COUNT(*) FROM review WHERE userid = #{userId}
+	</select>
+
+	<!-- 마이리뷰 리스트 -->
+	<select id="getRecentReviews" resultType="java.util.Map">
+	    SELECT * FROM review WHERE userid = #{userId} ORDER BY id DESC
 	</select>
 	
+	
+	<!-- 가장 인기 있는 마이 리뷰 -->
+	<select id="getTopRatedReviews" resultType="java.util.Map">
+	    SELECT * FROM review WHERE userid = #{userId} ORDER BY rating DESC
+	</select>
+	
+	
+	<!-- 카테고리별 마이리뷰 리스트 -->
+	<select id="getCategoryReviews" resultType="java.util.Map">
+	    SELECT * FROM review WHERE userid = #{userId} AND rtCode = #{categoryCode} ORDER BY id DESC
+	</select>
 	
 	
 	

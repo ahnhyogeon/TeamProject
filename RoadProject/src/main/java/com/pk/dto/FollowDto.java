@@ -2,8 +2,11 @@ package com.pk.dto;
 
 import java.sql.Timestamp;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.Data;
 
+@Repository
 @Data
 public class FollowDto {
 	

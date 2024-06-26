@@ -3,13 +3,17 @@ package com.pk.roadproject;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,14 +23,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pk.dto.FollowDto;
-import com.pk.dto.MemberDto;
 import com.pk.dto.ReviewDto;
-import com.pk.dto.ReviewImgDto;
+import com.pk.dto.ReviewUploadFileDto;
 import com.pk.service.FollowService;
-import com.pk.service.MemberService;
 import com.pk.service.ReviewService;
 
 /**
@@ -38,17 +41,25 @@ public class FollowController {
 	private static final Logger logger = LoggerFactory.getLogger(FollowController.class);
 	
 	@Inject
-	private MemberService service;
-	
-	@Inject
 	private FollowService serviceF;
 	
 	@Inject
 	private ReviewService serviceR;
 	
-	MemberDto memberDto = new MemberDto();
-	FollowDto followDto = new FollowDto();
-	ReviewDto reviewDto = new ReviewDto();
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	ServletContext servletContext;
+	
+	@Autowired
+	FollowDto followDto;
+	
+	@Autowired
+	ReviewDto reviewDto;
+	
+	@Autowired
+	ReviewUploadFileDto uploadDto;
 
 	  @RequestMapping(value = "/review", method = RequestMethod.GET)
 	  public String review(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
@@ -182,22 +193,75 @@ public class FollowController {
 	  @RequestMapping(value= "/reviewEdit", method = RequestMethod.GET)
 	  public String reviewEdit(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  System.out.println("reviewEdit 접속");
-		  
-		  String reviewId = request.getParameter("userid");
-		  reviewDto.setUserid(reviewId);
-		  
-		  model.addAttribute("id", reviewId);
+		  		  
+		  String imnum = UUID.randomUUID().toString(); // UUID를 사용하여 고유한 imnum 생성
+		  reviewDto.setImnum(imnum);
+	      model.addAttribute("imnum", imnum);
 		  
 		  return "reviewEdit.tiles";
 	  }
 	  
+	  @PostMapping("/reviewupload")
+		@ResponseBody
+		public ResponseEntity<?> handleImageUpload(
+				@RequestParam("file") MultipartFile uploadFile,
+				@RequestParam("imnum") String imnum,
+				Model model){
+			System.out.println("reviewupload() 실행됨");
+			if(!uploadFile.isEmpty()) {
+				try {
+					//파일정보 추출
+					String oFilename = uploadFile.getOriginalFilename();
+					
+					//확장자 추출
+					String ext = oFilename.substring(oFilename.lastIndexOf(".") + 1).toLowerCase();
+					
+					//새파일 
+					String nFilename = Long.toString(System.currentTimeMillis() / 1000L) + "." + ext;
+					
+					//파일크기
+					long filesize = uploadFile.getSize();
+					
+					//경로설정
+					String uploadDir = servletContext.getRealPath("/resources/reviewupload/");
+					System.out.println(uploadDir);
+					//업로드
+					File serverFile = new File(uploadDir + nFilename);
+					uploadFile.transferTo(serverFile);
+					
+					//데이터베이스 저장
+					uploadDto.setExt(ext);
+					uploadDto.setFilesize(filesize);
+					uploadDto.setImnum(imnum);
+					uploadDto.setNfilename(nFilename);
+					uploadDto.setOfilename(oFilename);
+					uploadDto.setReviewId(0);
+					
+					System.out.println(uploadDto);
+					
+					serviceR.rInsertFile(uploadDto);
+					
+					String json = "{\"url\":\"" + "/roadproject/resources/reviewupload/" + nFilename + "\"}";
+					return ResponseEntity.ok().body(json);
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+					return ResponseEntity.badRequest().body("upload Error");
+				}
+				
+			}else {
+			   return ResponseEntity.badRequest().body("noFile");
+			}   
+		}
+	  
 	  @PostMapping("reviewEditok")
-	  public String reviewEditok(@RequestParam("imnum") MultipartFile[] files,
+	  public String reviewEditok(@RequestParam("imnum") String imnum,
 			  					 Locale locale, HttpServletRequest request, 
 			  					 HttpServletResponse response, Model model) throws Exception {
 		  
 		  System.out.println("reviewEditok 접속");
 		  
+		  reviewDto.setImnum(imnum);
 		  reviewDto.setUserid(request.getParameter("userid"));
 		  reviewDto.setScore(Integer.parseInt(request.getParameter("score")));
 		  reviewDto.setTitle(request.getParameter("title"));
@@ -207,23 +271,12 @@ public class FollowController {
 		  reviewDto.setHits(1);
 		  System.out.println(reviewDto.getNickname() + " set 완료");
 		  
-		  ReviewImgDto fileDto = new ReviewImgDto();
-		  
-		  for (MultipartFile file : files) {
-			    String fileName = file.getOriginalFilename();
-			    String filePath = "/path/to/upload/directory/" + fileName; // 저장할 경로
-			    File dest = new File(filePath);
-			    file.transferTo(dest);
-
-			    // 파일 정보를 데이터베이스에 저장
-			    fileDto.setFilename(fileName);
-			    fileDto.setFilepath(filePath);
-			    // 리뷰와 파일 관계 설정 또는 파일에 대한 부가 정보 설정
-			}
-		  
-		  System.out.println(fileDto.getFilename() + " / " + fileDto.getFilepath());
-		  
 		  serviceR.insertReview(reviewDto);
+		  
+		  uploadDto.setImnum(imnum);
+		  uploadDto.setReviewId(0); // reviewDto에서 select하고 id를 찾아서 등록해야 함.
+		  
+		  serviceR.rUpdateId(uploadDto);
 		  
 		  model.addAttribute("reviews", reviewDto);
 		  
@@ -245,8 +298,8 @@ public class FollowController {
 			  if(review.getRating() == 0 || review.getHits() == 0) {
 				  review.setResult(0);
 			  }else {
-			  double result = (review.getRating() * 100) / (double) review.getHits();
-			  review.setResult(result);
+				  double result = (review.getRating() * 100) / (double) review.getHits();
+				  review.setResult(result);
 			  }
 		  }
 		  model.addAttribute("reviews", reviews);
@@ -314,4 +367,5 @@ public class FollowController {
 	                .body("{\"message\": \"에러 발생: " + e.getMessage() + "\"}");
 	        }
 	    }
+	  
 	}
