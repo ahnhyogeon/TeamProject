@@ -33,17 +33,18 @@ public class SetMenuEditService implements MenuService {
 		
 		mdto.setM_name(req.getParameter("m_name"));
 		mdto.setM_cost(req.getParameter("m_cost"));
-		mdto.setM_code(req.getParameter("m_code"));
+		//mdto.setM_code(req.getParameter("m_code"));
 		mdto.setM_intro(req.getParameter("m_intro"));
 		mdto.setImnum(req.getParameter("imnum"));
-		mdto.setId(Integer.parseInt(req.getParameter("id")));
-		mdto.setThumbnail(req.getParameter("Thumbnauil"));
+		mdto.setId(Integer.parseInt(req.getParameter("menu_id")));
+		mdto.setThumbnail(req.getParameter("thumbnail"));
 		
 		mdao.menuUpdate(mdto);
 		
 		Map<String, Object> paramsFile = new HashMap<>();
 		paramsFile.put("businesss", mdto.getBusiness());
 		paramsFile.put("imnum", mdto.getImnum());
+		paramsFile.put("menu_id", mdto.getId());
 		
 		mudao.mUpdateFile(paramsFile);
 

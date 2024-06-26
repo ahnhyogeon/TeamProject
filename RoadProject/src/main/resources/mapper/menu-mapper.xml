@@ -54,6 +54,7 @@
         m_name = #{m_name},
         m_cost = #{m_cost},
         m_intro = #{m_intro},
+        imnum = #{imnum},
         thumbnail = #{thumbnail}
         <!-- visible = #{visible} -->
      WHERE

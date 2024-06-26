@@ -256,6 +256,28 @@ public class MenuController {
 		return "redirect:menu";
 	}
 	
+	@PostMapping("/updatemenu")  //가게 info, 메뉴판 src 업데이트
+	public String updatemenu( HttpServletRequest request, HttpServletResponse response, Model model,
+								@RequestParam("menu_id") int id) {
+		
+		System.out.println("updatemenu() 실행됨");
+		
+		System.out.println(id);
+		
+		Map<String, Object> params = new HashMap<>();
+		try {
+			params.put("id", id);
+		
+			
+		}catch(NumberFormatException e) {
+			model.addAttribute("error", "에러가 발생했습니다.");
+			return "redirect:partneredit2";
+		}
+		model.addAttribute("request", request);
+		setMenuEdit.excute(model);
+		
+		return "redirect:menu";
+	}
 	
 	@PostMapping("/editvisible")
 	public String editvisible(HttpServletRequest request, HttpServletResponse response, Model model,
@@ -396,6 +418,71 @@ public class MenuController {
 		   return ResponseEntity.badRequest().body("noFile");
 		}   
 	}
-
-	
+   
+	@PostMapping("/mupdateupload")  //메뉴 이미지 수정 
+	@ResponseBody
+	public ResponseEntity<?> handleImageUpload3(
+			@RequestParam("file") MultipartFile uploadFile,
+			@RequestParam("imnum") String imnum,
+			@RequestParam("menu_id") String menu_id){
+		System.out.println("mupdateupload() 실행됨");
+		System.out.println(menu_id);
+		if(!uploadFile.isEmpty()) {
+			try {
+				//파일정보 추출
+				String oFilename = uploadFile.getOriginalFilename();
+				
+				//확장자 추출
+				String ext = oFilename.substring(oFilename.lastIndexOf(".") + 1).toLowerCase();
+				
+				//새파일 
+				String nFilename = Long.toString(System.currentTimeMillis() / 1000L) + "." + ext;
+				
+				//파일크기
+				long filesize = uploadFile.getSize();
+				
+				/*
+				//추후 로그인 연동되면 회원아이디로 등록예정
+				String userid = "guest";
+				*/
+			
+				//경로설정
+				String uploadDir = servletContext.getRealPath("/resources/menu/");
+				System.out.println(uploadDir);
+				//업로드
+				File serverFile = new File(uploadDir + nFilename);
+				uploadFile.transferTo(serverFile);
+			    	
+				String json = "{\"url\":\"" + "/roadproject/resources/menu/" + nFilename + "\"}";
+				String imageUrl = "/roadproject/resources/menu/" + nFilename;
+				
+				int id = Integer.parseInt(menu_id);
+				//데이터베이스 저장
+				mUploadFileDto.setMenu_id(id);
+				mUploadFileDto.setExt(ext);
+				mUploadFileDto.setFilesize(filesize);
+				mUploadFileDto.setImnum(imnum);
+				mUploadFileDto.setNfilename(nFilename);
+				mUploadFileDto.setOfilename(oFilename);
+				mUploadFileDto.setThumbnail(imageUrl);
+				
+				System.out.println(mUploadFileDto);
+				
+				mUploadDao.mUpdateFileById(mUploadFileDto);
+			    
+			
+				
+				
+				return ResponseEntity.ok().body(json);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				return ResponseEntity.badRequest().body("upload Error");
+			}
+			
+		}else {
+		   return ResponseEntity.badRequest().body("noFile");
+		}   
+	}
+  		
 }
