@@ -30,6 +30,13 @@
 			            mpsendData(files[0]);
 			        }
 			    });
+			    
+			    document.getElementById("mupdatefileInput").addEventListener("change", function(event) {
+			        const files = event.target.files;
+			        if (files.length > 0) {
+			            musendData(files[0]);
+			        }
+			    });
 			});
 			    function sendData(file) {
 			        const imnum = document.getElementById("imnum").value;
@@ -86,7 +93,35 @@
 				        };
 				        xhr.send(data);
 				    } //메뉴판 이미지
-		    
+					
+				    function musendData(file) {
+				        const imnum = document.getElementById("imnum").value;
+				        const menu_id = document.getElementById("menu_id").value;
+				        const data = new FormData();
+				        data.append("file", file);
+				        data.append("imnum", imnum);
+	                    data.append("menu_id", menu_id); 
+				        
+				        const xhr = new XMLHttpRequest();
+				        xhr.open("POST", "mupdateupload", true);
+				        xhr.onload = function() {
+				            if (xhr.status === 200) {
+				                const dt = JSON.parse(xhr.responseText);
+				                const updateImageUrl = dt.url;
+				                const imageDiv = document.createElement("div");
+				                imageDiv.innerHTML = '<img src="' + updateImageUrl + '">';
+				                document.getElementById("muimagePreview").appendChild(imageDiv);
+				                document.getElementById("updatethumbnail").value = updateImageUrl;
+				            } else {
+				                console.error("데이터 전송 중 오류가 발생하였습니다.");
+				                console.error(xhr.statusText);
+				            }
+				        };
+				        xhr.onerror = function() {
+				            console.error("데이터 전송 중 오류가 발생하였습니다.");
+				        };
+				        xhr.send(data);
+				    } //메뉴이미지 업데이트
 				   
 	   </script> 
 	 
@@ -353,16 +388,16 @@
 			<div class="menu_add_form_top">
 				<div class="menu_add_menu_name">
 					<label>메뉴명<span>*</span></label>
-					<input type="text" name="m_name" id="m_name" placeholder="메뉴명 입력"/>
+					<input type="text" name="m_name" id="mu_name" placeholder="메뉴명 입력"/>
 				</div>
 				<div class="menu_add_menu_price">
 					<label>가격(원)<span>*</span></label>
-					<input type="text" name="m_cost" id="m_cost" placeholder="가격 입력"/>
+					<input type="text" name="m_cost" id="mu_cost" placeholder="가격 입력"/>
 				</div>
 			</div>
 			<div class="menu_add_form_mid">
 				<label>메뉴 설명</label>
-				<textarea name="m_intro" placeholder="사용자들의 이해를 돕기 위한 메뉴 설명을 입력해주세요"></textarea>
+				<textarea name="m_intro" id="mu_intro" placeholder="사용자들의 이해를 돕기 위한 메뉴 설명을 입력해주세요"></textarea>
 			</div>
 			<div id="menu_file_up" class="menu_id menu_div2">
                         <label class="menu_nick_title2">썸네일</label>
@@ -392,36 +427,37 @@
 <div id="menu_edit">
 	메뉴 수정  
 	<div class="menu_add_formbox">
-		<form class="menu_add_form" action="#" method="post">
+		<form class="menu_add_form" action="updatemenu" method="post">
 			<div class="menu_add_form_top">
 				<div class="menu_add_menu_name">
 					<label>메뉴명<span>*</span></label>
-					<input type="text" id="update_m_name" name="update_m_name" value="${mdto.m_name }"/>
+					<input type="text" id="m_name" name="m_name" value="${mdto.m_name }"/>
 				</div>
 				<div class="menu_add_menu_price">
 					<label>가격(원)<span>*</span></label>
-					<input type="text" id="update_m_cost" name="update_m_cost" value="${mdto.m_cost }"/>
+					<input type="text" id="m_cost" name="m_cost" value="${mdto.m_cost }"/>
 				</div>
 			</div>
 			<div class="menu_add_form_mid">
 				<label>메뉴 설명</label>
-				<textarea id="update_m_intro" name="update_m_intro">${mdto.m_intro }</textarea>
+				<textarea id="m_intro" name="m_intro">${mdto.m_intro }</textarea>
 			</div>
-			<div class="menu_add_bot">
-				<label>썸네일</label>
-				<div class="menu_add_uploadbtn2">
-					파일 선택
-				</div>
-				<div class="menu_add_upload_info">
-					<span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png 포멧만 지원합니다.
-				</div>
-				<div class="menu_add_upload_imgbox">
-					<img src="resources\images\test.jpg" alt="test">
-				</div>
+			<div id="menu_file_up" class="menu_id menu_div2">
+			  <label class="menu_nick_title2">썸네일</label>
+				 <label class="file-input-container2 menu_menu_btn text-center">
+                            <input type="file" id="mupdatefileInput" multiple>
+                            파일 선택 <!-- 파일 선택 옆에 표시할 텍스트 -->
+                            <img src="resources\images\Upload_light.png" alt="upload">
+                        </label>
+				 <label><span>*</span> 최대 1개 업로드 가능합니다. 파일 용량은 ~ jpg,png,mp4 포멧만 지원합니다.</label>
+                        <div class="image-container2" id="muimagePreview"></div>
 			</div>
 			<div class="btn_center">
 				<button type="submit" class="menu_add_submit">수정하기</button>
 			</div>
+			<input type="hidden" id="menu_id" name="menu_id" value="${mdto.id }"/>
+			<input type="hidden" name="imnum" id="imnum" value="${imnum}" />
+			 <input type="hidden" name="thumbnail" id="updatethumbnail" value="${updateImageUrl }"/>
 		</form>
 	</div>
 		<div id="Xbox2">
@@ -430,23 +466,23 @@
 </div>
  </c:when>
  <c:otherwise>
-    <div id="menu_edit">
-	메뉴 수정  	
+<div id="menu_edit">
+	메뉴 수정  
 	<div class="menu_add_formbox">
-		<form class="menu_add_form" action="#" method="post">
+		<form class="menu_add_form" action="updatemenu" method="post">
 			<div class="menu_add_form_top">
 				<div class="menu_add_menu_name">
 					<label>메뉴명<span>*</span></label>
-					<input type="text" name="menu_add_name" value="메뉴명"/>
+					<input type="text" id="mp_name" name="mp_name" value="메뉴명"/>
 				</div>
 				<div class="menu_add_menu_price">
 					<label>가격(원)<span>*</span></label>
-					<input type="text" name="menu_add_price" value="메뉴가격"/>
+					<input type="text" id="mp_cost" name="mp_cost" value="메뉴가격"/>
 				</div>
 			</div>
 			<div class="menu_add_form_mid">
 				<label>메뉴 설명</label>
-				<textarea>메뉴 설명</textarea>
+				<textarea id="mp_intro" name="mp_intro">메뉴 설명</textarea>
 			</div>
 			<div class="menu_add_bot">
 				<label>썸네일</label>
@@ -463,6 +499,8 @@
 			<div class="btn_center">
 				<button type="submit" class="menu_add_submit">수정하기</button>
 			</div>
+			<input type="hidden" id="menu_id" name="menu_id" value="${mdto.id }"/>
+			<input type="hidden" name="imnum" id="imnum" value="${imnum}" />
 		</form>
 	</div>
 		<div id="Xbox2">

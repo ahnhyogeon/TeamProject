@@ -31,17 +31,17 @@
                     <div class="profile_count">
                         <div>
                             <label>마이 리뷰</label>
-                            <span>0</span>
+                            <span><%=session.getAttribute("reviewCount") %></span>
                         </div>
                         <img src="resources/images/Ellipse 68.png" alt="ellipse">
                         <div id="profile_follow">
                             <label>팔로워</label>
-                             <span>0</span>
+                             <span><%=session.getAttribute("followerCount") %></span>
                         </div>
                         <img src="resources/images/Ellipse 68.png" alt="ellipse">
                         <div id="profile_following">
                             <label>팔로잉</label>
-                            <span>0</span>
+                            <span><%=session.getAttribute("followingCount") %></span>
                         </div>
                     </div>
                 </div>

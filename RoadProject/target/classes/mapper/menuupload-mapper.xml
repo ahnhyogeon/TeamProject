@@ -24,8 +24,13 @@
      </delete>
      
      <update id="mUpdateFile" parameterType="hashMap">
-        UPDATE menu_img SET business=#{business} WHERE imnum = #{imnum}
+        UPDATE menu_img SET menu_id=#{menu_id}, business=#{business} WHERE imnum = #{imnum}
      </update>
+    
+     <update id="mUpdateFileById" parameterType="muploadDto">
+        UPDATE menu_img SET ofilename=#{ofilename}, nfilename=#{nfilename}, ext=#{ext}, filesize=#{filesize}, imnum=#{imnum}, thumbnail=#{thumbnail} WHERE menu_id = #{menu_id}
+     </update>
+     
         
      <select id="mSelectFileById" resultType="muploadDto" parameterType="int">
         SELECT * FROM menu_img WHERE id=#{selectId}

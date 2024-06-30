@@ -331,7 +331,12 @@ div, th, td {
     object-fit: cover;
 
 }
+#muimagePreview img {
+    width: 100%; /* 이미지가 부모 요소에 맞게 너비 조정 */
+    height: 100%; /* 이미지가 부모 요소에 맞게 높이 조정 */
+    object-fit: cover;
 
+}
  /*페이징*/
  .paging{
    list-style-type:none;

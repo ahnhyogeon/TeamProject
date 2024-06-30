@@ -59,5 +59,10 @@ public class MenuUploadDao implements MenuUploadMapper {
 		session.update("mUpdateFile", params);
 
 	}
-
+    
+	@Override
+	public void mUpdateFileById(MenuUploadFileDto muDto) {
+		
+		session.update("mUpdateFileById", muDto);
+	}
 }

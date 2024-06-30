@@ -363,12 +363,10 @@ $(function(){
                 console.log('Edit menu id ' + menuId + ' success!');
                 // 성공적으로 처리된 경우 추가 로직 구현
                   // UI 업데이트 로직
-            $('#update_m_name').val(response.m_name);
-            $('#update_m_cost').val(response.m_cost);
-            $('#update_m_intro').val(response.m_intro);
-            // 썸네일 이미지 업데이트
-            $('#menu_edit .menu_add_upload_imgbox img').attr('src', response.thumbnail);
-
+            $('#m_name').val(response.m_name);
+            $('#m_cost').val(response.m_cost);
+            $('#m_intro').val(response.m_intro);
+           
             // 성공적으로 처리된 경우 추가 로직 구현
             $('#menu_edit').show(); // 메뉴 수정 폼 보여주기
             },

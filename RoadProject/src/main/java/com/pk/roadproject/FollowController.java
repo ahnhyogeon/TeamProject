@@ -476,6 +476,11 @@ public class FollowController {
 		  
 		  serviceR.rUpdateId(uploadDto);
 		  
+		  uploadDto.setImnum(imnum);
+		  uploadDto.setReviewId(0); // reviewDto에서 select하고 id를 찾아서 등록해야 함.
+		  
+		  serviceR.rUpdateId(uploadDto);
+		  
 		  model.addAttribute("reviews", reviewDto);
 		  
 		  return "redirect:review?restaurant_id=61";

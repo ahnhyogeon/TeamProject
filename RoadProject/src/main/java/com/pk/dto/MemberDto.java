@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class MemberDto {
 	
+	private int id;
 	private String name;
 	private String nickname;
 	private String userid;
