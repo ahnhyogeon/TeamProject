@@ -3,17 +3,38 @@
 
 <mapper namespace="reviewMapper"> 
 		
-	
+	<!-- 리뷰 전체 보기 -->
 	<select id="reviewSelectList" resultType="reviewDto">
-		SELECT * FROM review
+		SELECT * FROM review ORDER BY id DESC
 	</select>
 	
+	<!-- 리뷰 레스토랑 보기 -->
+	<select id="reviewRestaurantIdSelectList" resultType="reviewDto">
+		SELECT * FROM review where restaurant_id = #{restaurant_id} ORDER BY id DESC;
+	</select>
+	
+	<!-- 리뷰 전체 보기 (hit 높은순) -->
+	<select id="reviewScoreSelcetList" resultType="reviewDto">
+		SELECT * FROM review ORDER BY hits DESC;
+	</select>
+	
+	<!-- 리뷰 레스토랑 보기 (hit 높은순) -->
+	<select id="reviewRestaurantIdScoreSelcetList" resultType="reviewDto">
+		SELECT * FROM review where restaurant_id = #{restaurant_id} ORDER BY hits DESC;
+	</select>
+	
+	<!-- 리뷰 제목 검색해서 보기 -->
 	<select id="reviewSelectSearchList" resultType="reviewDto">
 		SELECT * FROM review WHERE title LIKE #{search}
 	</select>
 	
+	<!-- 리뷰 생성 후 id 조회 -->
+	<select id="reviewSelectByIdSearch" resultType="int">
+		SELECT id FROM review ORDER BY id DESC LIMIT 1
+	</select>
+	
 	<select id="reviewResultScore" parameterType="int" resultType="double">
-		SELECT AVG(score) AS average_score FROM review WHERE restaurant_id = #{restaurant_id}
+		SELECT IFNULL(AVG(score), 0) AS average_score FROM review WHERE restaurant_id = #{restaurant_id}
 	</select>	
 	
 	<select id="reviewOneScore" parameterType="reviewDto" resultType="int">
@@ -30,12 +51,16 @@
 		SELECT COUNT(*) FROM review WHERE restaurant_id = #{restaurant_id} and title LIKE #{search}
 	</select>
 	
-	<select id="reviewDetail" resultType="reviewDto">
-		SELECT * FROM review where id = #{id}
+	<!-- 특정 리뷰 조회 -->
+	<select id="getReviewById" parameterType="int" resultType="reviewDto">
+		SELECT * FROM review WHERE id = #{id}
 	</select>
 	
 	<insert id="insertReview" parameterType="reviewDto">
-		INSERT INTO review(userid, nickname, title, detail, score, restaurant_id, imnum) VALUES(#{userid}, #{nickname}, #{title}, #{detail}, #{score}, #{restaurant_id}, #{imnum})
+		INSERT INTO review (userid, nickname, username, detail, score, restaurant_id, imnum)
+		SELECT m.id, m.nickname, #{username}, #{detail}, #{score}, #{restaurant_id}, #{imnum}
+		FROM member m
+		WHERE m.userid = #{username}
 	</insert>
 	
 	<update id="ratingReview" parameterType="reviewDto">
@@ -46,6 +71,39 @@
 		UPDATE review SET hits = hits + 1 WHERE id = #{id}
 	</update>
 	
+	<!-- 아래부터는 이미지 업로드 관련 -->
+	
+	<!-- 파일 업로드 -->
+	<insert id="rInsertFile" parameterType="ReviewUploadFileDto">
+        INSERT INTO review_img
+           (review_id, ofilename, nfilename, ext, filesize, imnum)
+        VALUES
+           (#{reviewId}, #{ofilename}, #{nfilename}, #{ext}, #{filesize}, #{imnum})
+    </insert>
+     
+    <delete id="rDeleteFileById" parameterType="int">
+        DELETE FROM review_img WHERE id=#{reviewId}
+    </delete>  
+     
+    <delete id="rDeleteFileByReviewId" parameterType="int">
+        DELETE FROM review_img WHERE review_id=#{reviewId}
+    </delete>
+     
+    <delete id="rDeleteTrashFile">
+        DELETE FROM review_img WHERE review_id=0
+    </delete>
+     
+    <update id="rUpdateId" parameterType="map">
+        UPDATE review_img SET review_id=#{reviewId} WHERE imnum = #{imnum}
+    </update>
+        
+    <select id="rSelectFileByImnum" resultType="ReviewUploadFileDto">
+        SELECT * FROM review_img WHERE imnum = #{imnum} ORDER BY id LIMIT 1;
+    </select>
+     
+    <select id="rSelectFileByReviewId" resultType="ReviewUploadFileDto">
+        SELECT * FROM review_img WHERE review_id=#{reviewId}
+    </select>
 	
 	
  </mapper>

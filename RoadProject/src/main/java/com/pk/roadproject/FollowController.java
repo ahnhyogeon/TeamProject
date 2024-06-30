@@ -1,15 +1,20 @@
 package com.pk.roadproject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,14 +24,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pk.dto.FollowDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.ReviewDto;
-import com.pk.dto.ReviewImgDto;
+import com.pk.dto.ReviewUploadFileDto;
 import com.pk.service.FollowService;
-import com.pk.service.MemberService;
 import com.pk.service.ReviewService;
 
 /**
@@ -38,37 +43,88 @@ public class FollowController {
 	private static final Logger logger = LoggerFactory.getLogger(FollowController.class);
 	
 	@Inject
-	private MemberService service;
-	
-	@Inject
 	private FollowService serviceF;
 	
 	@Inject
 	private ReviewService serviceR;
 	
-	MemberDto memberDto = new MemberDto();
-	FollowDto followDto = new FollowDto();
-	ReviewDto reviewDto = new ReviewDto();
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	ServletContext servletContext;
+	
+	@Autowired
+	FollowDto followDto;
+	
+	@Autowired
+	ReviewDto reviewDto;
+	
+	@Autowired
+	MemberDto memberDto;
+	
+	@Autowired
+	ReviewUploadFileDto uploadDto;
+	
+	  @RequestMapping(value = "/partnerPage_detail_review", method = {RequestMethod.GET, RequestMethod.POST})
+	    public String partnerPage_detail_review(Locale locale, Model model) {
+	        logger.info("partnerPage_detail_review 접속");
+	        
+	        System.out.println("리뷰 정상 테스트");
+	        
+	        return "partnerPage_detail_review.tiles";
+	    }
 
 	  @RequestMapping(value = "/review", method = RequestMethod.GET)
-	  public String review(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	  public String review(@RequestParam("restaurant_id") int restaurant_id,
+			  			   Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  System.out.println("review 접속");
 		  
-		  //리뷰 사진 첨부되면서 게시글은 보이지 않음. count만 표시
+		  System.out.println(restaurant_id);
+		  reviewDto.setRestaurant_id(restaurant_id);
 		  		  
-		  List<ReviewDto> reviews = serviceR.reviewSelectList(reviewDto);
+		  List<ReviewDto> reviews = serviceR.reviewRestaurantIdSelectList(reviewDto, restaurant_id);
 		  for(ReviewDto review : reviews) {
-			  if(review.getRating() == 0 || review.getHits() == 0) {
-				  review.setResult(0);
-			  }else {
-			  double result = (review.getRating() * 100) / (double) review.getHits();
-			  review.setResult(result);
+			  
+			  // 스코어 확인 후 icon 출력
+			  int detailScore = review.getScore();
+			  switch (detailScore) {
+	          case 5:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Star Struck.png");
+	        	  review.setScoremessage("정말 최고예요!");
+	              break;
+	          case 4:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Winking Face.png");
+	        	  review.setScoremessage("아주 좋아요!");
+	              break;
+	          case 3:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Slightly Smiling Face.png");
+	        	  review.setScoremessage("나쁘지 않아요.");
+	              break;
+	          case 2:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Confused Face.png");
+	        	  review.setScoremessage("조금 별로예요.");
+	              break;
+	          case 1:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Pensive Face.png");
+	        	  review.setScoremessage("실망이에요.");
+	              break;
+	          default:
+	              System.out.println("detailScoreUrl에 문제 발생. 5점으로 출력");
+	              review.setDetailScoreUrl("resources/images/icons _ emoji/Star Struck.png");
+	              review.setScoremessage("정말 최고예요!");
 			  }
+			  
+			  
+			  //이미지 출력 작업
+			  System.out.println("imnum = " + review.getImnum());
+			  uploadDto = serviceR.rSelectFileByImnum(review.getImnum());
+			  
+			  System.out.println(uploadDto.getNfilename());
+			  review.setPhotoUrl("/roadproject/resources/reviewupload/" + uploadDto.getNfilename());
+			  
 		  }
 		  
-		  reviewDto.setRestaurant_id(61); //리뷰 가게 아이디 임시로 받음. 추후 변경
-		  
-		  int restaurant_id = reviewDto.getRestaurant_id();
 		  int reviewCount = serviceR.reviewCount(restaurant_id); // 리뷰를 작성한 고객의 수
 		  double reviewScoreResult = serviceR.reviewResultScore(restaurant_id); // 리뷰의 평균점
 		  
@@ -84,6 +140,34 @@ public class FollowController {
 		  reviewDto.setScore(5);
 		  int reviewFiveScore = serviceR.reviewOneScore(reviewDto);
 		  
+		  // 전체 스코어 평균 확인 후 icon 출력
+		  int iconScore = (int) Math.round(reviewScoreResult);
+		  String iconUrl = "";
+		  switch (iconScore) {
+          case 5:
+        	  iconUrl = "resources/images/icons _ emoji/Star Struck.png";
+              break;
+          case 4:
+        	  iconUrl = "resources/images/icons _ emoji/Winking Face.png";
+              break;
+          case 3:
+        	  iconUrl = "resources/images/icons _ emoji/Slightly Smiling Face.png";
+              break;
+          case 2:
+        	  iconUrl = "resources/images/icons _ emoji/Confused Face.png";
+              break;
+          case 1:
+        	  iconUrl = "resources/images/icons _ emoji/Pensive Face.png";
+              break;
+          case 0:
+        	  iconUrl = "resources/images/icons _ emoji/Star Struck.png";
+              break;
+          default:
+        	  iconUrl = "resources/images/icons _ emoji/Star Struck.png";
+              System.out.println("iconSocre에 문제 발생. 5점으로 출력");
+		  }
+		  
+		  System.out.println(iconUrl);
 		  System.out.println(reviewCount);
 		  System.out.println(reviewScoreResult);
 		  
@@ -95,8 +179,128 @@ public class FollowController {
 		  model.addAttribute("reviewThreeScore", reviewThreeScore);
 		  model.addAttribute("reviewFourScore", reviewFourScore);
 		  model.addAttribute("reviewFiveScore", reviewFiveScore);
+		  model.addAttribute("iconUrl", iconUrl);
+		  model.addAttribute("restaurant_id", restaurant_id);
 		  
 		  return "review.tiles";
+	  }
+	  
+	  // hit순 조회
+	  @RequestMapping(value = "/reviewScoreSelcetList", method = RequestMethod.GET)
+	  public String reviewScoreSelcetList(@RequestParam("restaurant_id") int restaurant_id,
+			  Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		  System.out.println("reviewScoreSelcetList 접속");
+		  		  
+		  System.out.println(restaurant_id);
+		  reviewDto.setRestaurant_id(restaurant_id);
+		  
+		  //리뷰 사진 첨부되면서 게시글은 보이지 않음. count만 표시
+		  		  
+		  List<ReviewDto> reviews = serviceR.reviewRestaurantIdScoreSelcetList(reviewDto, restaurant_id);
+		  for(ReviewDto review : reviews) {
+			  
+			  // 스코어 확인 후 icon 출력
+			  int detailScore = review.getScore();
+			  switch (detailScore) {
+	          case 5:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Star Struck.png");
+	        	  review.setScoremessage("정말 최고예요!");
+	              break;
+	          case 4:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Winking Face.png");
+	        	  review.setScoremessage("아주 좋아요!");
+	              break;
+	          case 3:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Slightly Smiling Face.png");
+	        	  review.setScoremessage("나쁘지 않아요.");
+	              break;
+	          case 2:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Confused Face.png");
+	        	  review.setScoremessage("조금 별로예요.");
+	              break;
+	          case 1:
+	        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Pensive Face.png");
+	        	  review.setScoremessage("실망이에요.");
+	              break;
+	          default:
+	              System.out.println("detailScoreUrl에 문제 발생. 5점으로 출력");
+	              review.setDetailScoreUrl("resources/images/icons _ emoji/Star Struck.png");
+	              review.setScoremessage("정말 최고예요!");
+			  }
+			  
+			  if(review.getRating() == 0 || review.getHits() == 0) {
+				  review.setResult(0);
+			  }else {
+			  double result = (review.getRating() * 100) / (double) review.getHits();
+			  review.setResult(result);
+			  }
+			  
+			  //이미지 출력 작업
+			  
+			 // String imnum = "f6f8e2e9-ccbd-4af4-a747-3ca26d29f61f";  테스트용 임시 imnum
+			  System.out.println("imnum = " + review.getImnum());
+			  uploadDto = serviceR.rSelectFileByImnum(review.getImnum());
+			  
+			  System.out.println(uploadDto.getNfilename());
+			  review.setPhotoUrl("/roadproject/resources/reviewupload/" + uploadDto.getNfilename());
+			  
+		  }
+		  
+		  int reviewCount = serviceR.reviewCount(restaurant_id); // 리뷰를 작성한 고객의 수
+		  double reviewScoreResult = serviceR.reviewResultScore(restaurant_id); // 리뷰의 평균점
+		  
+		  // 1~5점 점수 출력
+		  reviewDto.setScore(1);
+		  int reviewOneScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(2);
+		  int reviewTwoScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(3);
+		  int reviewThreeScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(4);
+		  int reviewFourScore = serviceR.reviewOneScore(reviewDto);
+		  reviewDto.setScore(5);
+		  int reviewFiveScore = serviceR.reviewOneScore(reviewDto);
+		  
+		  // 전체 스코어 평균 확인 후 icon 출력
+		  int iconScore = (int) Math.round(reviewScoreResult);
+		  if(iconScore == 0) iconScore = 1;
+		  String iconUrl = "";
+		  switch (iconScore) {
+          case 5:
+        	  iconUrl = "resources/images/icons _ emoji/Star Struck.png";
+              break;
+          case 4:
+        	  iconUrl = "resources/images/icons _ emoji/Winking Face.png";
+              break;
+          case 3:
+        	  iconUrl = "resources/images/icons _ emoji/Slightly Smiling Face.png";
+              break;
+          case 2:
+        	  iconUrl = "resources/images/icons _ emoji/Confused Face.png";
+              break;
+          case 1:
+        	  iconUrl = "resources/images/icons _ emoji/Pensive Face.png";
+              break;
+          default:
+              System.out.println("iconSocre에 문제 발생. 5점으로 출력");
+		  }
+		  
+		  System.out.println(iconUrl);
+		  System.out.println(reviewCount);
+		  System.out.println(reviewScoreResult);
+		  
+		  model.addAttribute("reviews", reviews);
+		  model.addAttribute("reviewCount", reviewCount);
+		  model.addAttribute("reviewScoreResult", reviewScoreResult);
+		  model.addAttribute("reviewOneScore", reviewOneScore);
+		  model.addAttribute("reviewTwoScore", reviewTwoScore);
+		  model.addAttribute("reviewThreeScore", reviewThreeScore);
+		  model.addAttribute("reviewFourScore", reviewFourScore);
+		  model.addAttribute("reviewFiveScore", reviewFiveScore);
+		  model.addAttribute("iconUrl", iconUrl);
+		  model.addAttribute("restaurant_id", restaurant_id);
+		  
+		  return "reviewScoreSelcetList.tiles";
 	  }
 	  
 	  //search 페이지
@@ -121,7 +325,10 @@ public class FollowController {
 		  
 		  int restaurant_id = reviewDto.getRestaurant_id();
 		  int reviewSearchCount = serviceR.reviewSearchCount(reviewDto); // 검색에 해당되는 리뷰를 작성한 고객의 수
-		  double reviewScoreResult = serviceR.reviewResultScore(restaurant_id); // 리뷰의 평균점
+		  System.out.println(reviewSearchCount);
+		  double reviewScoreResult;
+		  reviewScoreResult = serviceR.reviewResultScore(restaurant_id); // 리뷰의 평균점
+		  System.out.println(reviewScoreResult);
 		  
 		  // 1~5점 점수 출력
 		  reviewDto.setScore(1);
@@ -135,8 +342,7 @@ public class FollowController {
 		  reviewDto.setScore(5);
 		  int reviewFiveScore = serviceR.reviewOneScore(reviewDto);
 		  
-		  System.out.println(reviewSearchCount);
-		  System.out.println(reviewScoreResult);
+		  
 		  
 		  model.addAttribute("reviews", reviews);
 		  model.addAttribute("reviewSearchCount", reviewSearchCount);
@@ -151,108 +357,184 @@ public class FollowController {
 	  }
 	  
 	  // 좋아요
-	  @GetMapping("/rating")
-	  public String ratingReivew(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	  @PostMapping("/rating")
+	    public ResponseEntity<String> ratingReview(@RequestParam("reviewId") int reviewId) throws Exception {
+	        System.out.println("ratingReview() 시작");
 
-		 System.out.println("ratingReview() set 시작");
+	        // ReviewDto에 userId 설정
+	        ReviewDto reviewDto = new ReviewDto();
+	        reviewDto.setId(reviewId);
 
-		  // 원래의 요청 URL을 세션에 저장
-		  String referer = request.getHeader("Referer");
-		  request.getSession().setAttribute("prevPage", referer);
+	        System.out.println("ratingReview() set 완료");
 
-		  int reviewId = Integer.parseInt(request.getParameter("id"));
-		  reviewDto.setId(reviewId);
+	        // 서비스 호출
+	        serviceR.ratingReview(reviewDto);
 
-		  System.out.println("ratingReview() set 완료");
+	        System.out.println("service 실행");
 
-		  serviceR.ratingReview(reviewDto);
-
-		  System.out.println("service 실행");
-
-		  // 세션에서 원래 URL 가져오기
-		  String prevPage = (String) request.getSession().getAttribute("prevPage");
-		  if (prevPage != null) {
-		      return "redirect:" + prevPage;
-		  } else {
-		      return "redirect:review";  // 기본 리디렉션 URL
-		  }
-	  }
+	        return ResponseEntity.ok("Success");
+	    }
 	  
-	  // 작업중
+	  // 사진과 member의 id값을 미리 저장
 	  @RequestMapping(value= "/reviewEdit", method = RequestMethod.GET)
 	  public String reviewEdit(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  System.out.println("reviewEdit 접속");
 		  
-		  String reviewId = request.getParameter("userid");
-		  reviewDto.setUserid(reviewId);
+		  String restaurantId = "61"; // 추후 레스토랑 id값을 받아서 사용
 		  
-		  model.addAttribute("id", reviewId);
+		  String memberId = memberDto.getUserid();
+		  System.out.println(memberId);
+		  		  
+		  String imnum = UUID.randomUUID().toString(); // UUID를 사용하여 고유한 imnum 생성
+		  reviewDto.setImnum(imnum);
+	      model.addAttribute("imnum", imnum);
+	      model.addAttribute("memberId", memberId);
+	      model.addAttribute("restaurantId", restaurantId);
 		  
 		  return "reviewEdit.tiles";
 	  }
 	  
+	  @PostMapping("/reviewupload")
+		@ResponseBody
+		public ResponseEntity<?> handleImageUpload(
+				@RequestParam("file") MultipartFile uploadFile,
+				@RequestParam("imnum") String imnum,
+				Model model){
+			System.out.println("reviewupload() 실행됨");
+			if(!uploadFile.isEmpty()) {
+				try {
+					//파일정보 추출
+					String oFilename = uploadFile.getOriginalFilename();
+					
+					//확장자 추출
+					String ext = oFilename.substring(oFilename.lastIndexOf(".") + 1).toLowerCase();
+					
+					//새파일 
+					String nFilename = Long.toString(System.currentTimeMillis() / 1000L) + "." + ext;
+					
+					//파일크기
+					long filesize = uploadFile.getSize();
+					
+					//경로설정
+					String uploadDir = servletContext.getRealPath("/resources/reviewupload/");
+					System.out.println(uploadDir);
+					//업로드
+					File serverFile = new File(uploadDir + nFilename);
+					uploadFile.transferTo(serverFile);
+					
+					//데이터베이스 저장
+					uploadDto.setExt(ext);
+					uploadDto.setFilesize(filesize);
+					uploadDto.setImnum(imnum);
+					uploadDto.setNfilename(nFilename);
+					uploadDto.setOfilename(oFilename);
+					uploadDto.setReviewId(4); //임시 업로드 4번(홍길동)
+					
+					System.out.println(uploadDto);
+					
+					serviceR.rInsertFile(uploadDto);
+					
+					String json = "{\"url\":\"" + "/roadproject/resources/reviewupload/" + nFilename + "\"}";
+					return ResponseEntity.ok().body(json);
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+					return ResponseEntity.badRequest().body("upload Error");
+				}
+				
+			}else {
+			   return ResponseEntity.badRequest().body("noFile");
+			}   
+		}
+	  
 	  @PostMapping("reviewEditok")
-	  public String reviewEditok(@RequestParam("imnum") MultipartFile[] files,
+	  public String reviewEditok(@RequestParam("imnum") String imnum,
+			  					 @RequestParam("restaurantId") int restaurantId,
+			  					 @RequestParam("memberId") String memberId,
 			  					 Locale locale, HttpServletRequest request, 
 			  					 HttpServletResponse response, Model model) throws Exception {
 		  
 		  System.out.println("reviewEditok 접속");
 		  
-		  reviewDto.setUserid(request.getParameter("userid"));
+		  reviewDto.setImnum(imnum);
+		  reviewDto.setUsername(memberId);
 		  reviewDto.setScore(Integer.parseInt(request.getParameter("score")));
-		  reviewDto.setTitle(request.getParameter("title"));
-		  reviewDto.setNickname(request.getParameter("nickname"));
 		  reviewDto.setDetail(request.getParameter("detail"));
-		  reviewDto.setRestaurant_id(Integer.parseInt(request.getParameter("restaurant_id")));
+		  reviewDto.setRestaurant_id(restaurantId);
 		  reviewDto.setHits(1);
-		  System.out.println(reviewDto.getNickname() + " set 완료");
+		  System.out.println(memberId);
+		  System.out.println(restaurantId);
+		  System.out.println(reviewDto + " set 완료");
 		  
-		  ReviewImgDto fileDto = new ReviewImgDto();
+		  // 새로 등록된 review Id 서치
+		  System.out.println("insertReviewAndGetId() 실행");
+		  int reviewId = serviceR.insertReviewAndGetId(reviewDto);
+		  System.out.println("Inserted Review ID: " + reviewId);
+		  uploadDto.setReviewId(reviewId);
 		  
-		  for (MultipartFile file : files) {
-			    String fileName = file.getOriginalFilename();
-			    String filePath = "/path/to/upload/directory/" + fileName; // 저장할 경로
-			    File dest = new File(filePath);
-			    file.transferTo(dest);
-
-			    // 파일 정보를 데이터베이스에 저장
-			    fileDto.setFilename(fileName);
-			    fileDto.setFilepath(filePath);
-			    // 리뷰와 파일 관계 설정 또는 파일에 대한 부가 정보 설정
-			}
+		  uploadDto.setImnum(imnum);
 		  
-		  System.out.println(fileDto.getFilename() + " / " + fileDto.getFilepath());
-		  
-		  serviceR.insertReview(reviewDto);
+		  serviceR.rUpdateId(uploadDto);
 		  
 		  model.addAttribute("reviews", reviewDto);
 		  
-		  return "redirect:review";
+		  return "redirect:review?restaurant_id=61";
 	  }
 	  
-	  @RequestMapping(value= "/reviewDetail", method = RequestMethod.GET)
-	  public String reviewDetail(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		  System.out.println("reviewDetail 접속");
-		  	
-		  int reviewId = Integer.parseInt(request.getParameter("id"));
-		  reviewDto.setId(reviewId);
-		  
-		  System.out.println("set : " + reviewId);
-		  
-		  List<ReviewDto> reviews = serviceR.reviewDetail(reviewDto);
-		  	  
-		  for(ReviewDto review : reviews) {
-			  if(review.getRating() == 0 || review.getHits() == 0) {
-				  review.setResult(0);
-			  }else {
-			  double result = (review.getRating() * 100) / (double) review.getHits();
-			  review.setResult(result);
+	    @GetMapping("/getReviewDetail")
+	    @ResponseBody
+	    public List<ReviewDto> getReviewDetail(@RequestParam("reviewId") int reviewId, Model model) throws Exception {
+	    	System.out.println("getReviewDetail 접속");
+	    	System.out.println(reviewId);
+	    	
+	    	List<ReviewDto> reviews = serviceR.getReviewById(reviewId);
+	    	
+	    	 for(ReviewDto review : reviews) {
+				  // 스코어 확인 후 icon 출력
+				  int detailScore = review.getScore();
+				  switch (detailScore) {
+		          case 5:
+		        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Star Struck.png");
+		        	  review.setScoremessage("정말 최고예요!");
+		              break;
+		          case 4:
+		        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Winking Face.png");
+		        	  review.setScoremessage("아주 좋아요!");
+		              break;
+		          case 3:
+		        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Slightly Smiling Face.png");
+		        	  review.setScoremessage("나쁘지 않아요.");
+		              break;
+		          case 2:
+		        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Confused Face.png");
+		        	  review.setScoremessage("조금 별로예요.");
+		              break;
+		          case 1:
+		        	  review.setDetailScoreUrl("resources/images/icons _ emoji/Pensive Face.png");
+		        	  review.setScoremessage("실망이에요.");
+		              break;
+		          default:
+		              System.out.println("detailScoreUrl에 문제 발생. 5점으로 출력");
+		              review.setDetailScoreUrl("resources/images/icons _ emoji/Star Struck.png");
+		              review.setScoremessage("정말 최고예요!");
+				  }
+				  
+				  List<ReviewUploadFileDto> reviewFileDtos = serviceR.rSelectFileByReviewId(reviewId);
+				  List<String> photoUrls = new ArrayList<>();
+				  for (ReviewUploadFileDto fileDto : reviewFileDtos) {
+					  photoUrls.add("/roadproject/resources/reviewupload/" + fileDto.getNfilename());
+				  }
+				  review.setPhotoUrls(photoUrls);
+				  
+				  
+				  
 			  }
-		  }
-		  model.addAttribute("reviews", reviews);
-		  
-		  return "reviewDetail.tiles";
-	  }
+	    	
+	    	//점수에 따라 나오는 아이콘과 텍스트
+	    	//사진 출력
+	    	
+	        return reviews;
+	    }
 	  
 	  @PostMapping("/follows")
 	  public ResponseEntity<String> insertFollow(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
@@ -260,8 +542,6 @@ public class FollowController {
 
 	        System.out.println("follow() set 시작");
 	        
-	        followDto.setA_uname("테스트1");
-	        followDto.setP_uname("테스트2");
 	        followDto.setA_uid(2);	
 	        followDto.setP_uid(3);
 
@@ -291,8 +571,7 @@ public class FollowController {
 
 	        System.out.println("unfollow() set 시작");
 
-	        followDto.setA_uname("테스트1");
-	        followDto.setP_uname("테스트2");
+	        followDto.setP_uid(3);
 	        followDto.setA_uid(2);
 
 	        System.out.println("unfollow() set 완료");
@@ -314,4 +593,5 @@ public class FollowController {
 	                .body("{\"message\": \"에러 발생: " + e.getMessage() + "\"}");
 	        }
 	    }
+	  
 	}

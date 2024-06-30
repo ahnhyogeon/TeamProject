@@ -39,7 +39,8 @@ public class HomeController {
 	@Inject
 	private MemberService service;
 	
-	MemberDto memberDto = new MemberDto();
+	@Autowired
+	MemberDto memberDto;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -351,8 +352,13 @@ public class HomeController {
 	  }
 	  
 	  @RequestMapping(value = "/partnerPage_detail", method = {RequestMethod.GET, RequestMethod.POST})
-	    public String partnerPage_detail(Locale locale, Model model) {
+	    public String partnerPage_detail(@RequestParam("restaurant_id") int restaurantId, 
+	    								 Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
 	        logger.info("partnerPage_detail 접속");
+	        
+	        //테스트용 restaurantId
+	        System.out.println(restaurantId);
+	        model.addAttribute("restaurantId", restaurantId);
 	        
 	        return "partnerPage_detail.tiles";
 	    }
@@ -363,13 +369,7 @@ public class HomeController {
 	        
 	        return "partnerPage_detail_menu.tiles";
 	    }
-	  
-	  @RequestMapping(value = "/partnerPage_detail_review", method = {RequestMethod.GET, RequestMethod.POST})
-	    public String partnerPage_detail_review(Locale locale, Model model) {
-	        logger.info("partnerPage_detail_review 접속");
-	        
-	        return "partnerPage_detail_review.tiles";
-	    }
+
 	  
 	  @RequestMapping(value = "/partnerPage_review_registration", method = {RequestMethod.GET, RequestMethod.POST})
 	    public String partnerPage_review_registration(Locale locale, Model model) {

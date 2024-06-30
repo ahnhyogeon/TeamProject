@@ -137,7 +137,8 @@ $(function(){
     if(map_test){
         map_test.addEventListener('click', function(){
 
-        window.location.href = "../partnerPage_detail";
+        window.location.href = "../partnerPage_detail?restaurant_id=61";
+        //테스트용 restaurant_id 출력
         });
     }
     
@@ -145,7 +146,8 @@ $(function(){
     if(partner_detail_tabMenu_home){
         partner_detail_tabMenu_home.addEventListener('click', function(){
 
-        window.location.href = "partnerPage_detail";
+        window.location.href = "partnerPage_detail?restaurant_id=61";
+        //테스트용 restaurant_id 출력
         });
     }
     
@@ -161,7 +163,7 @@ $(function(){
     if(partner_detail_tabMenu_review){
         partner_detail_tabMenu_review.addEventListener('click', function(){
 
-        window.location.href = "partnerPage_detail_review";
+        window.location.href = "review?restaurant_id=61";
         });
     }
     
@@ -169,7 +171,7 @@ $(function(){
     if(partner_detail_review_btn){
         partner_detail_review_btn.addEventListener('click', function(){
 
-        window.location.href = "partnerPage_review_registration";
+        window.location.href = "reviewEdit";
         });
     }
     
@@ -210,14 +212,15 @@ $(function(){
 
 	cards.forEach(function(card) {
     card.addEventListener('click', function() {
-        console.log("으악");
+        console.log("으아아아아악");
         const overlay = document.getElementById('overlay');
-        const popup = document.getElementById('partner_detail_review_detailpop1');
+        const popup = document.getElementById('partner_detail_review_detailpop1'); 
 
         overlay.style.display = 'block';
         popup.style.display = 'block';
     	});
 	});
+
    
    const buttons = document.querySelectorAll('.partner_myreview_list_user_btn1');
 

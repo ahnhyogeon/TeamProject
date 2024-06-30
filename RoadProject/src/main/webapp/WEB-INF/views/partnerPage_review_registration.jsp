@@ -1,101 +1,109 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="resources/js/jquery-ui-1.13.2/jquery-ui.css">
+<link rel="stylesheet" href="resources/css/review.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="resources/js/popper.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/review.js"></script>  
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+   $(function(){
+	    $("#fileInput").change(function(){
+	        const files = $(this)[0].files;
+	        if (files.length > 0) {
+	            sendData(files[0]);
+	        }
+	    });
+	   
+	    function sendData(file) {
+	        const imnum = $("#imnum").val();
+	        const data = new FormData();
+	        data.append("file", file);
+	        data.append("imnum", imnum);
+	        $.ajax({
+	            url: "reviewupload",
+	            type: "post",
+	            data: data,
+	            contentType: false,
+	            processData: false,
+	            success: function(data) {
+	                // 서버에서 받은 JSON 데이터를 파싱합니다.
+	                const dt = JSON.parse(data);
+	                // 이미지의 URL을 사용하여 이미지를 표시합니다.
+	                const imageUrl =  dt.url;
+	                const imageDiv = $('<div><img src="' + imageUrl + '"></div>');
+	                $("#imagePreview").append(imageDiv);
+	            },
+	            error: function(jqXHR, textStatus, errorThrown){
+	                console.error(textStatus + ", " + errorThrown);
+	            }
+	        });
+	    }
+	});
+   </script>
 
-<link rel="stylesheet" href="resources/css/style.css">
-    <link rel="stylesheet" href="resources/css/myPage.css">
-    <link rel="stylesheet" href="resources/css/partnerPage_detail.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-<script src="resources/js/jquery.min.js"></script>        
-<script src="resources/js/script.js"></script>
+  <c:if test="${param.error != null}">
+     <script>alert("${param.error}");</script>
+  </c:if>
 
-<div id="containerM">
-    <div class="myPage_mainbox1">
-        <div class="myInner">
-            <div class="myInner_title">
-                스페이스 리뷰 등록
-            </div>
-            <div class="partnerInner_profile">
-                <div class="profile_picture">
-                     
-                </div>
-                <div class="partnerInner_info">
-                    <div class="partnerInner_info_title">
-                        <span>{카테고리}</span>
-                        {상호명}
-                    </div>
-						인천광역시 부평구 부평대로 44
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="myPage_mainbox2">
-        <div class="partner_review_registration">
-        	<form id="partner_review_registration_form" action="#" method="get">
-        		<div class="review_registration_select">
-        			<label>이용소감<span>*</span></label>
-        			<div class="registration_select_group">
-    					<input type="radio" id="radio1" name="registration_select" value="5" class="radio-button">
-    					<div class="registration_select_group_token" data-radio="radio1">
-    						<img src="resources/images/icons _ emoji/Star Struck.png" alt="star">
-    						정말 최고예요!
-    					</div>
-    
-    					<input type="radio" id="radio2" name="registration_select" value="4" class="radio-button">
-    					<div class="registration_select_group_token" data-radio="radio2">
-    						<img src="resources/images/icons _ emoji/Winking Face.png" alt="wink">
-    						너무 만족해요!
-    					</div>
-    
-    					<input type="radio" id="radio3" name="registration_select" value="3" class="radio-button">
-   						 <div class="registration_select_group_token" data-radio="radio3">
-   						 	<img src="resources/images/icons _ emoji/Slightly Smiling Face.png" alt="smile">
-   						 	그냥 평범해요!
-   						 </div>
-   						 
-   						 <input type="radio" id="radio4" name="registration_select" value="2" class="radio-button">
-    					<div class="registration_select_group_token" data-radio="radio4">
-    						<img src="resources/images/icons _ emoji/Confused Face.png" alt="confused">
-    						그저 그래요!
-    					</div>
-    
-    					<input type="radio" id="radio5" name="registration_select" value="1" class="radio-button">
-   						 <div class="registration_select_group_token" data-radio="radio5">
-   						 	<img src="resources/images/icons _ emoji/Pensive Face.png" alt="pensive">
-   						 	별로예요!
-   						 </div>
-					</div>
-        		</div>
-        		<div class="partner_review_registration_textarea">
-        			<label>상세 내용 입력<span>*</span></label>
-        			<textarea id="partner_review_registration_area" placeholder="상세 내용을 입력해주세요."></textarea>
-        		</div>
-        		<div class="partner_review_registration_upload">
-        			<label>이미지/동영상 파일</label>
-        			<div id="review_registration_upload">
-        				파일 선택
-        				<img src="resources\images\Upload_red.png" alt="upload">
-        			</div>
-        			<div>
-        				<span>*</span> 최대 5개 업로드 가능합니다. 파일 용량은 ~ jpg,png,mp4 포멧만 지원합니다.
-        			</div>
-        		</div>
-        		<div class="review_registration_submitBox">
-        			<div id="review_registration_review_rotice">
-        				<img src="resources\images\Info_alt_light.png" alt="info">
-        				<label>리뷰 작성 유의사항</label>
-        			</div>
-        			<button type="submit" class="review_registration_submit_btn">등록하기</button>
-        		</div>
-        	</form>
-        </div>
-    
-        <div class="bannerBox">
-            Banner
-        </div>
-    </div>
-    
-</div>
+<section id="section" class="bg-white pb-3">
+  <div class="listbox container mt-4">
+  
+	<h4 class="text-center">리뷰 등록</h4>
+  
+  	<form action="reviewEditok" method="post" class="mb-3">
+		<div class="form-group">
+
+			<p>레스토랑 정보</p>
+
+			<label for="comment">이용 소감<span style="color:red">*</span></label>
+			<div class="d-flex justify-content-center align-items-center">
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				  <input type="radio" class="btn-check" name="score" id="btnradio1" autocomplete="off" value="5" checked>
+				  <label class="btn btn-outline-primary m-3" for="btnradio1">정말 최고예요!</label>
+				
+				  <input type="radio" class="btn-check" name="score" id="btnradio2" autocomplete="off" value="4">
+				  <label class="btn btn-outline-primary m-3" for="btnradio2">너무 만족해요!</label>
+				
+				  <input type="radio" class="btn-check" name="score" id="btnradio3" autocomplete="off" value="3">
+				  <label class="btn btn-outline-primary m-3" for="btnradio3">그냥 평범해요!</label>
+				  
+				  <input type="radio" class="btn-check" name="score" id="btnradio4" autocomplete="off" value="2">
+				  <label class="btn btn-outline-primary m-3" for="btnradio4">그저 그래요!</label>
+				  
+				  <input type="radio" class="btn-check" name="score" id="btnradio5" autocomplete="off" value="1">
+				  <label class="btn btn-outline-primary m-3" for="btnradio5">별로예요!</label>
+				</div>
+			</div>
+			<label for="title">제목<span style="color:red">*</span></label>
+				<textarea class="form-control mb-3" rows="1" id="title" name="title"></textarea>
+			<label for="comment">상세 내용 입력<span style="color:red">*</span></label>
+				<textarea class="form-control mb-3" rows="7" id="detail" name="detail"></textarea>
+				<div class="form-group">
+					<label>이미지 첨부</label>
+						<label class="file-input-container text-center">
+						    <input type="file" id="fileInput" multiple>
+						    파일 선택 <!-- 파일 선택 옆에 표시할 텍스트 -->
+						</label>
+						<div class="image-container" id="imagePreview"></div>
+			        <input type="hidden" name="imnum" id="imnum" value="${imnum}">
+			    </div>
+		</div>
+		<a href="javascript:history.back();" class="btn btn-danger">뒤로</a>
+		<button type="submit" class="btn btn-primary">저장</button>
+		
+		<input type="hidden" name="memberId" value="${memberId}">
+		<input type="hidden" name="restaurantId" value="${restaurantId}"> 
+	</form>
+	
+	<a href="review">리뷰 페이지</a>
+	
+  </div>
+</section>

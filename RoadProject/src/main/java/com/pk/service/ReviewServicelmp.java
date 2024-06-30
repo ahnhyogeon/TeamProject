@@ -3,21 +3,45 @@ package com.pk.service;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
 import com.pk.dao.ReviewDao;
+import com.pk.dao.ReviewUploadDao;
 import com.pk.dto.ReviewDto;
+import com.pk.dto.ReviewUploadFileDto;
 
 @Service
 public class ReviewServicelmp implements ReviewService {
 	
 	@Inject
 	private ReviewDao dao;
+	
+	@Inject
+	private ReviewUploadDao udao;
 
 	@Override
 	public List<ReviewDto> reviewSelectList(ReviewDto reviews) throws Exception {
 		return dao.reviewSelectList(reviews);
+	}
+	
+	//리뷰 레스토랑 아이디 조회
+	@Override
+	public List<ReviewDto> reviewRestaurantIdSelectList(ReviewDto reviews, int restaurant_id) throws Exception {
+		return dao.reviewRestaurantIdSelectList(reviews, restaurant_id);
+	}
+	
+	//리뷰 hit순 조회
+	@Override
+	public List<ReviewDto> reviewScoreSelcetList(ReviewDto reviews) throws Exception {
+		return dao.reviewScoreSelcetList(reviews);
+	}
+	
+	//리뷰 레스토랑 아이디 hit순 조회
+	@Override
+	public List<ReviewDto> reviewRestaurantIdScoreSelcetList(ReviewDto reviews, int restaurant_id) throws Exception {
+		return dao.reviewRestaurantIdScoreSelcetList(reviews, restaurant_id);
 	}
 	
 	//리뷰 검색
@@ -26,14 +50,22 @@ public class ReviewServicelmp implements ReviewService {
 		return dao.reviewSelectSearchList(reviews);
 	}
 
+	//리뷰 생성
 	@Override
-	public void insertReview(ReviewDto reviews) throws Exception {
-		dao.insertReview(reviews);
-	}
+	@Transactional
+    public int insertReviewAndGetId(ReviewDto review) throws Exception {
+		try {
+	        dao.insertReview(review); // 리뷰 추가
+	        int reviewId = dao.reviewSelectByIdSearch(); // 새로 추가된 리뷰의 ID 조회
+	        return reviewId;
+	    } catch (Exception e) {
+	        throw new Exception("리뷰 추가 중 오류 발생", e); // 예외 처리 및 롤백
+	    }
+    }
 
 	@Override
 	public void unReview(ReviewDto reviews) throws Exception {
-		// TODO Auto-generated method stub
+		dao.unReview(reviews);
 
 	}
 	
@@ -43,8 +75,9 @@ public class ReviewServicelmp implements ReviewService {
 	}
 	
 	@Override
-	public List<ReviewDto> reviewDetail(ReviewDto reviews) throws Exception {
-		return dao.reviewDetail(reviews);
+	//리뷰 디테일
+	public List<ReviewDto> getReviewById(int reviewId) throws Exception {
+		return dao.getReviewById(reviewId);
 	}
 	
 	//리뷰 조회수 증가
@@ -75,5 +108,40 @@ public class ReviewServicelmp implements ReviewService {
 	@Override
 	public int reviewOneScore(ReviewDto reviews) throws Exception {
 		return dao.reviewOneScore(reviews);
+	}
+	
+	@Override
+	public int rDeleteFile(int uploadId) throws Exception {
+		return udao.rDeleteFile(uploadId);
+	}
+
+	@Override
+	public int rDeleteFileByReviewId(int reviewId) throws Exception {
+		return udao.rDeleteFileByReviewId(reviewId);
+	}
+
+	@Override
+	public int rDeleteTrashFile() throws Exception {
+		return udao.rDeleteTrashFile();
+	}
+
+	@Override
+	public ReviewUploadFileDto rSelectFileByImnum(String imnum) throws Exception {
+		return udao.rSelectFileByImnum(imnum);
+	}
+
+	@Override
+	public List<ReviewUploadFileDto> rSelectFileByReviewId(int reviewId) throws Exception {
+		return udao.rSelectFileByReviewId(reviewId);
+	}
+
+	@Override
+	public int rInsertFile(ReviewUploadFileDto ReviewUploadFileDto) throws Exception {
+		return udao.rInsertFile(ReviewUploadFileDto);
+	}
+	
+	@Override
+	public int rUpdateId(ReviewUploadFileDto ReviewUploadFileDto) throws Exception {
+		return udao.rUpdateId(ReviewUploadFileDto);
 	}
 }

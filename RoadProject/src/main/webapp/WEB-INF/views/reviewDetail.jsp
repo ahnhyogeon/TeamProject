@@ -47,9 +47,6 @@
 						<td colspan="2">${review.detail}</td>
 		            </tr>
 		            <tr>
-		                <td colspan="2">${review.hashtag}</td>
-		            </tr>
-		            <tr>
 		                <td colspan="2">루트보기?</td>
 		            </tr>	
 		            <tr>

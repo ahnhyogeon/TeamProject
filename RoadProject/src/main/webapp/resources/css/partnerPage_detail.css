@@ -501,8 +501,8 @@ border-radius: 8px;
 border: 1px solid var(--mono-color-e-6-e-6-e-6, #E6E6E6);
 }
 .partner_detail_review_box1_img>img{
-	width: 24px;
-height: 24px;
+	width: 55px;
+height: 55px;
 flex-shrink: 0;
 }
 .partner_detail_review_box1_img>div{
@@ -573,23 +573,23 @@ line-height: 17px; /* 141.667% */
 letter-spacing: -0.048px;
 }
 #partner_detail_star_line{
-	width: 258px;
+	width: 0px;
 height: 6px;
 }
 #partner_detail_wink_line{
-	width: 194px;
+	width: 0px;
 height: 6px;
 }
 #partner_detail_smile_line{
-	width: 194px;
+	width: 0px;
 height: 6px;
 }
 #partner_detail_confused_line{
-	width: 118px;
+	width: 0px;
 height: 6px;
 }
 #partner_detail_pensive_line{
-	width: 1px;
+	width: 0px;
 height: 6px;
 }
 .partner_detail_review_center_title{
@@ -664,10 +664,6 @@ align-items: flex-start;
 gap: 135px;
 flex-shrink: 0;
 border-radius: 8px;
-background: 
-        linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), 
-        linear-gradient(180deg, rgba(0, 0, 0, 0.00) 50%, rgba(0, 0, 0, 0.80) 100%), 
-        url('../images/test.jpg') lightgray 50% / cover no-repeat;
 cursor : pointer;
 }
 .partner_detail_review_list_card_top{
@@ -900,6 +896,17 @@ line-height: 22px; /* 137.5% */
 letter-spacing: -0.064px;
 cursor:pointer;
 }
+#review_registration_upload>label{
+position: relative;
+text-align: center;
+width: 100px;
+height: auto;
+border: 1px solid #ccc;
+border-radius: 10px;
+display: inline-block;
+line-height: -15px;
+padding: 0;
+}
 .partner_review_registration_upload>div{
 	color: var(--mono-color-808080, #808080);
 font-size: 12px;
@@ -1075,13 +1082,16 @@ align-items: center;
 gap: 4px;
 border-radius: 1000px;
 background: var(--main-color-100, #FF4147);
+letter-spacing: -0.056px;
+}
+.partner_detail_review_detailpop_inner_follow>span{
 color: var(--mono-color-fff, #FFF);
 text-align: center;
-font-size: 14px;
+font-size: 16px;
 font-style: normal;
 font-weight: 400;
-line-height: 20px; /* 142.857% */
-letter-spacing: -0.056px;
+line-height: 20px;
+cursor: pointer;
 }
 .partner_detail_review_detailpop_inner_img{
 	display: flex;
@@ -1096,6 +1106,12 @@ height: 200px;
 justify-content: center;
 align-items: center;
 background: var(--mono-color-ccc, #CCC);
+overflow: hidden;
+}
+.partner_detail_review_detailpop_inner_img>div img{
+	max-width: 100%;
+    height: auto;
+    display: block;
 }
 .partner_detail_review_detailpop_inner_text{
 	display: flex;
@@ -1167,6 +1183,7 @@ font-style: normal;
 font-weight: 600;
 line-height: 17px; /* 141.667% */
 letter-spacing: -0.048px;
+cursor: pointer;
 }
 .partner_detail_review_detailpop_inner_show>div>div:last-of-type>img{
 	display: flex;
