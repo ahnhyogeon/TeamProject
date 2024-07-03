@@ -171,6 +171,10 @@ public class FollowController {
 		  System.out.println(reviewCount);
 		  System.out.println(reviewScoreResult);
 		  
+		  String memberId = memberDto.getUserid();
+		  System.out.println(memberId);
+		  
+		  model.addAttribute("memberId", memberId);
 		  model.addAttribute("reviews", reviews);
 		  model.addAttribute("reviewCount", reviewCount);
 		  model.addAttribute("reviewScoreResult", reviewScoreResult);
@@ -181,6 +185,8 @@ public class FollowController {
 		  model.addAttribute("reviewFiveScore", reviewFiveScore);
 		  model.addAttribute("iconUrl", iconUrl);
 		  model.addAttribute("restaurant_id", restaurant_id);
+		  
+		  
 		  
 		  return "review.tiles";
 	  }
@@ -342,8 +348,10 @@ public class FollowController {
 		  reviewDto.setScore(5);
 		  int reviewFiveScore = serviceR.reviewOneScore(reviewDto);
 		  
+		  String memberId = memberDto.getUserid();
+		  System.out.println(memberId);
 		  
-		  
+		  model.addAttribute("memberId", memberId);
 		  model.addAttribute("reviews", reviews);
 		  model.addAttribute("reviewSearchCount", reviewSearchCount);
 		  model.addAttribute("reviewScoreResult", reviewScoreResult);
@@ -352,6 +360,7 @@ public class FollowController {
 		  model.addAttribute("reviewThreeScore", reviewThreeScore);
 		  model.addAttribute("reviewFourScore", reviewFourScore);
 		  model.addAttribute("reviewFiveScore", reviewFiveScore);
+		  
 		  
 		  return "reviewSearch.tiles";
 	  }
@@ -376,13 +385,13 @@ public class FollowController {
 	    }
 	  
 	  // 사진과 member의 id값을 미리 저장
-	  @RequestMapping(value= "/reviewEdit", method = RequestMethod.GET)
-	  public String reviewEdit(Locale locale, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	  @PostMapping(value= "/reviewEdit")
+	  public String reviewEdit(Locale locale, @RequestParam("memberId") String memberId,
+			  				   HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		  System.out.println("reviewEdit 접속");
 		  
 		  String restaurantId = "61"; // 추후 레스토랑 id값을 받아서 사용
-		  
-		  String memberId = memberDto.getUserid();
+
 		  System.out.println(memberId);
 		  		  
 		  String imnum = UUID.randomUUID().toString(); // UUID를 사용하여 고유한 imnum 생성

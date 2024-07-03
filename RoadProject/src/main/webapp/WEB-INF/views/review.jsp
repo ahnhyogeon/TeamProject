@@ -125,8 +125,23 @@
             $('#overlay').hide();
             $('#partner_detail_review_detailpop1').hide();
         });
+        
+        // 처음에 6개만 보여주기
+        var reviews = $('.partner_detail_review_list_card');
+        reviews.slice(6).hide();
+
+        // '더보기' 버튼 클릭 이벤트
+        $('.partner_detail_review_list_more').on('click', function() {
+            var hiddenReviews = reviews.filter(':hidden');
+            hiddenReviews.slice(0, 6).slideDown(); // 6개씩 보여주기
+
+            // 모든 리뷰가 보이면 '더보기' 버튼 숨기기
+            if (hiddenReviews.length <= 6) {
+                $(this).hide();
+            }
+        });
     });
-  </script>
+    </script>
 
 <div id="containerM">
     <div class="myPage_mainbox1">
@@ -173,7 +188,9 @@
         	<div class="partner_detail_review_title">
     			<img src="resources/images/icons _ emoji/Black Nib.png" alt="pen">
     			<div>리뷰 요약</div>
-    			<div id="partner_detail_review_btn">리뷰 등록하기</div>
+    			<form method="post" action="reviewEdit?memberId=${memberId}">
+    				<button type="submit" id="partner_detail_review_btn">리뷰 등록하기</button>
+    			</form>
     		</div>
     		<div class="partner_detail_review_avg">
             	<div class="partner_detail_review_box1">

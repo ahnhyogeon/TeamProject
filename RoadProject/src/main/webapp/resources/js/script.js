@@ -167,14 +167,6 @@ $(function(){
         });
     }
     
-    const partner_detail_review_btn = document.getElementById('partner_detail_review_btn');
-    if(partner_detail_review_btn){
-        partner_detail_review_btn.addEventListener('click', function(){
-
-        window.location.href = "reviewEdit";
-        });
-    }
-    
     const review_registration_review_rotice = document.getElementById('review_registration_review_rotice');
     if(review_registration_review_rotice){
         review_registration_review_rotice.addEventListener('click', function(){
