@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />     
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 <script src="resources/js/script.js"></script>
 <script src="resources/js/review.js"></script> 
 
@@ -34,8 +35,13 @@
         
      // 리뷰 리스트 카드 클릭 이벤트
         $('.partner_detail_review_list_card').on('click', function() {
-        	console.log("끄아아아악!");
             var reviewId = $(this).data('review-id'); // 리뷰 ID 가져오기
+            
+            //display 초기화
+            $('.loading').css('display', 'flex');
+            $('.partner_detail_review_detailpop_inner').css('display', 'none');
+            
+            setTimeout(function() {
             $.ajax({
                 url: 'getReviewDetail', // 서버 엔드포인트 URL
                 method: 'GET',
@@ -61,6 +67,10 @@
 
                         // 텍스트 영역에 리뷰 내용 삽입
                         $('#partner_detail_review_detailpop1 .partner_detail_review_detailpop_inner_text').text(review.detail);
+                        
+                        //display 수정
+                        $('.loading').css('display', 'none');
+                        $('.partner_detail_review_detailpop_inner').css('display', 'flex');
                         
                      	// 사진 삽입
                         var htmlImg = '';
@@ -92,7 +102,8 @@
                     console.error('리뷰 상세 정보를 가져오는 중 오류 발생:', error);
                 }
             });
-        });
+        }, 1000); // 1초 지연
+    });
      
      // 공감하기 버튼 클릭 이벤트 핸들러 (이벤트 위임)
         $(document).on('click', '.rating-btn', function() {
@@ -147,7 +158,7 @@
     <div class="myPage_mainbox1">
         <div class="myInner">
             <div class="myInner_title">
-                스페이스 정보(테스트)
+                스페이스 정보
             </div>
             <div class="partnerInner_profile">
                 <div class="profile_picture">
@@ -302,7 +313,10 @@
 
 <div id="overlay"></div>
 <div id="partner_detail_review_detailpop1" class="partner_detail_review_detailpop">
-	<label>리뷰 정보</label>
+	<label class="reviewLabel">리뷰 정보</label>
+	<div class="loading">
+    	<dotlottie-player src="https://lottie.host/2459f294-ab2c-41b2-bbba-18f5979d6d07/J0UTdNikng.json" background="transparent" speed="1.5" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+	</div>
 	<div class="partner_detail_review_detailpop_inner">
 		<div class="partner_detail_review_detailpop_inner_title">
 			<div>
@@ -363,10 +377,10 @@
 				{닉네임}님 방문해주셔서 감사합니다 :)
 			</div>
 		</div>
-		<div id="Xbox">
+	</div>
+	<div id="Xbox">
 			<img src="resources\images\Close_square_light.png" alt="X">
 		</div>
-	</div>
 </div>
 
   
