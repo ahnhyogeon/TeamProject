@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pk.dto.ReviewDto;
-import com.pk.dto.ReviewImgDto;
 
 @Repository
 public class ReviewDaoImp implements ReviewDao {

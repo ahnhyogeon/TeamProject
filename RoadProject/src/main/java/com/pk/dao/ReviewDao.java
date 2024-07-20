@@ -3,7 +3,6 @@ package com.pk.dao;
 import java.util.List;
 
 import com.pk.dto.ReviewDto;
-import com.pk.dto.ReviewImgDto;
 
 public interface ReviewDao {
 	

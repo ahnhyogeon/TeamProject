@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 import com.pk.dao.ReviewDao;
 import com.pk.dto.ReviewDto;
 
+
 @Service
 public class ReviewServicelmp implements ReviewService {
 	
 	@Inject
 	private ReviewDao dao;
+	
+
 
 	@Override
 	public List<ReviewDto> reviewSelectList(ReviewDto reviews) throws Exception {
@@ -33,7 +36,7 @@ public class ReviewServicelmp implements ReviewService {
 
 	@Override
 	public void unReview(ReviewDto reviews) throws Exception {
-		// TODO Auto-generated method stub
+		dao.unReview(reviews);
 
 	}
 	
@@ -76,4 +79,6 @@ public class ReviewServicelmp implements ReviewService {
 	public int reviewOneScore(ReviewDto reviews) throws Exception {
 		return dao.reviewOneScore(reviews);
 	}
+	
+
 }

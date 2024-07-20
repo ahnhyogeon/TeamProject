@@ -3,7 +3,7 @@ package com.pk.service;
 import java.util.List;
 
 import com.pk.dto.ReviewDto;
-import com.pk.dto.ReviewImgDto;
+
 
 public interface ReviewService {
 
@@ -39,4 +39,7 @@ public interface ReviewService {
 	
 	//리뷰 가게 개별(1~5) 점수 확인
 	public int reviewOneScore(ReviewDto reviews) throws Exception;
+	
+	
+	
 }

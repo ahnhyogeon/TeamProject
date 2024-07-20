@@ -10,10 +10,44 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="resources/js/popper.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/jquery-ui-1.13.2/jquery-ui.min.js"></script>
-<script src="resources/js/jquery-ui-1.13.2/jquery-ui.js"></script>
+<script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/review.js"></script>  
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+   $(function(){
+	    $("#fileInput").change(function(){
+	        const files = $(this)[0].files;
+	        if (files.length > 0) {
+	            sendData(files[0]);
+	        }
+	    });
+	   
+	    function sendData(file) {
+	        const imnum = $("#imnum").val();
+	        const data = new FormData();
+	        data.append("file", file);
+	        data.append("imnum", imnum);
+	        $.ajax({
+	            url: "reviewupload",
+	            type: "post",
+	            data: data,
+	            contentType: false,
+	            processData: false,
+	            success: function(data) {
+	                // 서버에서 받은 JSON 데이터를 파싱합니다.
+	                const dt = JSON.parse(data);
+	                // 이미지의 URL을 사용하여 이미지를 표시합니다.
+	                const imageUrl =  dt.url;
+	                const imageDiv = $('<div><img src="' + imageUrl + '"></div>');
+	                $("#imagePreview").append(imageDiv);
+	            },
+	            error: function(jqXHR, textStatus, errorThrown){
+	                console.error(textStatus + ", " + errorThrown);
+	            }
+	        });
+	    }
+	});
+   </script>
 
   <c:if test="${param.error != null}">
      <script>alert("${param.error}");</script>
@@ -25,7 +59,7 @@
 	<h4 class="text-center">임시 설정 : userid(4) / 이름(홍길동)</h4>
 	<h4 class="text-center">리뷰 등록</h4>
   
-  	<form action="reviewEditok" method="post" class="mb-3" enctype="multipart/form-data">
+  	<form action="reviewEditok" method="post" class="mb-3">
 		<div class="form-group">
 
 			<p>레스토랑 정보</p>
@@ -54,14 +88,19 @@
 			<label for="comment">상세 내용 입력<span style="color:red">*</span></label>
 				<textarea class="form-control mb-3" rows="7" id="detail" name="detail"></textarea>
 				<div class="form-group">
-			        <label for="image">이미지 첨부</label>
-			        <input type="file" name="imnum" accept="image/*" multiple>
+					<label>이미지 첨부</label>
+						<label class="file-input-container text-center">
+						    <input type="file" id="fileInput" multiple>
+						    파일 선택 <!-- 파일 선택 옆에 표시할 텍스트 -->
+						</label>
+						<div class="image-container" id="imagePreview"></div>
+			        <input type="hidden" name="imnum" id="imnum" value="${imnum}">
 			    </div>
 		</div>
 		<a href="javascript:history.back();" class="btn btn-danger">뒤로</a>
 		<button type="submit" class="btn btn-primary">저장</button>
 		
-		<input type="hidden" name="userid" value="4">
+		<input type="hidden" name="userId" value="${reviewId }">
 		<input type="hidden" name="nickname" value="홍길동">
 		<input type="hidden" name="restaurant_id" value="61">
 	</form>
