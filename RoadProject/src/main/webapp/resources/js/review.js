@@ -24,7 +24,6 @@ function followUser() {
   }
   
 function unfollowUser() {
-	var userId = prompt("팔로우를 취소할 사용자의 아이디를 입력하세요:");
     if (userId !== null && userId.trim() !== "") {
       $.ajax({
         type: "POST",
@@ -69,4 +68,6 @@ function unfollowUser() {
       });
     }
   }
+
+
   

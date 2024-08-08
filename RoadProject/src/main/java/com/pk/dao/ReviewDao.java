@@ -9,11 +9,23 @@ public interface ReviewDao {
 	//리뷰 조회
 	public List<ReviewDto> reviewSelectList(ReviewDto reviews) throws Exception;
 	
+	//리뷰 레스토랑 아이디 조회
+	public List<ReviewDto> reviewRestaurantIdSelectList(ReviewDto reviews, int restaurant_id) throws Exception;
+	
+	//리뷰 hit순 조회
+	public List<ReviewDto> reviewScoreSelcetList(ReviewDto reviews) throws Exception;
+	
+	//리뷰 레스토랑 아이디 hit순 조회
+	public List<ReviewDto> reviewRestaurantIdScoreSelcetList(ReviewDto reviews, int restaurant_id) throws Exception;
+	
 	//리뷰 검색
 	public List<ReviewDto> reviewSelectSearchList(ReviewDto reviews) throws Exception;
 	
 	//리뷰 만들기
 	public void insertReview(ReviewDto reviews) throws Exception;
+	
+	//리뷰 생성 후 id 조회
+	public int reviewSelectByIdSearch() throws Exception;
 	
 	//리뷰 삭제
 	public void unReview(ReviewDto reviews) throws Exception;
@@ -22,7 +34,7 @@ public interface ReviewDao {
 	public void ratingReview(ReviewDto reviews) throws Exception;
 	
 	//리뷰 디테일
-	public List<ReviewDto> reviewDetail(ReviewDto reviews) throws Exception;
+	public List<ReviewDto> getReviewById(int reviewId) throws Exception;
 	
 	//리뷰 조회수 증가
 	public void reviewHitUp(int id) throws Exception;
