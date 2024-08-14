@@ -63,21 +63,15 @@ $ cd TeamProject
 
 > 고객
 
- |리뷰|테마|
- |---|---|
- |<img src="https://github.com/user-attachments/assets/c4776e72-42ed-4453-87f1-ef2e148d4725" width="600" height="400">|<img src="https://github.com/user-attachments/assets/72b63471-b444-419b-b694-d66542234f34" width="600" height="400">|
-
- |예약|
- |---|
- |<img src="https://github.com/user-attachments/assets/4f0cd31a-c80b-45e0-971c-f15e09492003" width="480" height="400">|
+ |리뷰|테마|예약|
+ |---|---|---|
+ |<img src="https://github.com/user-attachments/assets/c4776e72-42ed-4453-87f1-ef2e148d4725" width="450" height="400">|<img src="https://github.com/user-attachments/assets/72b63471-b444-419b-b694-d66542234f34" width="450" height="400">|<img src="https://github.com/user-attachments/assets/4f0cd31a-c80b-45e0-971c-f15e09492003" width="450" height="400">|
 
 > 사업자
  
- |가게소개|메뉴관리|
- |---|---|
- |<img src="https://github.com/user-attachments/assets/46f1178b-951d-45a3-ae64-59b14d144ad1" width="600" height="400">|<img src="https://github.com/user-attachments/assets/e829067d-4303-4269-90fb-74d3385a713d" width="600" height="400">|
+ |가게소개|메뉴관리|리뷰관리|
+ |---|---|---|
+ |<img src="https://github.com/user-attachments/assets/46f1178b-951d-45a3-ae64-59b14d144ad1" width="400" height="400">|<img src="https://github.com/user-attachments/assets/e829067d-4303-4269-90fb-74d3385a713d" width="400" height="400">| <img src="https://github.com/user-attachments/assets/2ab8d676-3a6e-4f04-836c-d98a6e4584ea" width="400" height="400">|
 
- |리뷰관리|
- |---|
- |<img src="https://github.com/user-attachments/assets/2ab8d676-3a6e-4f04-836c-d98a6e4584ea" width="480" height="400">|
+
 
