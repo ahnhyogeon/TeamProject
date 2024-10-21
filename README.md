@@ -11,7 +11,7 @@
 # 배포주소
 > 도메인
 >
-> <a href="ezroad.kr" target="_blank">ezroad</a>
+> <a href="http://ezroad.kr" target="_blank">ezroad.kr</a>
 ***
 # 웹개발팀 소개
 |김 재영|김 환이|안 효근|이 재권|
